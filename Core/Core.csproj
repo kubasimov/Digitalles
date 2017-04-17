@@ -45,12 +45,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DecodeHocr.cs" />
+    <Compile Include="DecodeLines.cs" />
+    <Compile Include="DecodeParagraphs.cs" />
+    <Compile Include="DecodeWords.cs" />
+    <Compile Include="Helpers\HelperOcr.cs" />
+    <Compile Include="Model\Image.cs" />
+    <Compile Include="Model\TextLetter.cs" />
     <Compile Include="Model\TextLine.cs" />
     <Compile Include="Model\TextPage.cs" />
+    <Compile Include="Model\TextParagraph.cs" />
     <Compile Include="Model\TextWord.cs" />
     <Compile Include="Ocr.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Interface\ReadPicture.cs" />
+    <Compile Include="SerializePagesList.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="x64\liblept172.dll">

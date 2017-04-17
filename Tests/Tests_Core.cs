@@ -31,6 +31,16 @@ namespace Tests
             Assert.NotNull(text);
         }
 
-        
+        [Fact]
+        public void ReadTextFromFirstReadFile()
+        {
+            var ocr = new Ocr(Filename, 2);
+
+            ocr.ReadFile();
+            var text = ocr.ReadOcr();
+
+            var page = new DecodeHocr().Decode(text);
+            Assert.NotNull(page);
+        }
     }
 }
