@@ -45,7 +45,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DecodeHocr.cs" />
+    <Compile Include="Decode\DecodeHocr.cs" />
     <Compile Include="DecodeLines.cs" />
     <Compile Include="DecodeParagraphs.cs" />
     <Compile Include="DecodeWords.cs" />

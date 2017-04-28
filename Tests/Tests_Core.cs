@@ -1,5 +1,6 @@
 ﻿using Core;
 using System.IO;
+using Core.Decode;
 using Xunit;
 
 namespace Tests
