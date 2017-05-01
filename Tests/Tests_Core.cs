@@ -1,22 +1,30 @@
 ﻿using Core;
 using System.IO;
 using Core.Decode;
+using Core.Model;
 using Xunit;
 
 namespace Tests
 {
     public class TestsCore
     {
-        private const string FileName = @"F:/3.jpg";
+        readonly Image _image = new Image();
+        readonly Start _start = new Start();
 
-        public string Filename = Path.Combine(Path.GetDirectoryName(FileName), Path.GetFileName(FileName));
+        public TestsCore()
+        {
+            const string fileName = @"F:/3.jpg";
+
+            var filename = Path.Combine(Path.GetDirectoryName(fileName), Path.GetFileName(fileName));
+
+            _image.SetName(filename);
+
+        }
 
         [Fact]
         public void ReadFileFromStringName()
         {
-            var ocr = new Ocr(Filename,2);
-
-            var test = ocr.ReadFile();
+            var test = _start.ReadFile(_image);
 
             Assert.True(test);
         }
@@ -24,10 +32,8 @@ namespace Tests
         [Fact]
         public void ReadFileFormStringNameAndCorrectOcrProcess()
         {
-            var ocr = new Ocr(Filename,2);
-
-            ocr.ReadFile();
-            var text = ocr.ReadOcr();
+            _start.ReadFile(_image);
+            var text = _start.ReadOcr();
 
             Assert.NotNull(text);
         }
@@ -35,10 +41,8 @@ namespace Tests
         [Fact]
         public void ReadTextFromFirstReadFile()
         {
-            var ocr = new Ocr(Filename, 2);
-
-            ocr.ReadFile();
-            var text = ocr.ReadOcr();
+            _start.ReadFile(_image);
+            var text = _start.ReadOcr();
 
             var page = new DecodeHocr().Decode(text);
             Assert.NotNull(page);

@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Forms;
-using System.Xml.Linq;
+﻿using Autofac;
+using Core.Helpers;
+using Core.Interface;
 using Core.Model;
 using Tesseract;
 
@@ -10,24 +8,26 @@ namespace Core
 {
     public class Ocr
     {
-        private Image image;
+        
+        private readonly IReadPicture _readPicture;
+        
         private int _pages;
         private Pix _imagePix;
-        
-        public Ocr(string fileName,int pages)
-        {
-            image.filename = fileName;
-            _pages = pages;
-        }
-        
-        public bool ReadFile()
-        {
 
-            _imagePix = Pix.LoadFromFile(image.filename);
+        public Ocr(IReadPicture readPicture)
+        {
+            _readPicture = readPicture;
+        }
+
+
+        public bool ReadFile(IImage _image)
+        {
+            _imagePix = _readPicture.ReadImageFromFile(_image);
+            
             if (_imagePix != null)
             {
-                image.height = _imagePix.Height;
-                image.width = _imagePix.Width;
+                _image.SetHeight(_imagePix.Height);
+                _image.SetWidth(_imagePix.Width);
                 return true;
             }
             
@@ -36,22 +36,13 @@ namespace Core
         
         public string  ReadOcr()
         {
-            using (var tes = new TesseractEngine(@"./tessdata", "pol"))
+            using (var tes = new TesseractEngine(@"./tessdata", Language.pol.ToString()))
             {
                 var page = tes.Process(_imagePix);
 
+
                 return page.GetHOCRText(_pages);
             }
-        }
-
-        public int GetImageHeight()
-        {
-            return image.height;
-        }
-
-        public int GetImageWidth()
-        {
-            return image.width;
         }
     }
 }

@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
-using Core.Model;
 using Core.Helpers;
+using Core.Model;
 
-namespace Core
+namespace Core.Decode
 {
     public class DecodeWords
     {

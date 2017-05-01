@@ -26,6 +26,7 @@ namespace Core.Decode
                 TextPage textPage = new TextPage();
 
                 XAttribute coords = page.Attribute("title");
+
                 if (coords != null)
                 {
                     string[] coordlist = coords.Value.Split(' ');
@@ -38,7 +39,7 @@ namespace Core.Decode
 
                 XAttribute id = page.Attribute("id");
 
-                if (id != null) textPage.id = id.Value;
+                if (id != null) textPage.Id = id.Value;
 
                 List<TextParagraph> textParagraphs = new DecodeParagraphs().Decode(page);
 

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
+using Core.Decode;
 using Core.Helpers;
 using Core.Model;
 

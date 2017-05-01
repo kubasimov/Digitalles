@@ -5,7 +5,7 @@ using System.Xml.Linq;
 using Core.Helpers;
 using Core.Model;
 
-namespace Core
+namespace Core.Decode
 {
     public class DecodeParagraphs
     {
