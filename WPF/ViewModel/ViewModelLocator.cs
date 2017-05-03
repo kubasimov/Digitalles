@@ -15,6 +15,8 @@
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
+using WPF.Implement;
+using WPF.Interface;
 
 namespace WPF.ViewModel
 {
@@ -42,6 +44,8 @@ namespace WPF.ViewModel
             ////    SimpleIoc.Default.Register<IDataService, DataService>();
             ////}
 
+            SimpleIoc.Default.Register<IDataService,DataService>(true);
+
             SimpleIoc.Default.Register<MainViewModel>();
         }
 
@@ -51,7 +55,9 @@ namespace WPF.ViewModel
             {
                 return ServiceLocator.Current.GetInstance<MainViewModel>();
             }
+            
         }
+        
         
         public static void Cleanup()
         {
