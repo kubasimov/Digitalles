@@ -1,6 +1,6 @@
 ﻿namespace Core.Interface
 {
-    public interface IImage
+    public interface IMyImage
     {
         int GetHeight();
         void SetHeight(int value);

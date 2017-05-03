@@ -8,7 +8,7 @@ namespace Tests
 {
     public class TestsCore
     {
-        readonly Image _image = new Image();
+        readonly MyImage _image = new MyImage();
         readonly Start _start = new Start();
 
         public TestsCore()
@@ -33,7 +33,7 @@ namespace Tests
         public void ReadFileFormStringNameAndCorrectOcrProcess()
         {
             _start.ReadFile(_image);
-            var text = _start.ReadOcr();
+            var text = _start.Ocr();
 
             Assert.NotNull(text);
         }
@@ -42,7 +42,7 @@ namespace Tests
         public void ReadTextFromFirstReadFile()
         {
             _start.ReadFile(_image);
-            var text = _start.ReadOcr();
+            var text = _start.Ocr();
 
             var page = new DecodeHocr().Decode(text);
             Assert.NotNull(page);

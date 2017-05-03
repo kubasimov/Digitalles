@@ -20,14 +20,14 @@ namespace Core
             _ocr = new Ocr(_container.Resolve<IReadPicture>());
         }
 
-        public bool ReadFile(Image image)
+        public bool ReadFile(IMyImage image)
         {
             return _ocr.ReadFile(image);
         }
 
-        public string ReadOcr()
+        public string Ocr()
         {
-            return _ocr.ReadOcr();
+            return _ocr.ReadOcr("pol");
         }
     }
 }

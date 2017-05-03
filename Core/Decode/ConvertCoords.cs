@@ -8,9 +8,9 @@ namespace Core.Decode
     public class ConvertCoords
     {
         private List<TextPage> _pages;
-        private IImage _image;
+        private IMyImage _image;
         
-        public void Convert(List<TextPage> pages,IImage image)
+        public void Convert(List<TextPage> pages,IMyImage image)
         {
             _pages = pages;
             _image = image;
@@ -19,26 +19,26 @@ namespace Core.Decode
             {
                 var t = new Coord
                 {
-                    x1 = textPage.x1,
-                    y1 = _image.GetHeight() - textPage.y2,
-                    x2 = textPage.x2 - textPage.x1,
-                    y2 = textPage.y2 - textPage.y1
+                    X = textPage.X,
+                    Width = _image.GetHeight() - textPage.Height,
+                    Y = textPage.Y - textPage.X,
+                    Height = textPage.Height - textPage.Width
                 };
 
-                textPage.x1 = t.x1;
-                textPage.y1 = t.y1;
-                textPage.x2 = t.x2;
-                textPage.y2 = t.y2;
+                textPage.X = t.X;
+                textPage.Width = t.Width;
+                textPage.Y = t.Y;
+                textPage.Height = t.Height;
 
 
                 foreach (var textParagraph in textPage.Paragraphs)
                 {
                     var t1 = new Coord
                     {
-                        x1 = textParagraph.x1,
-                        y1 = _image.GetHeight() - textParagraph.y2,
-                        x2 = textParagraph.x2 - textParagraph.x1,
-                        y2 = textParagraph.y2 - textParagraph.y1
+                        X = textParagraph.X,
+                        Width = _image.GetHeight() - textParagraph.Height,
+                        Y = textParagraph.Y - textParagraph.X,
+                        Height = textParagraph.Height - textParagraph.Width
                     };
 
 

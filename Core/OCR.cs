@@ -20,7 +20,7 @@ namespace Core
         }
 
 
-        public bool ReadFile(IImage _image)
+        public bool ReadFile(IMyImage _image)
         {
             _imagePix = _readPicture.ReadImageFromFile(_image);
             
@@ -34,14 +34,13 @@ namespace Core
             return false;
         }
         
-        public string  ReadOcr()
+        public string  ReadOcr(string language)
         {
-            using (var tes = new TesseractEngine(@"./tessdata", Language.pol.ToString()))
+            using (var tes = new TesseractEngine(@"./tessdata", language))
             {
                 var page = tes.Process(_imagePix);
-
-
-                return page.GetHOCRText(_pages);
+                
+                return page.GetHOCRText(2);
             }
         }
     }

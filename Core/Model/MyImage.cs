@@ -2,7 +2,7 @@
 
 namespace Core.Model
 {
-    public class Image : IImage
+    public class MyImage : IMyImage
     {
         private string _filename;
         private int _height;

@@ -6,7 +6,7 @@ namespace Core
 {
     public class ReadPicture : IReadPicture
     {
-        public Pix ReadImageFromFile(IImage image)
+        public Pix ReadImageFromFile(IMyImage image)
         {
             return Pix.LoadFromFile(image.GetName());
         }

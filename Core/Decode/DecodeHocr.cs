@@ -31,11 +31,13 @@ namespace Core.Decode
                 {
                     string[] coordlist = coords.Value.Split(' ');
 
-                    textPage.x1 = Convert.ToInt32(HelperOcr.GetNumbers(coordlist[3]));
-                    textPage.y1 = Convert.ToInt32(HelperOcr.GetNumbers(coordlist[4]));
-                    textPage.x2 = Convert.ToInt32(HelperOcr.GetNumbers(coordlist[5]));
-                    textPage.y2 = Convert.ToInt32(HelperOcr.GetNumbers(coordlist[6]));
+                    textPage.X = Convert.ToInt32(HelperOcr.GetNumbers(coordlist[3]));
+                    textPage.Y = Convert.ToInt32(HelperOcr.GetNumbers(coordlist[4]));
+                    textPage.Width = Convert.ToInt32(HelperOcr.GetNumbers(coordlist[5]))- Convert.ToInt32(HelperOcr.GetNumbers(coordlist[3]));
+                    textPage.Height = Convert.ToInt32(HelperOcr.GetNumbers(coordlist[6]))- Convert.ToInt32(HelperOcr.GetNumbers(coordlist[4]));
                 }
+
+
 
                 XAttribute id = page.Attribute("id");
 

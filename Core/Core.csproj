@@ -53,11 +53,11 @@
     <Compile Include="Decode\DecodeLines.cs" />
     <Compile Include="Decode\DecodeParagraphs.cs" />
     <Compile Include="Decode\DecodeWords.cs" />
-    <Compile Include="Helpers\CoordXY.cs" />
+    <Compile Include="Helpers\Coord.cs" />
     <Compile Include="Helpers\HelperOcr.cs" />
     <Compile Include="Helpers\Language.cs" />
-    <Compile Include="Interface\IImage.cs" />
-    <Compile Include="Model\Image.cs" />
+    <Compile Include="Interface\IMyImage.cs" />
+    <Compile Include="Model\MyImage.cs" />
     <Compile Include="Model\TextLetter.cs" />
     <Compile Include="Model\TextLine.cs" />
     <Compile Include="Model\TextPage.cs" />

@@ -27,10 +27,10 @@ namespace Core
                 {
                     string[] coordlist = coords.Value.Split(' ');
 
-                    textLine.x1 = Convert.ToInt32(HelperOcr.GetNumbers(coordlist[1]));
-                    textLine.y1 = Convert.ToInt32(HelperOcr.GetNumbers(coordlist[2]));
-                    textLine.x2 = Convert.ToInt32(HelperOcr.GetNumbers(coordlist[3]));
-                    textLine.y2 = Convert.ToInt32(HelperOcr.GetNumbers(coordlist[4]));
+                    textLine.X = Convert.ToInt32(HelperOcr.GetNumbers(coordlist[1]));
+                    textLine.Y = Convert.ToInt32(HelperOcr.GetNumbers(coordlist[2]));
+                    textLine.Width = Convert.ToInt32(HelperOcr.GetNumbers(coordlist[3]))- Convert.ToInt32(HelperOcr.GetNumbers(coordlist[1]));
+                    textLine.Height = Convert.ToInt32(HelperOcr.GetNumbers(coordlist[4]))- Convert.ToInt32(HelperOcr.GetNumbers(coordlist[2]));
                 }
 
                 XAttribute id = line.Attribute("id");

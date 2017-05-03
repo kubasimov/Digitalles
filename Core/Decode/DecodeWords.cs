@@ -24,10 +24,10 @@ namespace Core.Decode
                 {
                     string[] coordlist = coords.Value.Split(' ');
 
-                    textWord.x1 = Convert.ToInt32(HelperOcr.GetNumbers(coordlist[1]));
-                    textWord.y1 = Convert.ToInt32(HelperOcr.GetNumbers(coordlist[2]));
-                    textWord.x2 = Convert.ToInt32(HelperOcr.GetNumbers(coordlist[3]));
-                    textWord.y2 = Convert.ToInt32(HelperOcr.GetNumbers(coordlist[4]));
+                    textWord.X = Convert.ToInt32(HelperOcr.GetNumbers(coordlist[1]));
+                    textWord.Y = Convert.ToInt32(HelperOcr.GetNumbers(coordlist[2]));
+                    textWord.Width = Convert.ToInt32(HelperOcr.GetNumbers(coordlist[3]))-Convert.ToInt32(HelperOcr.GetNumbers(coordlist[1]));
+                    textWord.Height = Convert.ToInt32(HelperOcr.GetNumbers(coordlist[4]))- Convert.ToInt32(HelperOcr.GetNumbers(coordlist[2]));
                 }
 
                 XAttribute id = word.Attribute("id");

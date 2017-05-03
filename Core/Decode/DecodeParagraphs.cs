@@ -27,10 +27,10 @@ namespace Core.Decode
                 {
                     string[] coordlist = coords.Value.Split(' ');
 
-                    textParagraph.x1 = Convert.ToInt32(HelperOcr.GetNumbers(coordlist[1]));
-                    textParagraph.y1 = Convert.ToInt32(HelperOcr.GetNumbers(coordlist[2]));
-                    textParagraph.x2 = Convert.ToInt32(HelperOcr.GetNumbers(coordlist[3]));
-                    textParagraph.y2 = Convert.ToInt32(HelperOcr.GetNumbers(coordlist[4]));
+                    textParagraph.X = Convert.ToInt32(HelperOcr.GetNumbers(coordlist[1]));
+                    textParagraph.Y = Convert.ToInt32(HelperOcr.GetNumbers(coordlist[2]));
+                    textParagraph.Width = Convert.ToInt32(HelperOcr.GetNumbers(coordlist[3]))-Convert.ToInt32(HelperOcr.GetNumbers(coordlist[1]));
+                    textParagraph.Height = Convert.ToInt32(HelperOcr.GetNumbers(coordlist[4]))- Convert.ToInt32(HelperOcr.GetNumbers(coordlist[2]));
                 }
 
                 XAttribute id = paragraph.Attribute("id");

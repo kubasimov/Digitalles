@@ -5,7 +5,7 @@ namespace Core.Interface
 {
     public interface IReadPicture
     {
-        Pix ReadImageFromFile(IImage image);
+        Pix ReadImageFromFile(IMyImage image);
 
     }
 }

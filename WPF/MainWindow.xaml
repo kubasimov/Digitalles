@@ -1,0 +1,15 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPF"
+        xmlns:syncfusion="http://schemas.syncfusion.com/wpf" x:Class="WPF.MainWindow"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="767.603" Width="1707.878">
+    <Grid x:Name="Image1">
+        <Image x:Name="image11" HorizontalAlignment="Left" Margin="0,10,0,0" VerticalAlignment="Top" Height="689" Width="416" RenderTransformOrigin="0.523,0.528"/>
+        <Image HorizontalAlignment="Left" Height="100" Margin="1968,299,-368,0" VerticalAlignment="Top" Width="100"/>
+        <syncfusion:RichTextBoxAdv HorizontalAlignment="Left" Height="528" Margin="920,171,0,0" VerticalAlignment="Top" Width="470" Name="BoxAdv"/>
+    </Grid>
+</Window>
