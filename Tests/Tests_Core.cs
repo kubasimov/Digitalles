@@ -8,7 +8,7 @@ namespace Tests
 {
     public class TestsCore
     {
-        readonly MyImage _image = new MyImage();
+        readonly string _image;
         readonly Start _start = new Start();
 
         public TestsCore()
@@ -17,7 +17,7 @@ namespace Tests
 
             var filename = Path.Combine(Path.GetDirectoryName(fileName), Path.GetFileName(fileName));
 
-            _image.SetName(filename);
+            _image=filename;
 
         }
 

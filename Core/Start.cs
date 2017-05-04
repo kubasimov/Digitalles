@@ -1,4 +1,5 @@
-﻿using Autofac;
+﻿using System;
+using Autofac;
 using Core.Interface;
 using Core.Model;
 
@@ -20,7 +21,7 @@ namespace Core
             _ocr = new Ocr(_container.Resolve<IReadPicture>());
         }
 
-        public bool ReadFile(IMyImage image)
+        public bool ReadFile(string image)
         {
             return _ocr.ReadFile(image);
         }

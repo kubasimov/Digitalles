@@ -13,7 +13,7 @@ namespace WF
 {
     public partial class Form1 : Form
     {
-        readonly IMyImage _image = new MyImage();
+        readonly string  _image;
         readonly Start _start = new Start();
 
         const string FileName = @"F:/3.jpg";
@@ -25,13 +25,13 @@ namespace WF
             
             var filename = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(FileName), Path.GetFileName(FileName));
 
-            _image.SetName(filename);
+            _image=filename;
             _start.ReadFile(_image);
             var text = _start.Ocr();
 
             var page = new DecodeHocr().Decode(text);
 
-            t = new Bitmap(_image.GetName());
+            t = new Bitmap(_image);
 
             _lines = new List<TextLine>();
 
@@ -86,7 +86,7 @@ namespace WF
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
-            t = new Bitmap(_image.GetName());
+            t = new Bitmap(_image);
             using (Graphics g = Graphics.FromImage(t))
             {
                 g.DrawRectangle(new Pen(Color.Chartreuse, 3), _lines[(int)numericUpDown1.Value].X, _lines[(int)numericUpDown1.Value].Y,

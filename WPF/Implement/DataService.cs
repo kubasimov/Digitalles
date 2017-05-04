@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Windows.Media.Imaging;
 using Microsoft.Win32;
 using WPF.Interface;
@@ -7,9 +8,9 @@ namespace WPF.Implement
 {
     public class DataService:IDataService
     {
-        public BitmapImage LoadImage()
+        public ObservableCollection<BitmapImage> LoadImages()
         {
-            var bitmapImage = new BitmapImage();
+            var bitmapImages = new ObservableCollection<BitmapImage>();
 
             var openFileDialog = new OpenFileDialog
             {
@@ -19,17 +20,22 @@ namespace WPF.Implement
                     "BMP (*.bmp)|*.bmp|" +
                     "PNG (*.png)|*.png|" +
                     "JPEG (*.jpg, *.jpeg)|*.jpg;*.jpeg|" +
-                    "TIFF (*.tif, *.tiff)|*.tif;*.tiff"
+                    "TIFF (*.tif, *.tiff)|*.tif;*.tiff",
+                Multiselect = true
             };
 
             var result = openFileDialog.ShowDialog();
 
             if (result == true)
             {
-                bitmapImage=new BitmapImage(new Uri(openFileDialog.FileName));
+                foreach (var fileName in openFileDialog.FileNames)
+                {
+                    bitmapImages.Add(new BitmapImage(new Uri(fileName)));
+                }
+                
             }
 
-            return bitmapImage;
+            return bitmapImages;
         }
     }
 }

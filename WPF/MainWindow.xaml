@@ -3,33 +3,56 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:syncfusion="http://schemas.syncfusion.com/wpf" x:Class="WPF.MainWindow"
+    xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:command="http://www.galasoft.ch/mvvmlight"
+    x:Class="WPF.MainWindow"
     mc:Ignorable="d"
-    Title="MainWindow" DataContext="{Binding Main, Mode=OneWay, Source={StaticResource Locator}}" >
-    <Grid>
+    Title="MainWindow" >
+    <Window.Resources>
+        <DataTemplate x:Key="BitmapImageTemplate">
+            <WrapPanel>
+                <Image Source="{Binding Mode=OneWay}" HorizontalAlignment="Left" Height="64" Width="64"/>
+            </WrapPanel>
+        </DataTemplate>
+    </Window.Resources>
+
+    <Window.DataContext>
+        <Binding Mode="OneWay" Path="Main" Source="{StaticResource Locator}"/>
+    </Window.DataContext>
+
+
+    <Grid x:Name="Grid">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="68"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="101"/>
+            <ColumnDefinition Width="319*"/>
             <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="335*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="41*"/>
             <RowDefinition Height="463*"/>
         </Grid.RowDefinitions>
-        <syncfusion:ToolBarTrayAdv Height="Auto" Name="ToolBarAdv1" Width="Auto" Grid.Row="0" Grid.ColumnSpan="4" >
+        <syncfusion:ToolBarTrayAdv Height="Auto" x:Name="ToolBarAdv1" Width="Auto" Grid.Row="0" Grid.ColumnSpan="4" >
             <syncfusion:ToolBarAdv ToolBarName="Standard" Height="Auto" VerticalAlignment="Top">
                 <Button Content="Nowy" Width="Auto" Margin="1,1,1,1"   />
                 <Button Content="Wczytaj obraz" Width="Auto" Margin="1,1,1,1" Command="{Binding OpenImage, Mode=OneWay}" />
-                <Button Content="Rozpoznaj text" Width="Auto" Margin="1,1,1,1" Command="{Binding OcrText, Mode=OneWay}" />
+                <Button Content="Rozpoznaj strony" Width="Auto" Margin="1,1,1,1" Command="{Binding OcrText, Mode=OneWay}" />
             </syncfusion:ToolBarAdv>
         </syncfusion:ToolBarTrayAdv>
-        <Image Grid.Column="1" Margin="10,10,10,10" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Source="{Binding SourceImage}"  />
-        <syncfusion:RichTextBoxAdv Grid.Column="3" Margin="10,10,10,10" Grid.Row="1" VerticalAlignment="Bottom" Document="{Binding DocumentADV, Mode=TwoWay}" />
+        <Image Grid.Column="1" Margin="10,10,10,10" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Source="{Binding BitmapImage,Mode=TwoWay}"   />
+        <syncfusion:RichTextBoxAdv Grid.Column="3" Margin="10,0,10,10" Grid.Row="1" VerticalAlignment="Bottom" Document="{Binding DocumentAdv, Mode=TwoWay}"/>
         <GridSplitter Grid.Column="2" HorizontalAlignment="Right"  Grid.Row="1" Background="#FFBCBCBC" VerticalAlignment="Stretch" ResizeBehavior="PreviousAndNext" Width="5"/>
+        <ListBox x:Name="ListBox" HorizontalAlignment="Left" ItemTemplate="{DynamicResource BitmapImageTemplate}" ItemsSource="{Binding BitmapImages}" Grid.Row="1"
+                 Grid.Column="0" VerticalAlignment="Top" IsSynchronizedWithCurrentItem="True" Height="412" Width="96">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <command:EventToCommand Command="{Binding ShowImage, Mode=OneWay}"
+                                            CommandParameter="{Binding SelectedIndex, ElementName=ListBox}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
 
-
-
+        </ListBox>
 
     </Grid>
 </Window>

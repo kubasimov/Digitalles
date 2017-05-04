@@ -20,14 +20,13 @@ namespace Core
         }
 
 
-        public bool ReadFile(IMyImage _image)
+        public bool ReadFile(string _image)
         {
             _imagePix = _readPicture.ReadImageFromFile(_image);
             
             if (_imagePix != null)
             {
-                _image.SetHeight(_imagePix.Height);
-                _image.SetWidth(_imagePix.Width);
+                
                 return true;
             }
             
