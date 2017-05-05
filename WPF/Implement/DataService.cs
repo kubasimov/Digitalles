@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Media.Imaging;
 using Microsoft.Win32;
 using WPF.Interface;
+using WPF.Model;
 
 namespace WPF.Implement
 {
@@ -36,6 +38,20 @@ namespace WPF.Implement
             }
 
             return bitmapImages;
+        }
+
+        public SettingsModel LoadSettings()
+        {
+            //TODO Initialize from Json settings file
+            return new SettingsModel
+            {
+                Language=new List<LangModel>
+                {
+                    new LangModel("Angielski","ang"),
+                    new LangModel("Polski","pol")
+                }, 
+                Pages = 2
+            };
         }
     }
 }

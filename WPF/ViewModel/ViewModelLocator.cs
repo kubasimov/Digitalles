@@ -12,6 +12,8 @@
   See http://www.galasoft.ch/mvvm
 */
 
+using Core.Implement;
+using Core.Interface;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
@@ -45,20 +47,32 @@ namespace WPF.ViewModel
             ////}
 
             SimpleIoc.Default.Register<IDataService,DataService>(true);
+            SimpleIoc.Default.Register<ICoreOcr,CoreOcr>(true);
+            SimpleIoc.Default.Register<IDataExchangeViewModel, DataExchangeViewModel>(true);
 
-            SimpleIoc.Default.Register<MainViewModel>();
+
+            SimpleIoc.Default.Register<OcrViewModel>();
+            SimpleIoc.Default.Register<OcrSettingsViewModel>();
         }
 
-        public MainViewModel Main
+        public OcrViewModel Ocr
         {
             get
             {
-                return ServiceLocator.Current.GetInstance<MainViewModel>();
+                return ServiceLocator.Current.GetInstance<OcrViewModel>();
             }
             
         }
-        
-        
+
+        public OcrSettingsViewModel OcrSettings
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<OcrSettingsViewModel>();
+            }
+
+        }
+
         public static void Cleanup()
         {
             // TODO Clear the ViewModels
