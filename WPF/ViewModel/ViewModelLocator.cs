@@ -50,26 +50,26 @@ namespace WPF.ViewModel
             SimpleIoc.Default.Register<ICoreOcr,CoreOcr>(true);
             SimpleIoc.Default.Register<IDataExchangeViewModel, DataExchangeViewModel>(true);
 
-
+            SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<OcrViewModel>();
             SimpleIoc.Default.Register<OcrSettingsViewModel>();
         }
 
+
+        public MainViewModel Main
+        {
+            get { return ServiceLocator.Current.GetInstance<MainViewModel>(); }
+        }
+
         public OcrViewModel Ocr
         {
-            get
-            {
-                return ServiceLocator.Current.GetInstance<OcrViewModel>();
-            }
+            get { return ServiceLocator.Current.GetInstance<OcrViewModel>(); }
             
         }
 
         public OcrSettingsViewModel OcrSettings
         {
-            get
-            {
-                return ServiceLocator.Current.GetInstance<OcrSettingsViewModel>();
-            }
+            get { return ServiceLocator.Current.GetInstance<OcrSettingsViewModel>(); }
 
         }
 

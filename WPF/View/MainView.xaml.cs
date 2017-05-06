@@ -11,17 +11,26 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace WPF.View
 {
     /// <summary>
-    /// Interaction logic for Testing.xaml
+    /// Interaction logic for MainView.xaml
     /// </summary>
-    public partial class Testing : Window
+    public partial class MainView : Window
     {
-        public Testing()
+        public MainView()
         {
             InitializeComponent();
+            Messenger.Default.Register<NotificationMessage>(this, nm =>
+            {
+                if (nm.Notification == "CloseMain")
+                {
+                    Messenger.Default.Unregister<NotificationMessage>(this, "CloseMain");
+                    Close();
+                }
+            });
         }
     }
 }

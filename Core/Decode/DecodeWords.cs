@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Linq;
 using Core.Helpers;
 using Core.Model;
@@ -31,7 +32,13 @@ namespace Core.Decode
                 }
 
                 XAttribute id = word.Attribute("id");
-
+                XName strong = XName.Get("strong");
+           
+                if (word.Elements(strong).FirstOrDefault(d => !d.IsEmpty) !=null)
+                {
+                    textWord.Bold = true;
+                };
+                
                 if (id != null) textWord.id = id.Value;
                 textWord.Word = word.Value;
 

@@ -8,6 +8,7 @@ namespace Core.Model
         public string id;
        
         public string Word;
+        public bool Bold=false;
         public List<TextLetter> Letters = new List<TextLetter>();
     }
 }

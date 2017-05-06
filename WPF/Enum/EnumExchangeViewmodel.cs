@@ -3,6 +3,7 @@
     public enum EnumExchangeViewmodel
     {
         Language,
-        OcrSettings
+        OcrSettings,
+        Dictionary
     }
 }

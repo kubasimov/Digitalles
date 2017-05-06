@@ -6,6 +6,7 @@ using Syncfusion.Windows.Tools.Controls;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Core.Interface;
@@ -134,7 +135,8 @@ namespace WPF.ViewModel
 
         private void ExecuteExitCommand()
         {
-            Messenger.Default.Send(new NotificationMessage(this, "CloseMain"));
+            _dataExchangeViewModel.Add(EnumExchangeViewmodel.Dictionary,_dictionaryModel );
+            Messenger.Default.Send(new NotificationMessage(this, "CloseOcr"));
         }
 
         private void ExecuteSavePagesCommand()
@@ -188,8 +190,9 @@ namespace WPF.ViewModel
                     {
                         foreach (var word in line.Words)
                         {
-                            SpanAdv spanAdv = new SpanAdv {Text = word.Word + " "};
                             
+                            SpanAdv spanAdv = new SpanAdv {Text = word.Word + " "};
+                            if(word.Bold)spanAdv.FontWeight = FontWeights.Bold;
                             paragraphAdv.Inlines.Add(spanAdv);
                             
                             

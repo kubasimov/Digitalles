@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using GalaSoft.MvvmLight.Messaging;
+using WPF.ViewModel;
 
 namespace WPF.View
 {
@@ -13,12 +14,14 @@ namespace WPF.View
             InitializeComponent();
             Messenger.Default.Register<NotificationMessage>(this, nm =>
             {
-                if (nm.Notification == "CloseMain")
+                if (nm.Notification == "CloseOcr")
                 {
-                    Messenger.Default.Unregister<NotificationMessage>(this, "CloseMain");
+                    Messenger.Default.Unregister<NotificationMessage>(this, "CloseOcr");
                     Close();
                 }
             });
+
+            
         }
     }
 }
