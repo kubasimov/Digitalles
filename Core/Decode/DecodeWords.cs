@@ -20,10 +20,12 @@ namespace Core.Decode
             foreach (XElement word in words)
             {
                 TextWord textWord = new TextWord();
+
                 XAttribute coords = word.Attribute("title");
+
                 if (coords != null)
                 {
-                    string[] coordlist = coords.Value.Split(' ');
+                    var coordlist = coords.Value.Split(' ');
 
                     textWord.X = Convert.ToInt32(HelperOcr.GetNumbers(coordlist[1]));
                     textWord.Y = Convert.ToInt32(HelperOcr.GetNumbers(coordlist[2]));
@@ -32,9 +34,8 @@ namespace Core.Decode
                 }
 
                 XAttribute id = word.Attribute("id");
-                XName strong = XName.Get("strong");
-           
-                if (word.Elements(strong).FirstOrDefault(d => !d.IsEmpty) !=null)
+                
+                if (word.Elements(XName.Get("strong")).FirstOrDefault(d => !d.IsEmpty) !=null)
                 {
                     textWord.Bold = true;
                 };

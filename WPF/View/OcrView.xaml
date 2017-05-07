@@ -47,7 +47,7 @@
             </syncfusion:ToolBarAdv>
         </syncfusion:ToolBarTrayAdv>
         <Image Grid.Column="1" Margin="10,10,10,10" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Source="{Binding BitmapImage,Mode=TwoWay}"   />
-        <syncfusion:RichTextBoxAdv x:Name="RichTextBoxAdv" Grid.Column="3" Margin="10,0,10,10" Grid.Row="1" VerticalAlignment="Top" Document="{Binding DocumentAdv, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontWeight="Bold" />
+        <syncfusion:RichTextBoxAdv x:Name="RichTextBoxAdv" Grid.Column="3" Margin="10,0,10,10" Grid.Row="1" VerticalAlignment="Top" Document="{Binding DocumentAdv, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         <GridSplitter Grid.Column="2" HorizontalAlignment="Right"  Grid.Row="1" Background="#FFBCBCBC" VerticalAlignment="Stretch" ResizeBehavior="PreviousAndNext" Width="5"/>
         <ListBox x:Name="ListBox" HorizontalAlignment="Left" ItemTemplate="{DynamicResource BitmapImageTemplate}" ItemsSource="{Binding BitmapImages}" Grid.Row="1"
                  Grid.Column="0" VerticalAlignment="Top" IsSynchronizedWithCurrentItem="True" Height="412" Width="96">

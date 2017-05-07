@@ -53,6 +53,7 @@ namespace WPF.ViewModel
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<OcrViewModel>();
             SimpleIoc.Default.Register<OcrSettingsViewModel>();
+            SimpleIoc.Default.Register<TestsViewModel>();
         }
 
 
@@ -72,7 +73,12 @@ namespace WPF.ViewModel
             get { return ServiceLocator.Current.GetInstance<OcrSettingsViewModel>(); }
 
         }
+        
+        public TestsViewModel Tests
+        {
+            get { return ServiceLocator.Current.GetInstance<TestsViewModel>(); }
 
+        }
         public static void Cleanup()
         {
             // TODO Clear the ViewModels
