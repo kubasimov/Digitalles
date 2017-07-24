@@ -11,7 +11,6 @@ namespace Core
         
         private readonly IReadPicture _readPicture;
         
-        private int _pages;
         private Pix _imagePix;
 
         public Ocr(IReadPicture readPicture)

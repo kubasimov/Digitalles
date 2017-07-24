@@ -88,6 +88,7 @@
     <Compile Include="Model\DictionaryModel.cs" />
     <Compile Include="Model\LangModel.cs" />
     <Compile Include="Model\SettingsModel.cs" />
+    <Compile Include="Helpers\DocumentAdvCrud.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\OcrViewModel.cs" />
     <Compile Include="ViewModel\OcrSettingsViewModel.cs" />

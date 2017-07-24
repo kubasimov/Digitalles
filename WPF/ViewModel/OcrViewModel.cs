@@ -14,6 +14,7 @@ using GalaSoft.MvvmLight.Messaging;
 using WPF.Interface;
 using WPF.Converter;
 using WPF.Enum;
+using WPF.Helpers;
 using WPF.Model;
 using WPF.View;
 
@@ -32,7 +33,7 @@ namespace WPF.ViewModel
         private readonly DictionaryModel _dictionaryModel;
         #endregion
         
-        
+        //constructor
         public OcrViewModel(IDataService dataService,ICoreOcr coreOcr,IDataExchangeViewModel dataExchangeViewModel)
         {
             _coreOcr = coreOcr;
@@ -65,15 +66,23 @@ namespace WPF.ViewModel
             _documentsAdv = new ObservableCollection<DocumentAdv>();
         }
 
+        //restart all 
+        private void ExecuteNewCommand()
+        {
+            //TODO:NewCommand
+        }
+
+        //open image
         private void ExecuteOpenImage()
         {
-            _bitmapImages=_dataService.LoadImages();
+            _bitmapImages = _dataService.LoadImages();
             _bitmapImage = _bitmapImages[PageCounter];
 
             RaisePropertyChanged(BitmapImagePropertyName);
             RaisePropertyChanged(BitmapImagesPropertyName);
         }
 
+        //ocr one page
         private async void ExecuteOcrPage()
         {
             await _coreOcr.LoadImage(_bitmapImage.UriSource.AbsolutePath);
@@ -82,13 +91,14 @@ namespace WPF.ViewModel
 
             var page = await _coreOcr.DecodeHocr(text);
 
-            _documentsAdv.Add(LoadDocumentAdv(page));
+            _documentsAdv.Add(DocumentAdvCrud.LoadDocumentAdv(page));
 
             _documentAdv = _documentsAdv[_pageCounter];
 
             RaisePropertyChanged(DocumentADVPropertyName);
         }
-
+        //TODO: dodac pinformacje o trwaj¹cym rozpoznawaniu
+        //ocr many pages
         private async void ExecuteOcrPages()
         {
             foreach (var bitmapImage in _bitmapImages)
@@ -99,7 +109,7 @@ namespace WPF.ViewModel
 
                 var page = await _coreOcr.DecodeHocr(text);
 
-                _documentsAdv.Add(LoadDocumentAdv(page));
+                _documentsAdv.Add(DocumentAdvCrud.LoadDocumentAdv(page));
             }
 
             _documentAdv = _documentsAdv[_pageCounter];
@@ -107,55 +117,7 @@ namespace WPF.ViewModel
             RaisePropertyChanged(DocumentADVPropertyName);
         }
 
-        private void ExecuteShowImage(object obj)
-        {
-            if (obj == null) return;
-            _pageCounter = (int)obj;
-            AddActualyImage();
-
-            if (_documentsAdv.Count>0 && _documentsAdv.Count>=_pageCounter)
-            {
-                 _documentAdv = _documentsAdv[_pageCounter];
-            }
-           
-            RaisePropertyChanged(BitmapImagePropertyName);
-            RaisePropertyChanged(BitmapImagesPropertyName);
-            RaisePropertyChanged(DocumentADVPropertyName);
-        }
-
-        private void ExecuteSelectLanguage()
-        {
-            new OcrSettings().ShowDialog();
-
-            if (_dataExchangeViewModel.ContainsKey(EnumExchangeViewmodel.Language))
-            {
-                var t = _dataExchangeViewModel.Item(EnumExchangeViewmodel.Language);
-            }
-        }
-
-        private void ExecuteExitCommand()
-        {
-            _dataExchangeViewModel.Add(EnumExchangeViewmodel.Dictionary,_dictionaryModel );
-            Messenger.Default.Send(new NotificationMessage(this, "CloseOcr"));
-        }
-
-        private void ExecuteSavePagesCommand()
-        {
-            
-        }
-
-        private void ExecuteSavePageCommand()
-        {
-            var dictionaryParagraph = GenerateDictionaryParagrapsFromDocumentAdv(_documentAdv);
-
-           
-            foreach (var item in dictionaryParagraph)
-            {
-                _dictionaryModel.Add(item.Split(' ').First(), item.Substring(item.IndexOf(" ")+1));
-            }
-
-        }
-        
+        //show paragraph
         private void ExecuteShowParagraphCommand()
         {
             foreach (var sectionAdv in _documentAdv.Sections)
@@ -173,37 +135,61 @@ namespace WPF.ViewModel
             RaisePropertyChanged(DocumentADVPropertyName);
         }
 
-        private DocumentAdv LoadDocumentAdv(List<TextPage> pages)
-        {   
-            var DocumentAdv = new DocumentAdv();
-            SectionAdv sectionAdv = new SectionAdv();
-            DocumentAdv.Sections.Add(sectionAdv);
+        //change ocr language
+        private void ExecuteSelectLanguage()
+        {
+            new OcrSettings().ShowDialog();
 
-            foreach (var textPage in pages)
+            if (_dataExchangeViewModel.ContainsKey(EnumExchangeViewmodel.Language))
             {
-                foreach (var paragraph in textPage.Paragraphs)
-                {
-                    var paragraphAdv = new ParagraphAdv();
-                    sectionAdv.Blocks.Add(paragraphAdv);
-
-                    foreach (var line in paragraph.Lines)
-                    {
-                        foreach (var word in line.Words)
-                        {
-                            
-                            SpanAdv spanAdv = new SpanAdv {Text = word.Word + " "};
-                            if(word.Bold)spanAdv.FontWeight = FontWeights.Bold;
-                            paragraphAdv.Inlines.Add(spanAdv);
-                            
-                            
-                        }
-                    }
-
-
-                }
+                var t = _dataExchangeViewModel.Item(EnumExchangeViewmodel.Language);
             }
-            return DocumentAdv;
         }
+
+        //exit window
+        private void ExecuteExitCommand()
+        {
+            _dataExchangeViewModel.Add(EnumExchangeViewmodel.Dictionary,_dictionaryModel );
+            Messenger.Default.Send(new NotificationMessage(this, "CloseOcr"));
+        }
+
+        //save page text to dictionary
+        private void ExecuteSavePageCommand()
+        {
+            var dictionaryParagraph = GenerateDictionaryParagrapsFromDocumentAdv(_documentAdv);
+
+           
+            foreach (var item in dictionaryParagraph)
+            {
+                _dictionaryModel.Add(item.Split(' ').First(), item.Substring(item.IndexOf(" ")+1));
+            }
+
+        }
+
+        //save pages text to dictionary
+        private void ExecuteSavePagesCommand()
+        {
+            //TODO:SavePagesCommand
+        }
+        
+        //show imge from left panel in image window
+        private void ExecuteShowImage(object obj)
+        {
+            if (obj == null) return;
+            _pageCounter = (int)obj;
+            AddActualyImage();
+
+            if (_documentsAdv.Count > 0 && _documentsAdv.Count >= _pageCounter)
+            {
+                _documentAdv = _documentsAdv[_pageCounter];
+            }
+
+            RaisePropertyChanged(BitmapImagePropertyName);
+            RaisePropertyChanged(BitmapImagesPropertyName);
+            RaisePropertyChanged(DocumentADVPropertyName);
+        }
+        
+        
 
         #region Command
         private RelayCommand _openImageCommand;
@@ -250,6 +236,12 @@ namespace WPF.ViewModel
         public RelayCommand ShowParagraphCommand => _showParagraphCommand
                                                     ?? (_showParagraphCommand = new RelayCommand(ExecuteShowParagraphCommand));
 
+        private RelayCommand _newCommand;
+
+        public RelayCommand NewNewCommand => _newCommand
+                                         ?? (_newCommand = new RelayCommand(ExecuteNewCommand));
+
+        
         
         #endregion
 

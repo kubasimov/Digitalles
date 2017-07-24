@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WPF.View"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:command="http://www.galasoft.ch/mvvmlight"
         xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
@@ -34,7 +33,7 @@
             <RowDefinition Height="463*"/>
         </Grid.RowDefinitions>
         <syncfusion:ToolBarTrayAdv Height="Auto" x:Name="ToolBarAdv1" Width="Auto" Grid.Row="0" Grid.ColumnSpan="4" >
-            <syncfusion:ToolBarAdv ToolBarName="Standard" Height="Auto" VerticalAlignment="Top">
+            <syncfusion:ToolBarAdv ToolBarName="Standard" Height="Auto" VerticalAlignment="Top" Margin="0,0,-35,0">
                 <Button Content="Nowy" Width="Auto" Margin="1,1,1,1"   />
                 <Button Content="Wczytaj obraz" Width="Auto" Margin="1,1,1,1" Command="{Binding OpenImageCommand, Mode=OneWay}" />
                 <Button Content="Rozpoznaj strone" Width="Auto" Margin="1,1,1,1" Command="{Binding OcrPage, Mode=OneWay}" />
@@ -50,7 +49,7 @@
         <syncfusion:RichTextBoxAdv x:Name="RichTextBoxAdv" Grid.Column="3" Margin="10,0,10,10" Grid.Row="1" VerticalAlignment="Top" Document="{Binding DocumentAdv, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         <GridSplitter Grid.Column="2" HorizontalAlignment="Right"  Grid.Row="1" Background="#FFBCBCBC" VerticalAlignment="Stretch" ResizeBehavior="PreviousAndNext" Width="5"/>
         <ListBox x:Name="ListBox" HorizontalAlignment="Left" ItemTemplate="{DynamicResource BitmapImageTemplate}" ItemsSource="{Binding BitmapImages}" Grid.Row="1"
-                 Grid.Column="0" VerticalAlignment="Top" IsSynchronizedWithCurrentItem="True" Height="412" Width="96">
+                 Grid.Column="0" VerticalAlignment="Top" IsSynchronizedWithCurrentItem="True" Height="453" Width="96">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
                     <command:EventToCommand Command="{Binding ShowImageCommand, Mode=OneWay}"
