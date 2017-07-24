@@ -34,7 +34,7 @@
         </Grid.RowDefinitions>
         <syncfusion:ToolBarTrayAdv Height="Auto" x:Name="ToolBarAdv1" Width="Auto" Grid.Row="0" Grid.ColumnSpan="4" >
             <syncfusion:ToolBarAdv ToolBarName="Standard" Height="Auto" VerticalAlignment="Top" Margin="0,0,-35,0">
-                <Button Content="Nowy" Width="Auto" Margin="1,1,1,1"   />
+                <Button Content="Nowy" Width="Auto" Margin="1,1,1,1" Command="{Binding NewNewCommand, Mode=OneWay}"   />
                 <Button Content="Wczytaj obraz" Width="Auto" Margin="1,1,1,1" Command="{Binding OpenImageCommand, Mode=OneWay}" />
                 <Button Content="Rozpoznaj strone" Width="Auto" Margin="1,1,1,1" Command="{Binding OcrPage, Mode=OneWay}" />
                 <Button Content="Rozpoznaj strony" Width="Auto" Margin="1,1,1,1" Command="{Binding OcrPagesCommand, Mode=OneWay}" />

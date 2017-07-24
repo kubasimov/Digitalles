@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
+using System.Windows.Interactivity;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Core.Interface;
@@ -29,8 +30,8 @@ namespace WPF.ViewModel
         private readonly IDataExchangeViewModel _dataExchangeViewModel;
         private readonly SettingsModel _settingsModel;
         private readonly List<LangModel> _languages;
-        private readonly ObservableCollection<DocumentAdv> _documentsAdv;
-        private readonly DictionaryModel _dictionaryModel;
+        private ObservableCollection<DocumentAdv> _documentsAdv;
+        private DictionaryModel _dictionaryModel;
         #endregion
         
         //constructor
@@ -69,14 +70,24 @@ namespace WPF.ViewModel
         //restart all 
         private void ExecuteNewCommand()
         {
-            //TODO:NewCommand
+            _bitmapImage = null;
+            _bitmapImages = new ObservableCollection<BitmapImage>();
+            _pageCounter = 0;
+            _dictionaryModel = new DictionaryModel() ;
+            _documentsAdv = new ObservableCollection<DocumentAdv>();
+            DocumentAdv = null;
+            RaisePropertyChanged(BitmapImagePropertyName);
+            RaisePropertyChanged(BitmapImagesPropertyName);
+            RaisePropertyChanged(DocumentADVPropertyName);
+            
+            ExecuteShowImage(0);
         }
 
         //open image
         private void ExecuteOpenImage()
         {
             _bitmapImages = _dataService.LoadImages();
-            _bitmapImage = _bitmapImages[PageCounter];
+            _bitmapImage = _bitmapImages[_pageCounter];
 
             RaisePropertyChanged(BitmapImagePropertyName);
             RaisePropertyChanged(BitmapImagesPropertyName);
@@ -176,7 +187,10 @@ namespace WPF.ViewModel
         private void ExecuteShowImage(object obj)
         {
             if (obj == null) return;
-            _pageCounter = (int)obj;
+            //_pageCounter = (int)obj;
+            //if (_pageCounter < 0) _pageCounter = 0;
+            _pageCounter=(int)obj<0 ? 0: (int) obj;  
+
             AddActualyImage();
 
             if (_documentsAdv.Count > 0 && _documentsAdv.Count >= _pageCounter)
@@ -365,7 +379,8 @@ namespace WPF.ViewModel
 
         private void AddActualyImage()
         {
-            _bitmapImage = _bitmapImages[_pageCounter];
+            if(_bitmapImages.Count>0)
+                _bitmapImage = _bitmapImages[_pageCounter];
         }
 
         private IEnumerable<string> GenerateDictionaryParagrapsFromDocumentAdv(DocumentAdv documentAdv)
