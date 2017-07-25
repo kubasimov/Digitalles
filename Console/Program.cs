@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using Newtonsoft.Json;
@@ -9,7 +10,6 @@ namespace Console
 {
     class Program
     {
-
         public static Dictionary<string, string> dic;
         private static int max;
 
@@ -18,31 +18,36 @@ namespace Console
             dic =
                 JsonConvert.DeserializeObject<Dictionary<string, string>>(File.ReadAllText(@"D:\dane\dictionary.json"));
 
-            var text1 = "anilana ż IV, CMs. ~anie «syntetyczne włókno produkcji krajowej»: Godne polecenia są zwłaszcza dzianiny z anilany. Jest ona bardzo lekka" +
-                        " i łatwo się pierze. Exp. 155, 1966. Polska anilana na warsztatach kilkunastu fabryk tekstylnych zastępuje z powodzeniem naturalną wełnę." +
-                        "Tryb. Ludu 216, 1965. < (?) port.anil = indygo >";
+            var text1 =
+                "anilana ż IV, CMs. ~anie «syntetyczne włókno produkcji krajowej»: Godne polecenia są zwłaszcza dzianiny z anilany. Jest ona bardzo lekka" +
+                " i łatwo się pierze. Exp. 155, 1966. Polska anilana na warsztatach kilkunastu fabryk tekstylnych zastępuje z powodzeniem naturalną wełnę." +
+                "Tryb. Ludu 216, 1965. < (?) port.anil = indygo >";
 
             var text2 =
                 "anilanowy przym. od anilana: Włókno anilanowe będzie służyć m.in. do wyrobu sweterków, koców, szali." +
                 " Exp. 151, 1965.Z anilanowej włóczki robione są swetry.Exp. 55, 1965.";
 
-            //koncentrak m III pot. «obóz koncentracyjny»";
 
-            //var text3 =
-            //    "koncentrator m IV, Ms. ~orze elektr.techn. «cewka indukcyjna umożliwiająca skupienie zmiennego strumienia" +
-            //    " magnetycznego wielkiej częstotliwości w określonym miejscu»";
+            var text3 =
+                "animalistyka ż III blm szt. «przedstawianie zwierząt lub motywów zwierzęcych w sztukach plastycznych, " +
+                "w fotografice»: Do mistrzostwa doprowadził sztukę fotograficzną, szczególniej w tak trudnym dziale jak animalistyka " +
+                "(zdjęcia zwierząt). Probl. 1954, s. 570. <łc. animal = zwierzę>";
 
-            //var text4 =
-            //    "koncentratywny rzad. «polegający na koncentracji, na skupieniu się»: Polecają(...) metodę autogenicznego" +
-            //    " treningu, zwanego też koncentratywmym samoodprężeniem albo pospolicie relaksem. Tryb.Ludu 239,1966.";
+            var text4 =
+                "animalizować ndk IV, ~owany rzad. «posługiwać się zwierzętami lub motywami zwierzęcy mi w sztukach plastycznych, " +
+                "w fotografice»: Największe wzięcie miały i mają tematy „życiowe\" .Zwykłe, choć groteskowo podane przygody i zwykłe" +
+                ", choć animalizowane charaktery disneyowskiej rodzinki. Kult. 28, 1965.";
 
-            //var text5 =
-            //    "konceptualny 1. książk. «dotyczący koncepcji, pojęciowy»: Powieści nie lepi się z samych realiów," +
-            //    " powieść trzeba zbudować, a więc wprowadzić do niej czynnik projektujący, konceptualny.Polit. 32," +
-            //    " 1965. 2.filoz. «odnoszący się do konceptualizmu, związany z konceptualizmem»";
+            var text5 =
+                "animator m IV, Ms. ~orze, lm M. ~orzy 1. p. tom I. 2. film. «specjalista w zakresie wykonywania filmów animowanych»" +
+                " 3. teatr. «osoba uruchamiająca kukiełki w tea- trze kukiełkowym» ";
 
-            //var text6= "konceptysta m odm.jak ż IV, CMs. ~yście, lm M. ~yści, DB. - óW lit. «przedstawiciel " +
-            //           "konceptyzmu, poeta piszący kwiecistym stylem; kultysta» // SW w zn. .«konceptualista»";
+            var text6 =
+                "ankieter m IV, Ms. ~erze, lm M. ~erzy środ. «ten, kto układa ankietę, posługuje sie ankietą»: Ankieter — trudno," +
+                " nieładne ale potrzebne.  Nowa nauka, nowi pracownicy o określonej specjalizacji, przeprowadzający właśnie ankiety —  " +
+                "jak ich nazwać? Ten wyraz chyba zostanie w języku. Życie Warsz. 29, 1959. Przed kilkoma miesiącami przy Polskim Radio powstał" +
+                " Ośrodek Badania Opinii Publicznej. Nowa placówka badawcza potrzebowała licznych pracowników w charakterze tzw. ankieterów. Prz. Kult." +
+                " 26, 1958. <fr. enqućteur = ankietujący> ";
 
             //var text11 = text1.Split(' ');
             //var text21 = text2.Split(' ');
@@ -54,16 +59,21 @@ namespace Console
             //var result = RecognizeText(text11);
             //var result1 = RecognizeText(text21);
 
-            RecognizeWord(text1);
-            RecognizeWord(text2);
-
+            //RecognizeWord(text1);
+            //RecognizeWord(text2);
+            //RecognizeWord(text3);
+            //RecognizeWord(text4);
+            RecognizeWord(text5);
+            //RecognizeWord(text6);
 
             System.Console.ReadKey();
-
         }
 
         private static void RecognizeWord(string text1)
         {
+            //pomocnicze wyświetlenie obrabianego hasła
+            WriteText(text1 + "\n\n");
+
             var temptext = "";
 
             //pobranie pierwszego słowa jako hasło i zmniejszenie tekstu o te słowo + spacja
@@ -74,16 +84,14 @@ namespace Console
             text1 = text1.Remove(0, pass.Length + 1);
 
 
-
-
             //przejscie po całym zdaniu (bez pierwszego słowa
 
             var counter = 0;
             max = text1.Length;
+            int result;
 
             for (counter = 0; counter < max; counter++)
             {
-
                 //wyszukanie znaczenia słowa z podwojnych nawiasach skosnych
                 if (text1[counter] == '«')
                 {
@@ -111,7 +119,6 @@ namespace Console
                         //dodanie kolejnego znaku do słowa
                         if (text1[j] == '<')
                         {
-
                             break;
                         }
 
@@ -119,21 +126,20 @@ namespace Console
                         temptext += text1[j];
 
                         //sprawdzenie czy znak jest liczbą, jesli prawda to flage liczby ustawiamy na true
-                        int result;
 
                         if (int.TryParse(text1[j].ToString(), out result))
                         {
                             isnumeric = true;
                         }
 
-                        //jesli była znaleziona liczba i kolejny znak to '.' i nastepny znak to spacja i znak to mamy cały cytat
+                        //jesli była znaleziona liczba i kolejny znak to '.' i nastepny znak to spacja i znak to mamy cały cytat 954, s. 570.
                         var letter = false;
 
-                        if (j == max)
+                        if (j == max || j + 1 == max || j + 2 == max)
                         {
                             letter = true;
                         }
-                        else if (!int.TryParse(text1[counter + 2].ToString(), out result))
+                        else if (!int.TryParse(text1[j + 2].ToString(), out result))
                         {
                             letter = true;
                         }
@@ -145,11 +151,8 @@ namespace Console
                             temptext = Empty;
                             isnumeric = false;
                             counter = j + 1 > max ? max - 1 : j + 1;
-
                         }
-
                     }
-
                 }
 
                 //rozpoznanie znaczen pomiedzy <>
@@ -166,9 +169,7 @@ namespace Console
 
                     WriteText(temptext, "nawiasy <> ");
                     temptext = Empty;
-
                 }
-
 
 
                 if (text1[counter] != ' ')
@@ -186,57 +187,64 @@ namespace Console
                         {
                             temptext += text1[counter];
                             counter++;
-
                         } while (text1[counter] != ':');
                         counter--;
                         WriteText(temptext, "Przymiotnik hasła");
                         temptext = Empty;
+
+                        //jesli hasło ma numerowane znaczenia
+                    }//jesli jest cyfra
+                    else if (int.TryParse(temptext[0].ToString(),out result)&&temptext.Length==2)
+                    {
+                        //po cyfrze jest kropka
+                        if (temptext[1]=='.')
+                        {
+                            WriteText(temptext,result+" znaczenie hasła");
+                            temptext = Empty;
+                        }
                     }
                 }
                 else
                 {
-                    //wyszukanie słowa w słowniku znaczeń
-                    var meaning = RecognizeMeaningWord(temptext);
-                    WriteText(temptext, meaning);
-                    temptext = Empty;
+                    if (temptext != "")
+                    {
+                        //wyszukanie słowa w słowniku znaczeń
+                        var meaning = RecognizeMeaningWord(temptext);
+                        WriteText(temptext, meaning);
+                        temptext = Empty;
+                    }
                 }
-
             }
-
-           
         }
 
         private static string RecognizeMeaningWord(string text)
         {
             if (dic.ContainsKey(text))
                 return dic[text];
-            
-            if (text[0]=='~')
+
+            if (text[0] == '~')
                 return "odmiana";
-            
+
             return Empty;
         }
 
-        private static void WriteText(string text1, string text2="")
+        private static void WriteText(string text1, string text2 = "")
         {
-            System.Console.WriteLine("Hasło: {0,-90}\t\t\tObjaśnienie: {1}",text1,text2);
+            System.Console.WriteLine("Hasło: {0,-90}\t\t\tObjaśnienie: {1}", text1, text2);
         }
 
         //private static Dictionary<string, string> RecognizeText(string[] text)
         //{
-            
+
 
         //    var result = new Dictionary<string, string>();
 
         //    result.Add("password", text[0]);
 
 
-
         //    for (var i = 0; i < text.Length; i++)
         //    {
         //        if(text[i].Contains("1"))
-
-
 
 
         //        if (dic.ContainsKey(text[i]))
@@ -277,4 +285,3 @@ namespace Console
         //}
     }
 }
-
