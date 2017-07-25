@@ -25,8 +25,7 @@ namespace Console
 
             var text2 =
                 "anilanowy przym. od anilana: Włókno anilanowe będzie służyć m.in. do wyrobu sweterków, koców, szali." +
-                " Exp. 151, 1965.Z anilanowej włóczki robione są swetry.Exp. 55, 1965.";
-
+                " Exp. 151, 1965. Z anilanowej włóczki robione są swetry.Exp. 55, 1965.";
 
             var text3 =
                 "animalistyka ż III blm szt. «przedstawianie zwierząt lub motywów zwierzęcych w sztukach plastycznych, " +
@@ -40,14 +39,14 @@ namespace Console
 
             var text5 =
                 "animator m IV, Ms. ~orze, lm M. ~orzy 1. p. tom I. 2. film. «specjalista w zakresie wykonywania filmów animowanych»" +
-                " 3. teatr. «osoba uruchamiająca kukiełki w tea- trze kukiełkowym» ";
+                " 3. teatr. «osoba uruchamiająca kukiełki w teatrze kukiełkowym» ";
 
             var text6 =
                 "ankieter m IV, Ms. ~erze, lm M. ~erzy środ. «ten, kto układa ankietę, posługuje sie ankietą»: Ankieter — trudno," +
                 " nieładne ale potrzebne.  Nowa nauka, nowi pracownicy o określonej specjalizacji, przeprowadzający właśnie ankiety —  " +
                 "jak ich nazwać? Ten wyraz chyba zostanie w języku. Życie Warsz. 29, 1959. Przed kilkoma miesiącami przy Polskim Radio powstał" +
                 " Ośrodek Badania Opinii Publicznej. Nowa placówka badawcza potrzebowała licznych pracowników w charakterze tzw. ankieterów. Prz. Kult." +
-                " 26, 1958. <fr. enqućteur = ankietujący> ";
+                " 26, 1958. <fr. enqućteur = ankietujący>";
 
             //var text11 = text1.Split(' ');
             //var text21 = text2.Split(' ');
@@ -59,12 +58,12 @@ namespace Console
             //var result = RecognizeText(text11);
             //var result1 = RecognizeText(text21);
 
-            //RecognizeWord(text1);
-            //RecognizeWord(text2);
-            //RecognizeWord(text3);
-            //RecognizeWord(text4);
+            RecognizeWord(text1);
+            RecognizeWord(text2);
+            RecognizeWord(text3);
+            RecognizeWord(text4);
             RecognizeWord(text5);
-            //RecognizeWord(text6);
+            RecognizeWord(text6);
 
             System.Console.ReadKey();
         }
@@ -72,7 +71,7 @@ namespace Console
         private static void RecognizeWord(string text1)
         {
             //pomocnicze wyświetlenie obrabianego hasła
-            WriteText(text1 + "\n\n");
+            System.Console.WriteLine("\n\n"+text1 + "\n\n");
 
             var temptext = "";
 
@@ -104,7 +103,7 @@ namespace Console
                     temptext += text1[counter];
                     counter++;
 
-                    WriteText(temptext, "znaczenie");
+                    WriteText(temptext, "definicja");
                     temptext = Empty;
                 }
 
@@ -167,7 +166,7 @@ namespace Console
                     temptext += text1[counter];
                     //countrer++;
 
-                    WriteText(temptext, "nawiasy <> ");
+                    WriteText(temptext, "wyjaśnienie etymologiczne wyrazu");
                     temptext = Empty;
                 }
 
@@ -194,15 +193,15 @@ namespace Console
 
                         //jesli hasło ma numerowane znaczenia
                     }//jesli jest cyfra
-                    else if (int.TryParse(temptext[0].ToString(),out result)&&temptext.Length==2)
-                    {
-                        //po cyfrze jest kropka
-                        if (temptext[1]=='.')
-                        {
-                            WriteText(temptext,result+" znaczenie hasła");
-                            temptext = Empty;
-                        }
-                    }
+                    //else if (int.TryParse(temptext[0].ToString(),out result)&&temptext.Length==2)
+                    //{
+                    //    //po cyfrze jest kropka
+                    //    if (temptext[1]=='.')
+                    //    {
+                    //        WriteText(temptext,result+" znaczenie hasła");
+                    //        temptext = Empty;
+                    //    }
+                    //}
                 }
                 else
                 {
@@ -223,7 +222,18 @@ namespace Console
                 return dic[text];
 
             if (text[0] == '~')
-                return "odmiana";
+                return "końcówka fleksyjna wraz z cząstką tematu";
+            if (text[0] == '-')
+                return "końcówka fleksyjna";
+
+            if (int.TryParse(text[0].ToString(), out int result) && text.Length == 2 && text[1]=='.')
+                return result + " znaczenie hasła";
+
+            if (text.Contains("I") || text.Contains("II") || text.Contains("III") || text.Contains("IV"))
+            {
+                return text.TrimEnd(',','.') + " koniugacja/ deklinacja";
+            }
+
 
             return Empty;
         }
