@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Diagnostics;
+using System.Windows;
 using GalaSoft.MvvmLight.Messaging;
 using WPF.ViewModel;
 
@@ -24,6 +25,9 @@ namespace WPF.View
             
         }
 
-        
+        private void RichTextBoxAdv_SelectionChanged(object obj, Syncfusion.Windows.Tools.Controls.SelectionChangedEventArgs args)
+        {
+            Debug.WriteLine("SelectionChanged  "+obj);
+        }
     }
 }

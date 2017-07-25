@@ -81,6 +81,7 @@
     </ApplicationDefinition>
     <Compile Include="Converter\LangListToString.cs" />
     <Compile Include="Enum\EnumExchangeViewmodel.cs" />
+    <Compile Include="Helpers\RecognizeText.cs" />
     <Compile Include="Implement\DataService.cs" />
     <Compile Include="Implement\DataExchangeViewModel.cs" />
     <Compile Include="Interface\IDataExchangeViewModel.cs" />

@@ -26,6 +26,8 @@ namespace Core.Implement
         {
             using (var engine = new TesseractEngine(@"./tessdata", language.ToString()))
             {
+                //testowe ustawienie własnego słownika znaków
+                //engine.SetVariable("tessedit_char_whitelist", "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ•~óÓżŻźŹćĆłŁśŚ|{}[]+-=_;:,.<>/?!@#$%^&*()|\\\"'");
                 var page = engine.Process(_imagePix);
 
                 return await Task.Run(() => page.GetHOCRText(pages));

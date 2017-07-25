@@ -32,6 +32,7 @@ namespace WPF.ViewModel
         private readonly List<LangModel> _languages;
         private ObservableCollection<DocumentAdv> _documentsAdv;
         private DictionaryModel _dictionaryModel;
+
         #endregion
         
         //constructor
@@ -44,6 +45,8 @@ namespace WPF.ViewModel
             _pageCounter = 0;
             _languages = _settingsModel.Language;
             _dictionaryModel=new DictionaryModel();
+            _selectionAdvtext = new SelectionAdv();
+           
 
             if (IsInDesignMode)
             {
@@ -58,6 +61,7 @@ namespace WPF.ViewModel
                 };
 
                 _bitmapImage = _bitmapImages[_pageCounter];
+                
             }
             else
             {
@@ -75,7 +79,7 @@ namespace WPF.ViewModel
             _pageCounter = 0;
             _dictionaryModel = new DictionaryModel() ;
             _documentsAdv = new ObservableCollection<DocumentAdv>();
-            DocumentAdv = null;
+            _documentAdv = null;
             RaisePropertyChanged(BitmapImagePropertyName);
             RaisePropertyChanged(BitmapImagesPropertyName);
             RaisePropertyChanged(DocumentADVPropertyName);
@@ -126,6 +130,14 @@ namespace WPF.ViewModel
             _documentAdv = _documentsAdv[_pageCounter];
 
             RaisePropertyChanged(DocumentADVPropertyName);
+        }
+
+        private void ExecuteRecognizeTextCommand()
+        {
+            //var t = _selectionAdvtext;
+            if(_documentAdv!=null)
+                RecognizeText.Recognize(_documentAdv);
+
         }
 
         //show paragraph
@@ -255,8 +267,49 @@ namespace WPF.ViewModel
         public RelayCommand NewNewCommand => _newCommand
                                          ?? (_newCommand = new RelayCommand(ExecuteNewCommand));
 
-        
-        
+        private RelayCommand _recognizeTextCommand;
+
+        /// <summary>
+        /// Gets the RecognizeTextCommand.
+        /// </summary>
+        public RelayCommand RecognizeTextCommand => _recognizeTextCommand
+                                                    ?? (_recognizeTextCommand = new RelayCommand(ExecuteRecognizeTextCommand));
+
+
+
+
+        #endregion
+
+        #region SelectionADV
+        /// <summary>
+        /// The <see cref="SelectionText" /> property's name.
+        /// </summary>
+        public const string SelectionAdvTextPropertyName = "SelectionText";
+
+        private SelectionAdv _selectionAdvtext   ;
+
+        /// <summary>
+        /// Sets and gets the SelectionText property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
+        public SelectionAdv SelectionText
+        {
+            get
+            {
+                return _selectionAdvtext ;
+            }
+
+            set
+            {
+                if (_selectionAdvtext  == value)
+                {
+                    return;
+                }
+
+                _selectionAdvtext  = value;
+                RaisePropertyChanged(SelectionAdvTextPropertyName);
+            }
+        }
         #endregion
 
         #region DocumentAdv

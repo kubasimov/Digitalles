@@ -38,15 +38,18 @@
                 <Button Content="Wczytaj obraz" Width="Auto" Margin="1,1,1,1" Command="{Binding OpenImageCommand, Mode=OneWay}" />
                 <Button Content="Rozpoznaj strone" Width="Auto" Margin="1,1,1,1" Command="{Binding OcrPage, Mode=OneWay}" />
                 <Button Content="Rozpoznaj strony" Width="Auto" Margin="1,1,1,1" Command="{Binding OcrPagesCommand, Mode=OneWay}" />
+                <Button Content="Rozpoznaj hasło" Width="Auto" Margin="1,1,1,1" Command="{Binding RecognizeTextCommand, Mode=OneWay}"/>
                 <Button Content="Pokoloruj hasła" Width="Auto" Margin="1,1,1,1" Command="{Binding ShowParagraphCommand, Mode=OneWay}" />
                 <Button Content="Język rozpoznawania" Width="Auto" Margin="1,1,1,1" Command="{Binding SelectLanguageCommand, Mode=OneWay}" />
                 <Button Content="Zapisz strone do słownika" Width="Auto" Margin="1,1,1,1" Command="{Binding SavePageCommand, Mode=OneWay}" />
                 <Button Content="Zapisz strony do słownika" Width="Auto" Margin="1,1,1,1" Command="{Binding SavePagesCommand, Mode=OneWay}" />
+                <Button Content="Wyszukaj hasło w słownikach" Width="Auto" Margin="1,1,1,1" />
+                
                 <Button Content="Wyjście" Width="Auto" Margin="1,1,1,1" Command="{Binding ExitCommand, Mode=OneWay}" />
             </syncfusion:ToolBarAdv>
         </syncfusion:ToolBarTrayAdv>
         <Image Grid.Column="1" Margin="10,10,10,10" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Source="{Binding BitmapImage,Mode=TwoWay}"   />
-        <syncfusion:RichTextBoxAdv x:Name="RichTextBoxAdv" Grid.Column="3" Margin="10,0,10,10" Grid.Row="1" VerticalAlignment="Top" Document="{Binding DocumentAdv, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <syncfusion:RichTextBoxAdv x:Name="RichTextBoxAdv" Grid.Column="3" Margin="10,0,10,10" Grid.Row="1" VerticalAlignment="Top" Document="{Binding DocumentAdv, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsManipulationEnabled="True" SelectionChanged="RichTextBoxAdv_SelectionChanged"/>
         <GridSplitter Grid.Column="2" HorizontalAlignment="Right"  Grid.Row="1" Background="#FFBCBCBC" VerticalAlignment="Stretch" ResizeBehavior="PreviousAndNext" Width="5"/>
         <ListBox x:Name="ListBox" HorizontalAlignment="Left" ItemTemplate="{DynamicResource BitmapImageTemplate}" ItemsSource="{Binding BitmapImages}" Grid.Row="1"
                  Grid.Column="0" VerticalAlignment="Top" IsSynchronizedWithCurrentItem="True" Height="453" Width="96">
