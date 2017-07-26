@@ -1,0 +1,19 @@
+﻿<Window x:Class="AddToDictionary.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AddToDictionary"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="430.013" Width="707.436" DataContext="{Binding Main, Mode=OneWay, Source={StaticResource Locator}}">
+
+    <Grid>
+        <TextBox HorizontalAlignment="Left" Height="32" Margin="26,27,0,0" TextWrapping="Wrap" Text="{Binding Text1}" VerticalAlignment="Top" Width="354"/>
+        <TextBox HorizontalAlignment="Left" Height="55" Margin="26,64,0,0" TextWrapping="Wrap" Text="{Binding Text2}" VerticalAlignment="Top" Width="354"/>
+        <Button Content="Add" HorizontalAlignment="Left" Margin="26,169,0,0" VerticalAlignment="Top" Width="131" Command="{Binding AddCommand, Mode=OneWay}"/>
+        <Button Content="Save" HorizontalAlignment="Left" Margin="26,365,0,0" VerticalAlignment="Top" Width="75" Command="{Binding SaveCommand, Mode=OneWay}" IsTabStop="False"/>
+        <ListBox HorizontalAlignment="Left" Height="362.013" Margin="385,27,0,0" VerticalAlignment="Top" Width="304.436" ItemsSource="{Binding Dictio}" IsTabStop="False" IsSynchronizedWithCurrentItem="False"/>
+        <Button Content="Exit" HorizontalAlignment="Left" Margin="290,365,0,0" VerticalAlignment="Top" Width="75"  IsTabStop="False" Command="{Binding ExitCommand, Mode=OneWay}"/>
+
+    </Grid>
+</Window>
