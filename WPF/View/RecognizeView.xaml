@@ -1,0 +1,63 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPF.View"
+        xmlns:syncfusion="http://schemas.syncfusion.com/wpf" x:Class="WPF.View.RecognizeView"
+   
+        mc:Ignorable="d"
+   
+        Title="RecognizeView" Height="700" Width="884" 
+    DataContext="{Binding Recognize, Mode=OneWay, Source={StaticResource Locator}}" 
+    ResizeMode="NoResize">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="321*"/>
+            <ColumnDefinition Width="118*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="149*"/>
+            <RowDefinition Height="156*"/>
+            <RowDefinition Height="366*"/>
+        </Grid.RowDefinitions>
+
+
+        <syncfusion:Ribbon Grid.Row="0" Grid.ColumnSpan="2" >
+            <syncfusion:RibbonTab Caption="Home" IsChecked="true">
+                <syncfusion:RibbonBar Header="Plik">
+                    <syncfusion:RibbonButton Label="Otworz" SizeForm="Large" Command="{Binding OpenCommand, Mode=OneWay}" LargeIcon="otworz.png"/>
+                    <syncfusion:RibbonButton Label="Zapisz" SizeForm="Large" Command="{Binding SaveCommand, Mode=OneWay}" LargeIcon="zapisz.png"></syncfusion:RibbonButton>
+                    <syncfusion:RibbonButton Label="Zapisz jako" SizeForm="Large" Command="{Binding SaveAsCommand, Mode=OneWay}" LargeIcon="zapisz jako.png"></syncfusion:RibbonButton>
+                    <syncfusion:RibbonButton Label="Export" SizeForm="Large" LargeIcon="eksport.png" Command="{Binding ExportToHtml, Mode=OneWay}"></syncfusion:RibbonButton>
+                    <syncfusion:RibbonButton Label="Wyjscie" SizeForm="Large" Command="{Binding ExitCommand, Mode=OneWay}" LargeIcon="wyjscie.png"></syncfusion:RibbonButton>
+
+                </syncfusion:RibbonBar>
+
+                <syncfusion:RibbonBar Header="Edycja">
+                    <syncfusion:RibbonButton Label="Rozpoznaj" SizeForm="Large" Command="{Binding RecognizeCommand, Mode=OneWay}" LargeIcon="rozpoznaj.png"></syncfusion:RibbonButton>
+                    <syncfusion:RibbonButton Label="Sprawdź" SizeForm="Large" LargeIcon="sprawdz.png"></syncfusion:RibbonButton>
+                </syncfusion:RibbonBar>
+
+                <syncfusion:RibbonBar Header="Tekst">
+                    <syncfusion:RibbonButton Label="Nowy" SizeForm="Large" Command="{Binding NewCommand, Mode=OneWay}" LargeIcon="nowy.png"></syncfusion:RibbonButton>
+                    <syncfusion:RibbonButton Label="Wklej" SizeForm="Large" LargeIcon="wklej.png"></syncfusion:RibbonButton>
+                </syncfusion:RibbonBar>
+            </syncfusion:RibbonTab>
+
+            <syncfusion:RibbonTab Caption="Ustawienia" IsChecked="False">
+            </syncfusion:RibbonTab>
+        </syncfusion:Ribbon>
+        <syncfusion:RichTextBoxAdv Document="{Binding TextToRecognize}" BorderBrush="Black" Grid.Row="1" Grid.ColumnSpan="2"
+                                   Grid.Column="0" Margin="11,5" />
+        <syncfusion:SfDataGrid ItemsSource="{Binding RecognizePassword}" AllowEditing="True" AllowSelectionOnPointerPressed="True"  AllowDeleting="True" AllowFiltering="True" AddNewRowPosition="Bottom" Grid.Row="2" Grid.Column="0" Margin="6,3" AllowResizingColumns="True" ColumnSizer="Star" ShowRowHeader="True" AutoGenerateColumns="False" NavigationMode="Row" RowHeight="42" >
+            <syncfusion:SfDataGrid.Columns>
+                <syncfusion:GridTextColumn MappingName="Word" TextWrapping="Wrap" HeaderText="Hasło" AllowResizing="True"/>
+                <syncfusion:GridTextColumn MappingName="Description" TextWrapping="Wrap" HeaderText="Opis"/>
+            </syncfusion:SfDataGrid.Columns>
+        </syncfusion:SfDataGrid>
+        <syncfusion:SfDataGrid ItemsSource="{Binding MyDigDictionary}" AllowEditing="True" AllowSelectionOnPointerPressed="True"  AllowDeleting="True" AllowFiltering="True" AddNewRowPosition="Bottom" Grid.Row="2"  Grid.Column="1" Margin="6,3" AllowResizingColumns="True" ColumnSizer="Star"/>
+
+
+    </Grid>
+</Window>

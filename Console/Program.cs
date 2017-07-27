@@ -60,24 +60,26 @@ namespace Console
                 "balistokardiografia i I, DCMs, blm med. «metoda badania układu krążenia, polegająca na rejestracji drgań ciała wywołanych mechaniczną pracą serca»: Balistokardiografia może służyć jako kontrola wyników pooperacyjnych. Pol. Tyg. Lek. 25,1953, s. dod. 194.";
             var text16 =
                 "banian m IV, D. -u a. -a bot. «Ficus bengalensis, drzewo z rodziny morwowatych (Moraceae) rosnące dziko w górach tropikalnej Afryki i u podnóży Himalajów; dostarcza owoców jadalnych i garbników; z drewna otrzymuje się szelak; figowiec indyjski»: Drzewo sandałowe, twarde drzewo tekowe, banian z korzeniami powietrznymi (...) są charakterystyczne dla obszaru indyjskiego. Lewiń. J. Życie 227. // SWil w zn. «tłumacz i makler w Indiach»";
+            var text17 =
+                "przeciwprzykład m IV, D. -u, Ms. ~adzie mat. «przedmiot matematyczny, mający wszyst- kie właściwości wypowiedziane w założeniu, nie mający natomiast właściwości wypowiedzianych w twierdzeniu, będący oczywistym dowodem na to, że twierdzenie jest fałszywe»: Czasem natu- ra zagadnienia nasuwa przypuszczenie, że teore- mat, który mamy udowodnić, jest błędny. Wtedy szukamy tzw. „przeciwprzykładu”, czyli kon- struujemy twór matematyczny spełniający za- łożenie, a nie spełniający twierdzenia. STEIN. Mat. 88. ";
 
-
-            RecognizeWord(text1);
-            RecognizeWord(text2);
-            RecognizeWord(text3);
-            RecognizeWord(text4);
-            RecognizeWord(text5);
-            RecognizeWord(text6);
-            RecognizeWord(text7);
-            RecognizeWord(text8);
-            RecognizeWord(text9);
-            RecognizeWord(text10);
-            RecognizeWord(text11);
-            RecognizeWord(text12);
-            //RecognizeWord(text13);
-            RecognizeWord(text14);
-            RecognizeWord(text15);
-            RecognizeWord(text16);
+            //RecognizeWord(text1);
+            //RecognizeWord(text2);
+            //RecognizeWord(text3);
+            //RecognizeWord(text4);
+            //RecognizeWord(text5);
+            //RecognizeWord(text6);
+            //RecognizeWord(text7);
+            //RecognizeWord(text8);
+            //RecognizeWord(text9);
+            //RecognizeWord(text10);
+            //RecognizeWord(text11);
+            //RecognizeWord(text12);
+            ////RecognizeWord(text13);
+            //RecognizeWord(text14);
+            //RecognizeWord(text15);
+            //RecognizeWord(text16);
+            RecognizeWord(text17);
            
             System.Console.ReadKey();
         }

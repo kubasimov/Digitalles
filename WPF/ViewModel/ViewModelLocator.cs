@@ -54,6 +54,7 @@ namespace WPF.ViewModel
             SimpleIoc.Default.Register<OcrViewModel>();
             SimpleIoc.Default.Register<OcrSettingsViewModel>();
             SimpleIoc.Default.Register<TestsViewModel>();
+            SimpleIoc.Default.Register<RecognizeViewModel>();
         }
 
 
@@ -79,6 +80,13 @@ namespace WPF.ViewModel
             get { return ServiceLocator.Current.GetInstance<TestsViewModel>(); }
 
         }
+
+        public RecognizeViewModel Recognize
+        {
+            get { return ServiceLocator.Current.GetInstance<RecognizeViewModel>(); }
+
+        }
+
         public static void Cleanup()
         {
             // TODO Clear the ViewModels

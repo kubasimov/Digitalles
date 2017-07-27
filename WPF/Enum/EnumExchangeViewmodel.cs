@@ -4,6 +4,7 @@
     {
         Language,
         OcrSettings,
-        Dictionary
+        Dictionary,
+        TextToRecognize
     }
 }

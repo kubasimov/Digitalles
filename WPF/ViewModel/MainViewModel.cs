@@ -37,31 +37,27 @@ namespace WPF.ViewModel
             }
         }
 
-
+        private void ExecuteRecognizeCommand()
+        {
+            new RecognizeView().ShowDialog();
+        }
 
 
 
         private RelayCommand _ocrCommand;
         
-        public RelayCommand OcrCommand
-        {
-            get
-            {
-                return _ocrCommand
-                    ?? (_ocrCommand = new RelayCommand(ExecuteOcrCommand));
-            }
-        }
+        public RelayCommand OcrCommand => _ocrCommand
+                                          ?? (_ocrCommand = new RelayCommand(ExecuteOcrCommand));
 
         private RelayCommand _exitCommand;
 
-        public RelayCommand ExitCommand
-        {
-            get
-            {
-                return _exitCommand
-                    ?? (_exitCommand = new RelayCommand(ExecuteExitCommand));
-            }
-        }
+        public RelayCommand ExitCommand => _exitCommand
+                                           ?? (_exitCommand = new RelayCommand(ExecuteExitCommand));
+
+        private RelayCommand _recognizeCommand;
+
+        public RelayCommand RecognizeCommand => _recognizeCommand
+                                                ?? (_recognizeCommand = new RelayCommand(ExecuteRecognizeCommand));
 
         
     }

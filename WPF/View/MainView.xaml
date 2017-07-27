@@ -7,8 +7,9 @@
         mc:Ignorable="d"
         Title="MainView" Height="300" Width="300" DataContext="{Binding Main, Mode=OneWay, Source={StaticResource Locator}}">
     <Grid>
-        <Button Content="Ocr" HorizontalAlignment="Left" Margin="125,76,0,0" VerticalAlignment="Top" Width="75" Command="{Binding OcrCommand, Mode=OneWay}"/>
-        <Button Content="Exit" HorizontalAlignment="Left" Margin="125,101,0,0" VerticalAlignment="Top" Width="75" Command="{Binding ExitCommand, Mode=OneWay}"/>
+        <Button Content="Ocr" HorizontalAlignment="Left" Margin="47,54,0,0" VerticalAlignment="Top" Width="75" Command="{Binding OcrCommand, Mode=OneWay}"/>
+        <Button Content="Exit" HorizontalAlignment="Left" Margin="189,213,0,0" VerticalAlignment="Top" Width="75" Command="{Binding ExitCommand, Mode=OneWay}"/>
+        <Button Content="Rozpoznanie" HorizontalAlignment="Left" Margin="127,54,0,0" VerticalAlignment="Top" Width="75" Command="{Binding RecognizeCommand, Mode=OneWay}"/>
 
     </Grid>
 </Window>
