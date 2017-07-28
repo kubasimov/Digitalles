@@ -37,13 +37,13 @@
                 <syncfusion:RibbonBar Header="">
                     <syncfusion:RibbonButton Label="Nowy" SizeForm="Large" Command="{Binding NewNewCommand, Mode=OneWay}" LargeIcon="/WPF;component/Icons/nowy.png"/>
                     <syncfusion:RibbonButton Label="Wczytaj obraz" SizeForm="Large" Command="{Binding  OpenImageCommand, Mode=OneWay}" LargeIcon="/WPF;component/Icons/otworz.png"/>
-                    <syncfusion:RibbonButton Label="Rozpoznaj strone" SizeForm="Large" Command="{Binding OcrPage, Mode=OneWay}" LargeIcon="otworz.png"/>
-                    <syncfusion:RibbonButton Label="Rozpoznaj strony" SizeForm="Large" Command="{Binding OcrPagesCommand, Mode=OneWay}" LargeIcon="otworz.png"/>
-                    <syncfusion:RibbonButton Label="Rozpoznaj hasło" SizeForm="Large" Command="{Binding RecognizeTextCommand, Mode=OneWay}" LargeIcon="otworz.png"/>
-                    <syncfusion:RibbonButton Label="Pokoloruj hasła" SizeForm="Large" Command="{Binding ShowParagraphCommand, Mode=OneWay}" LargeIcon="otworz.png"/>
-                    <syncfusion:RibbonButton Label="Język rozpoznawania" SizeForm="Large" Command="{Binding SelectLanguageCommand, Mode=OneWay}" LargeIcon="otworz.png"/>
-                    <syncfusion:RibbonButton Label="Zapisz strone do słownika" SizeForm="Large" Command="{Binding SavePageCommand, Mode=OneWay}" LargeIcon="otworz.png"/>
-                    <syncfusion:RibbonButton Label="Zapisz strony do słownika" SizeForm="Large" Command="{Binding SavePagesCommand, Mode=OneWay}" LargeIcon="otworz.png"/>
+                    <syncfusion:RibbonButton Label="Rozpoznaj strone" SizeForm="Large" Command="{Binding OcrPage, Mode=OneWay}" />
+                    <syncfusion:RibbonButton Label="Rozpoznaj strony" SizeForm="Large" Command="{Binding OcrPagesCommand, Mode=OneWay}"/>
+                    <syncfusion:RibbonButton Label="Rozpoznaj hasło" SizeForm="Large" Command="{Binding RecognizeTextCommand, Mode=OneWay}" />
+                    <syncfusion:RibbonButton Label="Pokoloruj hasła" SizeForm="Large" Command="{Binding ShowParagraphCommand, Mode=OneWay}" />
+                    <syncfusion:RibbonButton Label="Język rozpoznawania" SizeForm="Large" Command="{Binding SelectLanguageCommand, Mode=OneWay}" />
+                    <syncfusion:RibbonButton Label="Zapisz strone do słownika" SizeForm="Large" Command="{Binding SavePageCommand, Mode=OneWay}" />
+                    <syncfusion:RibbonButton Label="Zapisz strony do słownika" SizeForm="Large" Command="{Binding SavePagesCommand, Mode=OneWay}" />
                     <syncfusion:RibbonButton Label="Wyjście" SizeForm="Large" Command="{Binding ExitCommand, Mode=OneWay}" LargeIcon="/WPF;component/Icons/wyjscie.png"/>
                 </syncfusion:RibbonBar>
             </syncfusion:RibbonTab>

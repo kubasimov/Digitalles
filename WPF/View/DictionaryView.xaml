@@ -1,0 +1,67 @@
+﻿<Window x:Class="WPF.View.DictionaryView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPF.View"
+        xmlns:command="http://www.galasoft.ch/mvvmlight"
+        xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+        
+        mc:Ignorable="d"
+        Title="DictionaryView" Height="535" Width="768" 
+        syncfusion:SkinStorage.VisualStyle="Office2010Blue">
+
+    <Window.Resources>
+
+        <ResourceDictionary>
+
+            <ResourceDictionary.MergedDictionaries>
+
+                <ResourceDictionary Source="/Syncfusion.Tools.WPF;Component/FrameWork/Ribbon/themes/Office2010BlueStyle.xaml"/>
+
+            </ResourceDictionary.MergedDictionaries>
+
+            <Style x:Key="RibbonStyle" TargetType="{x:Type syncfusion:Ribbon}" BasedOn="{StaticResource Office2010BlueRibbonStyle}">
+
+                <Setter Property="BackStageColor" Value="Blue"/>
+
+            </Style>
+
+        </ResourceDictionary>
+
+    </Window.Resources>
+    <Grid>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="17*"/>
+            <ColumnDefinition Width="59*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="95*"/>
+            <RowDefinition Height="409*"/>
+        </Grid.RowDefinitions>
+        <syncfusion:Ribbon Grid.Row="0" Grid.ColumnSpan="2" Margin="0,0,0,0" Style="{StaticResource RibbonStyle}">
+            <syncfusion:RibbonTab Caption="Plik">
+                <syncfusion:RibbonBar Header="">
+                    <syncfusion:RibbonButton Label="Nowy" SizeForm="Large" Command="{Binding NewCommand, Mode=OneWay}" LargeIcon="/WPF;component/Icons/nowy.png"/>
+                    <syncfusion:RibbonButton Label="Wczytaj słownik" SizeForm="Large" Command="{Binding  OpenCommand, Mode=OneWay}" LargeIcon="/WPF;component/Icons/otworz.png"/>
+
+                    <syncfusion:RibbonButton Label="Wyjście" SizeForm="Large" Command="{Binding ExitCommand, Mode=OneWay}" LargeIcon="/WPF;component/Icons/wyjscie.png"/>
+                </syncfusion:RibbonBar>
+                <syncfusion:RibbonBar Header="">
+                    <syncfusion:RibbonTextBox Text="Szukaj" Width="150" Margin="0,25,0,0" />
+
+                </syncfusion:RibbonBar>
+            </syncfusion:RibbonTab>
+
+        </syncfusion:Ribbon>
+        <ListView Grid.Column="0" Margin="0,0,0,0" Grid.Row="1">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <syncfusion:RichTextBoxAdv Grid.Column="1"  Margin="0,0,0,0" Grid.Row="1"/>
+    </Grid>
+</Window>

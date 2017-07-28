@@ -116,6 +116,9 @@
     <Compile Include="ViewModel\RecognizeViewModel.cs" />
     <Compile Include="ViewModel\TestsViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="View\DictionaryView.xaml.cs">
+      <DependentUpon>DictionaryView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
@@ -138,6 +141,10 @@
     <Compile Include="View\TestsView.xaml.cs">
       <DependentUpon>TestsView.xaml</DependentUpon>
     </Compile>
+    <Page Include="View\DictionaryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\MainView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
