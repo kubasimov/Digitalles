@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
+using System.Windows;
+using System.Windows.Media;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
@@ -12,6 +15,7 @@ using Syncfusion.Windows.Tools.Controls;
 using WPF.Enum;
 using WPF.Interface;
 using WPF.Model;
+using Color = System.Windows.Media.Color;
 
 namespace WPF.ViewModel
 {
@@ -146,25 +150,87 @@ namespace WPF.ViewModel
             DocumentAdv documentAdv = new DocumentAdv();
             SectionAdv sectionAdv = new SectionAdv();
             documentAdv.Sections.Add(sectionAdv);
-            ParagraphAdv paragraphAdv = new ParagraphAdv();
-            sectionAdv.Blocks.Add(paragraphAdv);
+
+            ParagraphAdv paragraphPassword = new ParagraphAdv();
+            sectionAdv.Blocks.Add(paragraphPassword);
+
+            ParagraphAdv paragraphDescryption = new ParagraphAdv();
+            sectionAdv.Blocks.Add(paragraphDescryption);
+
+            
+
+            
 
             foreach (DictionaryPasswordElement element in dictionaryPasswordElements)
             {
-                if (element.Word.Contains("I") || element.Word.Contains("II") || element.Word.Contains("III") || element.Word.Contains("IV"))
+                if (element.Description.Contains("hasło"))
                 {
-                    HyperlinkAdv hyperlinkAdv = new HyperlinkAdv();
-                    hyperlinkAdv.Text = element.Word+" ";
+                    SpanAdv spanAdv = new SpanAdv
+                    {
+                        Text = element.Word + " ",
+                        Foreground = Color.FromRgb(0,128,0),
+                        FontSize=24,
+                        
+                    };
+
+                    paragraphPassword.Inlines.Add(spanAdv);
+                }
+                else if (element.Word.Contains("I") || element.Word.Contains("II") || element.Word.Contains("III") || element.Word.Contains("IV"))
+                {
+                    HyperlinkAdv hyperlinkAdv = new HyperlinkAdv
+                    {
+                        Text = element.Word + " ",
+                        NavigationUrl = @"tabele/meski_" + element.Word.Trim(',') + ".jpg",
+                        Foreground = Color.FromRgb(0,255,0)
+                    };
                     
-                    hyperlinkAdv.NavigationUrl = "/tabele/meski_" + element.Word.Trim(',') + ".jpg\"";
-                    
-                    paragraphAdv.Inlines.Add(hyperlinkAdv);
+                    paragraphPassword.Inlines.Add(hyperlinkAdv);
+                }
+                else if (element.Description.Contains("definicja"))
+                {
+                    HyperlinkAdv hyperlinkAdv = new HyperlinkAdv
+                    {
+                        Text = element.Word + " \n",
+                        NavigationUrl = "javascript:alert('" + element.Description + "')",
+                        Foreground = Colors.Black,
+                        FontStyle = FontStyles.Normal
+                    };
+                    paragraphDescryption.Inlines.Add(hyperlinkAdv);
+                }
+                else if (element.Description.Contains("cytat"))
+                {
+                    ParagraphAdv paragraphCitation = new ParagraphAdv();
+                    paragraphCitation.ListType = ListType.Bulleted;
+                    sectionAdv.Blocks.Add(paragraphCitation);
+                    HyperlinkAdv hyperlinkAdv = new HyperlinkAdv
+                    {
+                        Text = element.Word + " \n",
+                        NavigationUrl = "javascript:alert('" + element.Description + "')",
+                        Foreground = Colors.Black
+                    };
+                    paragraphCitation.Inlines.Add(hyperlinkAdv);
+                }
+                else if (element.Description.Contains("wyjaśnienie etymologiczne wyrazu"))
+                {
+                    ParagraphAdv paragraphLatin = new ParagraphAdv();
+                    sectionAdv.Blocks.Add(paragraphLatin);
+                    HyperlinkAdv hyperlinkAdv = new HyperlinkAdv
+                    {
+                        Text = element.Word + " ",
+                        NavigationUrl = "javascript:alert('" + element.Description + "')",
+                        Foreground = Colors.Black
+                    };
+                    paragraphLatin.Inlines.Add(hyperlinkAdv);
                 }
                 else
                 {
-                    SpanAdv spanAdv = new SpanAdv();
-                    spanAdv.Text = element.Word+" ";
-                    paragraphAdv.Inlines.Add(spanAdv);
+                    SpanAdv spanAdv = new SpanAdv
+                    {
+                        Text = element.Word + " ",
+                        
+                    };
+                    
+                    paragraphPassword.Inlines.Add(spanAdv);
                 }
 
             }
