@@ -200,31 +200,31 @@
     <Resource Include="3.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="View\otworz.png" />
+    <Resource Include="Icons\otworz.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="View\zapisz.png" />
+    <Resource Include="Icons\zapisz.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="View\zapisz jako.png" />
+    <Resource Include="Icons\zapisz jako.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="View\wyjscie.png" />
+    <Resource Include="Icons\wyjscie.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="View\eksport.png" />
+    <Resource Include="Icons\eksport.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="View\rozpoznaj.png" />
+    <Resource Include="Icons\rozpoznaj.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="View\sprawdz.png" />
+    <Resource Include="Icons\sprawdz.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="View\nowy.png" />
+    <Resource Include="Icons\nowy.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="View\wklej.png" />
+    <Resource Include="Icons\wklej.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
