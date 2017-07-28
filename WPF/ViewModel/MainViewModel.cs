@@ -1,4 +1,5 @@
-﻿using GalaSoft.MvvmLight;
+﻿using System;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using WPF.Enum;
@@ -30,7 +31,7 @@ namespace WPF.ViewModel
         }
         private void ExecuteOcrCommand()
         {
-            new OcrView().ShowDialog();
+            new OcrView().Show();
             if (_dataExchangeViewModel.ContainsKey(EnumExchangeViewmodel.Dictionary))
             {
                 _dictionaryModel = (DictionaryModel)_dataExchangeViewModel.Item(EnumExchangeViewmodel.Dictionary);
@@ -39,7 +40,20 @@ namespace WPF.ViewModel
 
         private void ExecuteRecognizeCommand()
         {
-            new RecognizeView().ShowDialog();
+            new RecognizeView().Show();
+            //try
+            //{
+            //    view.ShowDialog();
+            //}
+            //catch (Exception e)
+            //{
+            //    Console.WriteLine(e);
+            //    view.Close();
+            //}
+            //finally
+            //{
+            //    view.Close();
+            //}
         }
 
 

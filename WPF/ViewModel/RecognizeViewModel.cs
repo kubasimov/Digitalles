@@ -15,6 +15,7 @@ using Syncfusion.Windows.Tools.Controls;
 using WPF.Enum;
 using WPF.Interface;
 using WPF.Model;
+using WPF.View;
 using Color = System.Windows.Media.Color;
 
 namespace WPF.ViewModel
@@ -138,7 +139,7 @@ namespace WPF.ViewModel
         {
             DocumentAdv textDocumentAdv = ParsowanieHtml(_recognizePasswordObservableCollection);
 
-            using (var t = File.OpenWrite(@"D:\dane\text.html"))
+            using (var t = File.Create(@"D:\dane\text.html"))
             {
                 HTMLExporting.ConvertToHtml(textDocumentAdv,t);
             }
@@ -147,25 +148,21 @@ namespace WPF.ViewModel
 
         private DocumentAdv ParsowanieHtml(ObservableCollection<DictionaryPasswordElement> dictionaryPasswordElements)
         {
-            DocumentAdv documentAdv = new DocumentAdv();
-            SectionAdv sectionAdv = new SectionAdv();
+            var documentAdv = new DocumentAdv();
+            var sectionAdv = new SectionAdv();
             documentAdv.Sections.Add(sectionAdv);
 
-            ParagraphAdv paragraphPassword = new ParagraphAdv();
+            var paragraphPassword = new ParagraphAdv();
             sectionAdv.Blocks.Add(paragraphPassword);
 
-            ParagraphAdv paragraphDescryption = new ParagraphAdv();
+            var paragraphDescryption = new ParagraphAdv();
             sectionAdv.Blocks.Add(paragraphDescryption);
-
             
-
-            
-
-            foreach (DictionaryPasswordElement element in dictionaryPasswordElements)
+            foreach (var element in dictionaryPasswordElements)
             {
                 if (element.Description.Contains("hasło"))
                 {
-                    SpanAdv spanAdv = new SpanAdv
+                    var spanAdv = new SpanAdv
                     {
                         Text = element.Word + " ",
                         Foreground = Color.FromRgb(0,128,0),
@@ -177,32 +174,34 @@ namespace WPF.ViewModel
                 }
                 else if (element.Word.Contains("I") || element.Word.Contains("II") || element.Word.Contains("III") || element.Word.Contains("IV"))
                 {
-                    HyperlinkAdv hyperlinkAdv = new HyperlinkAdv
+                    var hyperlinkAdv = new HyperlinkAdv
                     {
                         Text = element.Word + " ",
                         NavigationUrl = @"tabele/meski_" + element.Word.Trim(',') + ".jpg",
-                        Foreground = Color.FromRgb(0,255,0)
+                        Foreground = Color.FromRgb(0, 255, 0)
                     };
                     
                     paragraphPassword.Inlines.Add(hyperlinkAdv);
                 }
                 else if (element.Description.Contains("definicja"))
                 {
-                    HyperlinkAdv hyperlinkAdv = new HyperlinkAdv
+                    var hyperlinkAdv = new HyperlinkAdv
                     {
                         Text = element.Word + " \n",
                         NavigationUrl = "javascript:alert('" + element.Description + "')",
-                        Foreground = Colors.Black,
-                        FontStyle = FontStyles.Normal
+                        Foreground = Colors.Black
                     };
                     paragraphDescryption.Inlines.Add(hyperlinkAdv);
                 }
                 else if (element.Description.Contains("cytat"))
                 {
-                    ParagraphAdv paragraphCitation = new ParagraphAdv();
-                    paragraphCitation.ListType = ListType.Bulleted;
+                    var paragraphCitation = new ParagraphAdv
+                    {
+                        ListType = ListType.Bulleted
+                    };
                     sectionAdv.Blocks.Add(paragraphCitation);
-                    HyperlinkAdv hyperlinkAdv = new HyperlinkAdv
+
+                    var hyperlinkAdv = new HyperlinkAdv
                     {
                         Text = element.Word + " \n",
                         NavigationUrl = "javascript:alert('" + element.Description + "')",
@@ -212,9 +211,9 @@ namespace WPF.ViewModel
                 }
                 else if (element.Description.Contains("wyjaśnienie etymologiczne wyrazu"))
                 {
-                    ParagraphAdv paragraphLatin = new ParagraphAdv();
+                    var paragraphLatin = new ParagraphAdv();
                     sectionAdv.Blocks.Add(paragraphLatin);
-                    HyperlinkAdv hyperlinkAdv = new HyperlinkAdv
+                    var hyperlinkAdv = new HyperlinkAdv
                     {
                         Text = element.Word + " ",
                         NavigationUrl = "javascript:alert('" + element.Description + "')",
@@ -224,7 +223,7 @@ namespace WPF.ViewModel
                 }
                 else
                 {
-                    SpanAdv spanAdv = new SpanAdv
+                    var spanAdv = new SpanAdv
                     {
                         Text = element.Word + " ",
                         
@@ -249,6 +248,30 @@ namespace WPF.ViewModel
             Messenger.Default.Send(new NotificationMessage(this, "CloseRecognizeView"));
         }
 
+        private void ExecutePreviewCommand()
+        {
+            //_dataExchangeViewModel.Add(EnumExchangeViewmodel.Preview,ParsowanieHtml(_recognizePasswordObservableCollection));
+            //_dataExchangeViewModel.Add(EnumExchangeViewmodel.Preview, _textToRecognize);
+            ExecuteExportToHtml();
+
+            var view = new PreviewView();
+            try
+            {
+                view.ShowDialog();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                Messenger.Default.Send(new NotificationMessage(this, "ClosePreviewView"));
+                
+            }
+            finally
+            {
+                Messenger.Default.Send(new NotificationMessage(this, "ClosePreviewView"));
+                
+            }
+
+        }
         #region RelayMethod
 
         private RelayCommand _exitCommand;
@@ -295,6 +318,11 @@ namespace WPF.ViewModel
 
         public RelayCommand ExportToHtml => _exportToHtmlCommand
                                             ?? (_exportToHtmlCommand = new RelayCommand(ExecuteExportToHtml));
+
+        private RelayCommand _previewCommand;
+
+        public RelayCommand PreviewCommand => _previewCommand
+                                              ?? (_previewCommand = new RelayCommand(ExecutePreviewCommand));
 
         
 

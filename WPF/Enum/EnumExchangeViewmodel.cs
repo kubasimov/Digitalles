@@ -5,6 +5,7 @@
         Language,
         OcrSettings,
         Dictionary,
-        TextToRecognize
+        TextToRecognize,
+        Preview 
     }
 }
