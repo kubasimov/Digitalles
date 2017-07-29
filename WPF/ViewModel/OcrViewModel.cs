@@ -99,6 +99,8 @@ namespace WPF.ViewModel
         //ocr one page
         private async void ExecuteOcrPage()
         {
+            _showBusy = true;
+            RaisePropertyChanged(ShowBusyPropertyName);
             await _coreOcr.LoadImage(_bitmapImage.UriSource.AbsolutePath);
 
             var text = await _coreOcr.OcrPages(LangListToString.Convert(_languages), _settingsModel.Pages);
@@ -106,6 +108,8 @@ namespace WPF.ViewModel
             var page = await _coreOcr.DecodeHocr(text);
 
             _documentsAdv.Add(DocumentAdvCrud.LoadDocumentAdv(page));
+            _showBusy = false;
+            RaisePropertyChanged(ShowBusyPropertyName);
 
             _documentAdv = _documentsAdv[_pageCounter];
 
@@ -117,11 +121,15 @@ namespace WPF.ViewModel
         {
             foreach (var bitmapImage in _bitmapImages)
             {
+                _showBusy = true;
+                RaisePropertyChanged(ShowBusyPropertyName);
                 await _coreOcr.LoadImage(bitmapImage.UriSource.AbsolutePath);
 
                 var text = await _coreOcr.OcrPages(LangListToString.Convert(_languages), _settingsModel.Pages);
 
                 var page = await _coreOcr.DecodeHocr(text);
+                _showBusy = false;
+                RaisePropertyChanged(ShowBusyPropertyName);
 
                 _documentsAdv.Add(DocumentAdvCrud.LoadDocumentAdv(page));
             }
@@ -437,6 +445,28 @@ namespace WPF.ViewModel
 
                 _pageCounter = value;
                 RaisePropertyChanged(PageCounterPropertyName);
+            }
+        }
+        #endregion
+
+        #region ShowBusy
+        public const string ShowBusyPropertyName = "ShowBusy";
+
+        private bool _showBusy = false;
+
+        public bool ShowBusy
+        {
+            get => _showBusy;
+
+            set
+            {
+                if (_showBusy == value)
+                {
+                    return;
+                }
+
+                _showBusy = value;
+                RaisePropertyChanged(ShowBusyPropertyName);
             }
         }
         #endregion

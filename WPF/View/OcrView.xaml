@@ -68,6 +68,7 @@
             </i:Interaction.Triggers>
 
         </ListBox>
+        <syncfusion:SfBusyIndicator Grid.Column="3" HorizontalAlignment="Left" Margin="155,149,0,0" Grid.Row="1" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>
