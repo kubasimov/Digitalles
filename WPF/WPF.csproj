@@ -109,6 +109,7 @@
     <Compile Include="Model\LangModel.cs" />
     <Compile Include="Model\SettingsModel.cs" />
     <Compile Include="Helpers\DocumentAdvCrud.cs" />
+    <Compile Include="ViewModel\DictionaryViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\OcrViewModel.cs" />
     <Compile Include="ViewModel\OcrSettingsViewModel.cs" />
@@ -141,6 +142,10 @@
     <Compile Include="View\TestsView.xaml.cs">
       <DependentUpon>TestsView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Simple Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="View\DictionaryView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -188,6 +193,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -232,6 +238,16 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Icons\wklej.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\D2.png" />
+    <Resource Include="Icons\rozpoznanie hasla.png" />
+    <Resource Include="Icons\rozpoznanie obrazu.png" />
+    <Resource Include="Icons\slowinik.png" />
+    <Resource Include="Icons\wyjscie1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\D2 ikona.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

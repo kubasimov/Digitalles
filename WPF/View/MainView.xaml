@@ -1,15 +1,41 @@
-﻿<Window x:Class="WPF.View.MainView"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WPF.View"
+    x:Class="WPF.View.MainView"
         mc:Ignorable="d"
-        Title="MainView" Height="300" Width="300" DataContext="{Binding Main, Mode=OneWay, Source={StaticResource Locator}}">
+        Title="Digitalles" Height="484.667" Width="286" DataContext="{Binding Main, Mode=OneWay, Source={StaticResource Locator}}" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Icon="/WPF;component/Icons/D2 ikona.png">
     <Grid>
-        <Button Content="Ocr" HorizontalAlignment="Left" Margin="47,54,0,0" VerticalAlignment="Top" Width="75" Command="{Binding OcrCommand, Mode=OneWay}"/>
-        <Button Content="Exit" HorizontalAlignment="Left" Margin="189,213,0,0" VerticalAlignment="Top" Width="75" Command="{Binding ExitCommand, Mode=OneWay}"/>
-        <Button Content="Rozpoznanie" HorizontalAlignment="Left" Margin="127,54,0,0" VerticalAlignment="Top" Width="75" Command="{Binding RecognizeCommand, Mode=OneWay}"/>
+        <StackPanel Margin="10,146.329,10,106.671">
+            <Button Command="{Binding OcrCommand, Mode=OneWay}" Height="60">
+                <Button.BorderBrush>
+                    <ImageBrush ImageSource="/WPF;component/Icons/rozpoznanie obrazu.png"/>
+                </Button.BorderBrush>
+                <Button.Background>
+                    <ImageBrush ImageSource="/WPF;component/Icons/rozpoznanie obrazu.png"/>
+                </Button.Background>
+            </Button>
+            <Button Command="{Binding RecognizeCommand, Mode=OneWay}" BorderBrush="{x:Null}" Height="60">
+                <Button.Background>
+                    <ImageBrush ImageSource="/WPF;component/Icons/rozpoznanie hasla.png"/>
+                </Button.Background>
+            </Button>
+            <Button Command="{Binding DictionaryCommand, Mode=OneWay}" BorderBrush="{x:Null}" Height="60">
+                <Button.Background>
+                    <ImageBrush ImageSource="/WPF;component/Icons/slowinik.png"/>
+                </Button.Background>
+            </Button>
+
+        </StackPanel>
+        <StackPanel Margin="10,359.333,10,25.667" Orientation="Vertical">
+            <Button Command="{Binding ExitCommand, Mode=OneWay}" Height="60" BorderBrush="{x:Null}">
+                <Button.Background>
+                    <ImageBrush ImageSource="/WPF;component/Icons/wyjscie1.png"/>
+                </Button.Background>
+            </Button>
+        </StackPanel>
+        <Image HorizontalAlignment="Left" Margin="10,32.329,0,0" VerticalAlignment="Top" Source="/WPF;component/Icons/D2.png" Width="256"/>
 
     </Grid>
 </Window>

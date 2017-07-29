@@ -29,5 +29,10 @@ namespace WPF.View
         {
             Debug.WriteLine("SelectionChanged  "+obj);
         }
+
+        private void Window_Unloaded(object sender, RoutedEventArgs e)
+        {
+            ViewModelLocator.UnregisterOcrViewViewModel();
+        }
     }
 }

@@ -8,60 +8,50 @@
         xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
         
         mc:Ignorable="d"
-        Title="DictionaryView" Height="535" Width="768" 
-        syncfusion:SkinStorage.VisualStyle="Office2010Blue">
-
+        Title="Digitalles - Słownik" Height="535" Width="768" DataContext="{Binding Dictionary, Mode=OneWay, Source={StaticResource Locator}}" Icon="/WPF;component/Icons/D2 ikona.png" Unloaded="Window_Unloaded" 
+        >
     <Window.Resources>
-
-        <ResourceDictionary>
-
-            <ResourceDictionary.MergedDictionaries>
-
-                <ResourceDictionary Source="/Syncfusion.Tools.WPF;Component/FrameWork/Ribbon/themes/Office2010BlueStyle.xaml"/>
-
-            </ResourceDictionary.MergedDictionaries>
-
-            <Style x:Key="RibbonStyle" TargetType="{x:Type syncfusion:Ribbon}" BasedOn="{StaticResource Office2010BlueRibbonStyle}">
-
-                <Setter Property="BackStageColor" Value="Blue"/>
-
-            </Style>
-
-        </ResourceDictionary>
-
+        <DataTemplate x:Key="StringTemplate">
+            <StackPanel>
+                <TextBlock Text="{Binding Mode=OneWay}"/>
+            </StackPanel>
+        </DataTemplate>
     </Window.Resources>
+
+
     <Grid>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="17*"/>
-            <ColumnDefinition Width="59*"/>
+            <ColumnDefinition Width="47*"/>
+            <ColumnDefinition Width="143*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="95*"/>
-            <RowDefinition Height="409*"/>
+            <RowDefinition Height="37*"/>
+            <RowDefinition Height="89*"/>
         </Grid.RowDefinitions>
-        <syncfusion:Ribbon Grid.Row="0" Grid.ColumnSpan="2" Margin="0,0,0,0" Style="{StaticResource RibbonStyle}">
+        <syncfusion:Ribbon Grid.Row="0" Grid.ColumnSpan="2" Margin="0,0,0,0" >
             <syncfusion:RibbonTab Caption="Plik">
                 <syncfusion:RibbonBar Header="">
                     <syncfusion:RibbonButton Label="Nowy" SizeForm="Large" Command="{Binding NewCommand, Mode=OneWay}" LargeIcon="/WPF;component/Icons/nowy.png"/>
-                    <syncfusion:RibbonButton Label="Wczytaj słownik" SizeForm="Large" Command="{Binding  OpenCommand, Mode=OneWay}" LargeIcon="/WPF;component/Icons/otworz.png"/>
+                    <syncfusion:RibbonButton Label="Wczytaj słownik" SizeForm="Large" Command="{Binding OpenCommand, Mode=OneWay}" LargeIcon="/WPF;component/Icons/otworz.png"/>
 
                     <syncfusion:RibbonButton Label="Wyjście" SizeForm="Large" Command="{Binding ExitCommand, Mode=OneWay}" LargeIcon="/WPF;component/Icons/wyjscie.png"/>
                 </syncfusion:RibbonBar>
                 <syncfusion:RibbonBar Header="">
-                    <syncfusion:RibbonTextBox Text="Szukaj" Width="150" Margin="0,25,0,0" />
+                    <syncfusion:RibbonTextBox Text="{Binding SearchText}" Width="150" Margin="0,25,0,0" />
+                    <syncfusion:RibbonButton Label="Wczytaj słownik" SizeForm="ExtraSmall" Margin="0,25,0,0"/>
 
                 </syncfusion:RibbonBar>
             </syncfusion:RibbonTab>
 
         </syncfusion:Ribbon>
-        <ListView Grid.Column="0" Margin="0,0,0,0" Grid.Row="1">
+        <ListView Grid.Column="0" Margin="0,0,0,0" Grid.Row="1" ItemTemplate="{DynamicResource StringTemplate}" ItemsSource="{Binding PasswordList}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <syncfusion:RichTextBoxAdv Grid.Column="1"  Margin="0,0,0,0" Grid.Row="1"/>
+        <syncfusion:RichTextBoxAdv Grid.Column="1"  Margin="0,0,0,0" Grid.Row="1" DataContext="{Binding Document}"/>
     </Grid>
 </Window>

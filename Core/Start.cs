@@ -1,13 +1,15 @@
 ﻿using System;
+using System.ComponentModel;
 using Autofac;
 using Core.Interface;
 using Core.Model;
+using IContainer = System.ComponentModel.IContainer;
 
 namespace Core
 {
     public class Start
     {
-        private static IContainer _container;
+        private static Autofac.IContainer _container;
 
         private readonly Ocr _ocr;
 

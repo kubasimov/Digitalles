@@ -1,13 +1,10 @@
 using System;
-using Core.Model;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using Syncfusion.Windows.Tools.Controls;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows;
-using System.Windows.Interactivity;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Core.Interface;
@@ -134,9 +131,10 @@ namespace WPF.ViewModel
 
         private void ExecuteRecognizeTextCommand()
         {
-            //var t = _selectionAdvtext;
+            
             if(_documentAdv!=null)
                 RecognizeText.Recognize(_documentAdv);
+            //TODO: za³adowanie i wys³anie tekstu has³a do rozpoznania
 
         }
 
@@ -199,8 +197,7 @@ namespace WPF.ViewModel
         private void ExecuteShowImage(object obj)
         {
             if (obj == null) return;
-            //_pageCounter = (int)obj;
-            //if (_pageCounter < 0) _pageCounter = 0;
+            
             _pageCounter=(int)obj<0 ? 0: (int) obj;  
 
             AddActualyImage();

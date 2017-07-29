@@ -8,9 +8,9 @@
    
         mc:Ignorable="d"
    
-        Title="RecognizeView" Height="700" Width="884" 
+        Title="Digitalles - Rozpoznawanie hasła" Height="700" Width="884" 
     DataContext="{Binding Recognize, Mode=OneWay, Source={StaticResource Locator}}" 
-    ResizeMode="NoResize">
+    ResizeMode="NoResize" Icon="/WPF;component/Icons/D2 ikona.png" Unloaded="Window_Unloaded">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="321*"/>
@@ -42,7 +42,7 @@
                 <syncfusion:RibbonBar Header="Tekst">
                     <syncfusion:RibbonButton Label="Nowy" SizeForm="Large" Command="{Binding NewCommand, Mode=OneWay}" LargeIcon="/WPF;component/Icons/nowy.png"></syncfusion:RibbonButton>
                     <syncfusion:RibbonButton Label="Wklej" SizeForm="Large" LargeIcon="/WPF;component/Icons/wklej.png"></syncfusion:RibbonButton>
-                    <syncfusion:RibbonButton Label="Podglad" SizeForm="Large" LargeIcon="wklej.png" Command="{Binding PreviewCommand, Mode=OneWay}"></syncfusion:RibbonButton>
+                    <syncfusion:RibbonButton Label="Podglad" SizeForm="Large" LargeIcon="/WPF;component/Icons/wklej.png" Command="{Binding PreviewCommand, Mode=OneWay}"></syncfusion:RibbonButton>
                 </syncfusion:RibbonBar>
             </syncfusion:RibbonTab>
 

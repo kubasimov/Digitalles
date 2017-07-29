@@ -35,8 +35,7 @@ namespace WPF.ViewModel
         }
         private void ExecuteExitCommand()
         {
-            _documentAdv = null;
-            //Messenger.Default.Unregister<PreviewViewModel>(this);
+            
             Messenger.Default.Send(new NotificationMessage(this, "ClosePreviewView"));
             
         }

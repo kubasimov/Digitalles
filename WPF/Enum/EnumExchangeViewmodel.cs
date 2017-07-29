@@ -6,6 +6,7 @@
         OcrSettings,
         Dictionary,
         TextToRecognize,
-        Preview 
+        Preview,
+        RecognizeView
     }
 }

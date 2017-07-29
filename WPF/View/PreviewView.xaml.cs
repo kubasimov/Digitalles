@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using GalaSoft.MvvmLight.Messaging;
+using WPF.ViewModel;
 
 namespace WPF.View
 {
@@ -19,6 +20,11 @@ namespace WPF.View
                     Close();
                 }
             });
+        }
+
+        private void Window_Unloaded(object sender, RoutedEventArgs e)
+        {
+            ViewModelLocator.UnregisterPreviewViewModel();
         }
     }
 }

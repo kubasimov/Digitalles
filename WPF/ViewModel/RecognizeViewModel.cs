@@ -76,6 +76,7 @@ namespace WPF.ViewModel
                 }
 
                 _recognizePasswordObservableCollection = new ObservableCollection<DictionaryPasswordElement>();
+
                 LoadDictionaryPassword();
             }
             

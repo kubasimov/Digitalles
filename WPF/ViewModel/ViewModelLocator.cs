@@ -52,10 +52,11 @@ namespace WPF.ViewModel
 
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<OcrViewModel>();
-            SimpleIoc.Default.Register<OcrSettingsViewModel>();
-            SimpleIoc.Default.Register<TestsViewModel>();
+            //SimpleIoc.Default.Register<OcrSettingsViewModel>();
+            //SimpleIoc.Default.Register<TestsViewModel>();
             SimpleIoc.Default.Register<RecognizeViewModel>();
             SimpleIoc.Default.Register<PreviewViewModel>();
+            SimpleIoc.Default.Register<DictionaryViewModel>();
         }
 
 
@@ -93,9 +94,38 @@ namespace WPF.ViewModel
             get { return ServiceLocator.Current.GetInstance<PreviewViewModel>(); }
 
         }
+
+        public DictionaryViewModel Dictionary
+        {
+            get { return ServiceLocator.Current.GetInstance<DictionaryViewModel>(); }
+        }
         public static void Cleanup()
         {
-            // TODO Clear the ViewModels
+            SimpleIoc.Default.Unregister<DictionaryViewModel>();
+        }
+
+        public static void UnregisterRecognizeViewModel()
+        {
+            SimpleIoc.Default.Unregister<RecognizeViewModel>();
+            SimpleIoc.Default.Register<RecognizeViewModel>();
+        }
+
+        public static void UnregisterDictionaryViewModel()
+        {
+            SimpleIoc.Default.Unregister<DictionaryViewModel>();
+            SimpleIoc.Default.Register<DictionaryViewModel>();
+        }
+
+        public static void UnregisterOcrViewViewModel()
+        {
+            SimpleIoc.Default.Unregister<OcrViewModel>();
+            SimpleIoc.Default.Register<OcrViewModel>();
+        }
+
+        public static void UnregisterPreviewViewModel()
+        {
+            SimpleIoc.Default.Unregister<PreviewViewModel>();
+            SimpleIoc.Default.Register<PreviewViewModel>();
         }
     }
 }

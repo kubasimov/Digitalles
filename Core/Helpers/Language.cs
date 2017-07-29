@@ -3,7 +3,7 @@
     public enum Language
     {
         pol,
-        eng,
-        ita
+        eng
+        
     }
 }
