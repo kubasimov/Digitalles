@@ -4,7 +4,9 @@ using GalaSoft.MvvmLight.Command;
 using Syncfusion.Windows.Tools.Controls;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Drawing;
 using System.Linq;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Core.Interface;
@@ -49,12 +51,12 @@ namespace WPF.ViewModel
             {
                 _bitmapImages = new ObservableCollection<BitmapImage>
                 {
-                    new BitmapImage(new Uri(@"F:/1.jpg")),
-                    new BitmapImage(new Uri(@"F:/3.jpg")),
-                    new BitmapImage(new Uri(@"F:/1.jpg")),
-                    new BitmapImage(new Uri(@"F:/3.jpg")),
-                    new BitmapImage(new Uri(@"F:/1.jpg")),
-                    new BitmapImage(new Uri(@"F:/3.jpg"))
+                    new BitmapImage(new Uri(@"D:/1.jpg")),
+                    new BitmapImage(new Uri(@"D:/3.jpg")),
+                    new BitmapImage(new Uri(@"D:/1.jpg")),
+                    new BitmapImage(new Uri(@"D:/3.jpg")),
+                    new BitmapImage(new Uri(@"D:/1.jpg")),
+                    new BitmapImage(new Uri(@"D:/3.jpg"))
                 };
 
                 _bitmapImage = _bitmapImages[_pageCounter];
@@ -211,8 +213,20 @@ namespace WPF.ViewModel
             RaisePropertyChanged(BitmapImagesPropertyName);
             RaisePropertyChanged(DocumentADVPropertyName);
         }
-        
-        
+
+        private void ExecuteMouseWhellCommand(object obj)
+        {
+            var e = (MouseWheelEventArgs) obj;
+
+           
+            //var st = (ScaleTransform)_bitmapImage.RenderTransform;
+            double zoom = e.Delta > 0 ? .2 : -.2;
+
+            _bitmapImage.Rotation = Rotation.Rotate180;
+            //st.ScaleX += zoom;
+            //st.ScaleY += zoom;
+            RaisePropertyChanged(BitmapImagePropertyName);
+        }
 
         #region Command
         private RelayCommand _openImageCommand;
@@ -266,13 +280,15 @@ namespace WPF.ViewModel
 
         private RelayCommand _recognizeTextCommand;
 
-        /// <summary>
-        /// Gets the RecognizeTextCommand.
-        /// </summary>
         public RelayCommand RecognizeTextCommand => _recognizeTextCommand
                                                     ?? (_recognizeTextCommand = new RelayCommand(ExecuteRecognizeTextCommand));
 
+        private RelayCommand<object> _mouseWhellCommand;
 
+        public RelayCommand<object> MouseWhellCommand => _mouseWhellCommand
+                                                 ?? (_mouseWhellCommand = new RelayCommand<object>(ExecuteMouseWhellCommand));
+
+        
 
 
         #endregion

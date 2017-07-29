@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Media;
 using GalaSoft.MvvmLight;
@@ -11,6 +12,7 @@ using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using Microsoft.Win32;
 using Newtonsoft.Json;
+using Syncfusion.Data.Extensions;
 using Syncfusion.Windows.Tools.Controls;
 using WPF.Enum;
 using WPF.Interface;
@@ -240,7 +242,25 @@ namespace WPF.ViewModel
 
         private void ExecuteSettingsCommand()
         {
-            //TODO: Implement SettingsView to recognizetext
+            List<List<DictionaryPasswordElement>> tt ;
+
+            if (File.Exists(@"D:\dane\slownik.json"))
+            {
+                tt =
+                    JsonConvert.DeserializeObject<List<List<DictionaryPasswordElement>>>(
+                        File.ReadAllText(@"D:\dane\slownik.json"));
+            }
+            else
+            {
+                tt = new List<List<DictionaryPasswordElement>>();
+            }
+
+            var t = _recognizePasswordObservableCollection.ToList();
+            
+            tt.Add(t);
+            
+            File.WriteAllText(@"D:\dane\slownik.json",JsonConvert.SerializeObject(tt,Formatting.Indented));
+            
             
         }
 

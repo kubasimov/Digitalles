@@ -1,4 +1,4 @@
-﻿<Window x:Class="WPF.View.DictionaryView"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -7,8 +7,10 @@
         xmlns:command="http://www.galasoft.ch/mvvmlight"
         xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
         
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" x:Class="WPF.View.DictionaryView"
+        
         mc:Ignorable="d"
-        Title="Digitalles - Słownik" Height="535" Width="768" DataContext="{Binding Dictionary, Mode=OneWay, Source={StaticResource Locator}}" Icon="/WPF;component/Icons/D2 ikona.png" Unloaded="Window_Unloaded" 
+        Title="Digitalles - Słownik" Height="535" Width="768" Icon="/WPF;component/Icons/D2 ikona.png" Unloaded="Window_Unloaded" 
         >
     <Window.Resources>
         <DataTemplate x:Key="StringTemplate">
@@ -17,6 +19,11 @@
             </StackPanel>
         </DataTemplate>
     </Window.Resources>
+
+
+    <Window.DataContext>
+        <Binding Mode="OneWay" Path="Dictionary" Source="{StaticResource Locator}"/>
+    </Window.DataContext>
 
 
     <Grid>
@@ -39,19 +46,21 @@
                 </syncfusion:RibbonBar>
                 <syncfusion:RibbonBar Header="">
                     <syncfusion:RibbonTextBox Text="{Binding SearchText}" Width="150" Margin="0,25,0,0" />
-                    <syncfusion:RibbonButton Label="Wczytaj słownik" SizeForm="ExtraSmall" Margin="0,25,0,0"/>
+                    <syncfusion:RibbonButton Label="" SizeForm="Large" Margin="0,18,0,0" LargeIcon="/WPF;component/Icons/obraz.png" SmallIcon="/WPF;component/Icons/obraz.png" HorizontalAlignment="Left" Width="40.91"/>
 
                 </syncfusion:RibbonBar>
             </syncfusion:RibbonTab>
 
         </syncfusion:Ribbon>
-        <ListView Grid.Column="0" Margin="0,0,0,0" Grid.Row="1" ItemTemplate="{DynamicResource StringTemplate}" ItemsSource="{Binding PasswordList}">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn/>
-                </GridView>
-            </ListView.View>
+        <ListView x:Name="listView" Grid.Column="0" Margin="0,0,0,0" Grid.Row="1" ItemTemplate="{DynamicResource StringTemplate}" ItemsSource="{Binding PasswordList}">
+
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <command:EventToCommand Command="{Binding SelectWordCommand, Mode=OneWay}" CommandParameter="{Binding SelectedItem, ElementName=listView}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+
         </ListView>
-        <syncfusion:RichTextBoxAdv Grid.Column="1"  Margin="0,0,0,0" Grid.Row="1" DataContext="{Binding Document}"/>
+        <syncfusion:RichTextBoxAdv Grid.Column="1"  Margin="0,0,0,0" Grid.Row="1" Document="{Binding Document, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
     </Grid>
 </Window>
