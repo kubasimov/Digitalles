@@ -110,7 +110,7 @@ namespace WPF.ViewModel
             _documentsAdv.Add(DocumentAdvCrud.LoadDocumentAdv(page));
             _showBusy = false;
             RaisePropertyChanged(ShowBusyPropertyName);
-
+            
             _documentAdv = _documentsAdv[_pageCounter];
 
             RaisePropertyChanged(DocumentADVPropertyName);

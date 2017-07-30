@@ -35,7 +35,7 @@
                 </syncfusion:RibbonBar>
 
                 <syncfusion:RibbonBar Header="Edycja">
-                    <syncfusion:RibbonButton Label="Rozpoznaj" SizeForm="Large" Command="{Binding RecognizeCommand, Mode=OneWay}" LargeIcon="/WPF;component/Icons/rozpoznaj.png"></syncfusion:RibbonButton>
+                    <syncfusion:RibbonButton Label="Rozpoznaj" SizeForm="Large" Command="{Binding RecognizeCommand, Mode=OneWay}" LargeIcon="/WPF;component/Icons/rozpoznaj haslo.png"></syncfusion:RibbonButton>
                     <syncfusion:RibbonButton Label="Sprawdź" SizeForm="Large" LargeIcon="/WPF;component/Icons/sprawdz.png" Command="{Binding SettingsCommand, Mode=OneWay}"></syncfusion:RibbonButton>
                 </syncfusion:RibbonBar>
 

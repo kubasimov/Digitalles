@@ -39,14 +39,13 @@
         <syncfusion:Ribbon Grid.Row="0" Grid.ColumnSpan="2" Margin="0,0,0,0" >
             <syncfusion:RibbonTab Caption="Plik">
                 <syncfusion:RibbonBar Header="">
-                    <syncfusion:RibbonButton Label="Nowy" SizeForm="Large" Command="{Binding NewCommand, Mode=OneWay}" LargeIcon="/WPF;component/Icons/nowy.png"/>
                     <syncfusion:RibbonButton Label="Wczytaj słownik" SizeForm="Large" Command="{Binding OpenCommand, Mode=OneWay}" LargeIcon="/WPF;component/Icons/otworz.png"/>
 
                     <syncfusion:RibbonButton Label="Wyjście" SizeForm="Large" Command="{Binding ExitCommand, Mode=OneWay}" LargeIcon="/WPF;component/Icons/wyjscie.png"/>
                 </syncfusion:RibbonBar>
                 <syncfusion:RibbonBar Header="">
                     <syncfusion:RibbonTextBox Text="{Binding SearchText}" Width="150" Margin="0,25,0,0" />
-                    <syncfusion:RibbonButton Label="" SizeForm="Large" Margin="0,18,0,0" LargeIcon="/WPF;component/Icons/obraz.png" SmallIcon="/WPF;component/Icons/obraz.png" HorizontalAlignment="Left" Width="40.91"/>
+                    <syncfusion:RibbonButton Label="" SizeForm="Large" Margin="0,18,0,0" LargeIcon="/WPF;component/Icons/szukaj.png" SmallIcon="/WPF;component/Icons/szukaj.png" HorizontalAlignment="Left" Width="40.91"/>
 
                 </syncfusion:RibbonBar>
             </syncfusion:RibbonTab>

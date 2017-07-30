@@ -34,22 +34,19 @@
 
         </Grid.RowDefinitions>
         <syncfusion:Ribbon Grid.Row="0" Grid.ColumnSpan="4">
-            <syncfusion:RibbonTab Caption="AAA">
-                <syncfusion:RibbonBar Header="B">
+            <syncfusion:RibbonTab Caption="">
+                <syncfusion:RibbonBar Header="">
                     <syncfusion:RibbonButton Label="Nowy" SizeForm="Large" Command="{Binding NewNewCommand, Mode=OneWay}" LargeIcon="/WPF;component/Icons/nowy.png"/>
                     <syncfusion:RibbonButton Label="Wczytaj obraz" SizeForm="Large" Command="{Binding  OpenImageCommand, Mode=OneWay}" LargeIcon="/WPF;component/Icons/otworz.png"/>
-                    <syncfusion:RibbonButton Label="Rozpoznaj strone" SizeForm="Large" Command="{Binding OcrPage, Mode=OneWay}" LargeIcon="/WPF;component/Icons/rozpoznaj.png" />
-                    <syncfusion:RibbonButton Label="Rozpoznaj strony" SizeForm="Large" Command="{Binding OcrPagesCommand, Mode=OneWay}" LargeIcon="/WPF;component/Icons/rozpoznaj strony.png"/>
-                    <syncfusion:RibbonButton Label="Rozpoznaj hasło" SizeForm="Large" Command="{Binding RecognizeTextCommand, Mode=OneWay}" LargeIcon="/WPF;component/Icons/ropoznaj haslo.png" />
-                    <syncfusion:RibbonButton Label="Rozpoznaj hasła" SizeForm="Large" Command="{Binding RecognizeTextCommand, Mode=OneWay}" LargeIcon="/WPF;component/Icons/ropoznaj hasla.png" />
+                    <syncfusion:RibbonButton Label="Rozpoznaj strone" SizeForm="Large" Command="{Binding OcrPage, Mode=OneWay}" LargeIcon="/WPF;component/Icons/rozpoznaj strone.png" />
+                    <syncfusion:RibbonButton Label="Rozpoznaj hasło" SizeForm="Large" Command="{Binding RecognizeTextCommand, Mode=OneWay}" LargeIcon="/WPF;component/Icons/rozpoznaj haslo.png" />
                     <syncfusion:RibbonButton Label="Zapisz strone do słownika" SizeForm="Large" Command="{Binding SavePageCommand, Mode=OneWay}" LargeIcon="/WPF;component/Icons/zapisz strone do slownika.png" />
-                    <syncfusion:RibbonButton Label="Zapisz strony do słownika" SizeForm="Large" Command="{Binding SavePagesCommand, Mode=OneWay}" LargeIcon="/WPF;component/Icons/zapisz strony do slownika.png" />
                     <syncfusion:RibbonButton Label="Język rozpoznawania" SizeForm="Large" Command="{Binding SelectLanguageCommand, Mode=OneWay}" LargeIcon="/WPF;component/Icons/jezyk rozpoznawania.png" />
                     <syncfusion:RibbonButton Label="Wyjście" SizeForm="Large" Command="{Binding ExitCommand, Mode=OneWay}" LargeIcon="/WPF;component/Icons/wyjscie.png"/>
                 </syncfusion:RibbonBar>
             </syncfusion:RibbonTab>
         </syncfusion:Ribbon>
-        <Image x:Name="image" Grid.Column="1" Grid.Row="1" Source="{Binding BitmapImage,Mode=TwoWay}" Stretch="None" >
+        <Image x:Name="image" Grid.Column="1" Grid.Row="1" Source="{Binding BitmapImage,Mode=TwoWay}" Stretch="Fill" >
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseWheel">
                     <command:EventToCommand Command="{Binding MouseWhellCommand, Mode=OneWay}" PassEventArgsToCommand="True"/>
@@ -68,7 +65,7 @@
             </i:Interaction.Triggers>
 
         </ListBox>
-        <syncfusion:SfBusyIndicator Grid.Column="3" HorizontalAlignment="Left" Margin="155,149,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+        <syncfusion:SfBusyIndicator Grid.Column="3" HorizontalAlignment="Left" Margin="155,149,0,0" Grid.Row="1" VerticalAlignment="Top" IsBusy="{Binding ShowBusy}"/>
 
     </Grid>
 </Window>

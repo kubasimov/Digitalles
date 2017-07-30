@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:Class="WPF.View.MainView"
         mc:Ignorable="d"
-        Title="Digitalles" Height="484.667" Width="286" DataContext="{Binding Main, Mode=OneWay, Source={StaticResource Locator}}" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Icon="/WPF;component/Icons/D2 ikona.png">
+        Title="Digitalles" Height="484.667" Width="286" DataContext="{Binding Main, Mode=OneWay, Source={StaticResource Locator}}" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Icon="/WPF;component/Icons/D2 ikona.png"
+    >
+    
     <Grid>
         <StackPanel Margin="10,146.329,10,106.671">
             <Button Command="{Binding OcrCommand, Mode=OneWay}" Height="60">

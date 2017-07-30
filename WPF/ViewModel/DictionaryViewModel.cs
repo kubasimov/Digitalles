@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Windows.Media;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using Newtonsoft.Json;
 using Syncfusion.Windows.Tools.Controls;
 using WPF.Enum;
+using WPF.Helpers;
 using WPF.Interface;
 using WPF.Model;
 
@@ -16,8 +16,8 @@ namespace WPF.ViewModel
 
     public class DictionaryViewModel:ViewModelBase
     {
-        private IDataExchangeViewModel _dataExchangeViewModel;
-        private ObservableCollection<DictionaryPasswordElement> _dictionaryPassword;
+        private readonly IDataExchangeViewModel _dataExchangeViewModel;
+        private readonly ObservableCollection<DictionaryPasswordElement> _dictionaryPassword;
         private List<List<DictionaryPasswordElement>> _dictionary;
 
         public DictionaryViewModel(IDataExchangeViewModel dataExchangeViewModel)
@@ -70,11 +70,7 @@ namespace WPF.ViewModel
             }
             RaisePropertyChanged(PasswordListPropertyName);
         }
-        
-        private void ExecuteNewCommand()
-        {
-
-        }
+       
         private void ExecuteExitCommand()
         {
             Messenger.Default.Send(new NotificationMessage(this, "CloseDictionaryView"));
@@ -105,7 +101,9 @@ namespace WPF.ViewModel
 
         private void ExecuteExportToHtml(List<DictionaryPasswordElement> elements)
         {
-            DocumentAdv textDocumentAdv = ParsowanieHtml(elements);
+            ObservableCollection<DictionaryPasswordElement> dictionaryPasswordElements = new ObservableCollection<DictionaryPasswordElement>(elements);
+
+            DocumentAdv textDocumentAdv = HtmlParsing.ParsowanieHtml(dictionaryPasswordElements);
 
             using (var t = File.Create(@"D:\dane\text.html"))
             {
@@ -115,98 +113,7 @@ namespace WPF.ViewModel
 
         }
 
-        private DocumentAdv ParsowanieHtml(List<DictionaryPasswordElement> dictionaryPasswordElements)
-        {
-            var documentAdv = new DocumentAdv();
-            var sectionAdv = new SectionAdv();
-            documentAdv.Sections.Add(sectionAdv);
-
-            var paragraphPassword = new ParagraphAdv();
-            sectionAdv.Blocks.Add(paragraphPassword);
-
-            var paragraphDescryption = new ParagraphAdv();
-            sectionAdv.Blocks.Add(paragraphDescryption);
-
-            foreach (var element in dictionaryPasswordElements)
-            {
-                if (element.Description.Contains("hasło"))
-                {
-                    var spanAdv = new SpanAdv
-                    {
-                        Text = element.Word + " ",
-                        Foreground = Color.FromRgb(0, 128, 0),
-                        FontSize = 24,
-
-                    };
-
-                    paragraphPassword.Inlines.Add(spanAdv);
-                }
-                else if (element.Word.Contains("I") || element.Word.Contains("II") || element.Word.Contains("III") || element.Word.Contains("IV"))
-                {
-                    var hyperlinkAdv = new HyperlinkAdv
-                    {
-                        Text = element.Word + " ",
-                        NavigationUrl = @"tabele/meski_" + element.Word.Trim(',') + ".jpg",
-                        Foreground = Color.FromRgb(0, 255, 0)
-                    };
-
-                    paragraphPassword.Inlines.Add(hyperlinkAdv);
-                }
-                else if (element.Description.Contains("definicja"))
-                {
-                    var hyperlinkAdv = new HyperlinkAdv
-                    {
-                        Text = element.Word + " \n",
-                        NavigationUrl = "javascript:alert('" + element.Description + "')",
-                        Foreground = Colors.Black
-                    };
-                    paragraphDescryption.Inlines.Add(hyperlinkAdv);
-                }
-                else if (element.Description.Contains("cytat"))
-                {
-                    var paragraphCitation = new ParagraphAdv
-                    {
-                        ListType = ListType.Bulleted
-                    };
-                    sectionAdv.Blocks.Add(paragraphCitation);
-
-                    var hyperlinkAdv = new HyperlinkAdv
-                    {
-                        Text = element.Word + " \n",
-                        NavigationUrl = "javascript:alert('" + element.Description + "')",
-                        Foreground = Colors.Black
-                    };
-                    paragraphCitation.Inlines.Add(hyperlinkAdv);
-                }
-                else if (element.Description.Contains("wyjaśnienie etymologiczne wyrazu"))
-                {
-                    var paragraphLatin = new ParagraphAdv();
-                    sectionAdv.Blocks.Add(paragraphLatin);
-                    var hyperlinkAdv = new HyperlinkAdv
-                    {
-                        Text = element.Word + " ",
-                        NavigationUrl = "javascript:alert('" + element.Description + "')",
-                        Foreground = Colors.Black
-                    };
-                    paragraphLatin.Inlines.Add(hyperlinkAdv);
-                }
-                else
-                {
-                    var spanAdv = new SpanAdv
-                    {
-                        Text = element.Word + " ",
-
-                    };
-
-                    paragraphPassword.Inlines.Add(spanAdv);
-                }
-
-            }
-
-            return documentAdv;
-        }
-
-
+       
         #region Mvvm members
         public const string SearchTextPropertyName = "SearchText";
 
@@ -284,11 +191,6 @@ namespace WPF.ViewModel
 
         public RelayCommand ExitCommand => _exitCommand
                                            ?? (_exitCommand = new RelayCommand(ExecuteExitCommand));
-
-        private RelayCommand _newCommand;
-
-        public RelayCommand NewCommand => _newCommand
-                                           ?? (_newCommand = new RelayCommand(ExecuteNewCommand));
 
         private RelayCommand _openCommand;
 

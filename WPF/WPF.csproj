@@ -189,11 +189,12 @@
     <Compile Include="Model\SettingsModel.cs" />
     <Compile Include="Helpers\DocumentAdvCrud.cs" />
     <Compile Include="ViewModel\DictionaryViewModel.cs" />
-    <Compile Include="ViewModel\HtmlParsing.cs" />
+    <Compile Include="Helpers\HtmlParsing.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\OcrViewModel.cs" />
     <Compile Include="ViewModel\OcrSettingsViewModel.cs" />
     <Compile Include="ViewModel\PreviewViewModel.cs" />
+    <Compile Include="Helpers\RecognizePasswordText.cs" />
     <Compile Include="ViewModel\RecognizeViewModel.cs" />
     <Compile Include="ViewModel\TestsViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
@@ -293,30 +294,6 @@
     <Resource Include="3.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Icons\otworz.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Icons\zapisz.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Icons\zapisz jako.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Icons\wyjscie.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Icons\rozpoznaj.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Icons\sprawdz.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Icons\nowy.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Icons\wklej.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Icons\D2.png" />
     <Resource Include="Icons\rozpoznanie hasla.png" />
     <Resource Include="Icons\rozpoznanie obrazu.png" />
@@ -325,23 +302,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Icons\D2 ikona.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Icons\jezyk rozpoznawania.png" />
-    <Resource Include="Icons\ropoznaj hasla.png" />
-    <Resource Include="Icons\ropoznaj haslo.png" />
-    <Resource Include="Icons\rozpoznaj strony.png" />
-    <Resource Include="Icons\zapisz strone do slownika.png" />
-    <Resource Include="Icons\zapisz strony do slownika.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Icons\podglad.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Icons\eksport2.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Icons\obraz.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6">
@@ -354,6 +314,22 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\eksport2.png" />
+    <Resource Include="Icons\jezyk rozpoznawania.png" />
+    <Resource Include="Icons\nowy.png" />
+    <Resource Include="Icons\otworz.png" />
+    <Resource Include="Icons\podglad.png" />
+    <Resource Include="Icons\rozpoznaj haslo.png" />
+    <Resource Include="Icons\rozpoznaj strone.png" />
+    <Resource Include="Icons\sprawdz.png" />
+    <Resource Include="Icons\szukaj.png" />
+    <Resource Include="Icons\wklej.png" />
+    <Resource Include="Icons\wyjscie.png" />
+    <Resource Include="Icons\zapisz jako.png" />
+    <Resource Include="Icons\zapisz strone do slownika.png" />
+    <Resource Include="Icons\zapisz.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

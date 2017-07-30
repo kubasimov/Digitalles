@@ -1,18 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using Microsoft.Win32;
 using Newtonsoft.Json;
-using Syncfusion.Data.Extensions;
 using Syncfusion.Windows.Tools.Controls;
 using WPF.Enum;
+using WPF.Helpers;
 using WPF.Interface;
 using WPF.Model;
 using WPF.View;
@@ -24,7 +22,8 @@ namespace WPF.ViewModel
         private Dictionary<string, string> _dictionary;
         private readonly IDataExchangeViewModel _dataExchangeViewModel;
         private readonly TextImporting _textImporting = new TextImporting();
-       
+        
+
         public RecognizeViewModel(IDataExchangeViewModel dataExchangeViewModel)
         {
             if (IsInDesignMode)
@@ -123,9 +122,8 @@ namespace WPF.ViewModel
 
         private void ExecuteRecognizeCommand()
         {
-            _recognizePasswordObservableCollection = new ObservableCollection<DictionaryPasswordElement>();
-
-            RecognizePasswordText(TextExporting.ConvertToText(_textToRecognize));
+            _recognizePasswordObservableCollection.Clear();
+            _recognizePasswordObservableCollection = RecognizePasswordText.Recognize(TextExporting.ConvertToText(_textToRecognize),_dictionary);
 
             RaisePropertyChanged(RecognizePasswordPropertyName);
         }
@@ -199,6 +197,7 @@ namespace WPF.ViewModel
             }
 
         }
+        
         #region RelayMethod
 
         private RelayCommand _exitCommand;
@@ -394,310 +393,7 @@ namespace WPF.ViewModel
             return temp;
         }
 
-        #region RecognizeTextMethod
-
-        private int _max;
-        
-        private void RecognizePasswordText(string textToRecognize)
-        {
-            try
-            {
-                //znalezienie i wycięcie pierwszego słowa
-                
-                var regex = new Regex(@"\D*? ");
-                var match = regex.Match(textToRecognize);
-                if (match.Success)
-                {
-                    WriteText(match.Value, "hasło");
-                    textToRecognize=regex.Replace(textToRecognize, "",1);
-                }
-
-                //znalezienie i wycięcie tekstu do pierwszego znaku '«' o ile istnieje (hasło typowe wersja 1)
-                regex = new Regex(@"\D*«");
-                match = regex.Match(textToRecognize);
-
-                if (match.Success)
-                {
-                    WriteText(match.Value, "ZNACZENIA DO OSOBNEGO OPRACOWANIA");
-                    textToRecognize=textToRecognize.Remove(0, match.Length - 1);
-
-                    //wyszukanie znaczenia słowa z podwojnych nawiasach skosnych
-                    regex = new Regex(@"«.*»");
-                    match = regex.Match(textToRecognize);
-                    if (match.Success)
-                    {
-                        WriteText(match.Value, "definicja");
-                        textToRecognize = textToRecognize.Replace(match.Value, "");
-                    }
-
-                    //rozpoznanie początku cyctatu / cytatów
-                    regex = new Regex(@":.*?[0-9]{3,4}.");
-                    match = regex.Match(textToRecognize);
-                    //pierwsze wystapienie
-                    if (match.Success)
-                    {
-                        WriteText(match.Value, "cytat");
-                        textToRecognize = textToRecognize.Replace(match.Value, "");
-                        
-                        //kolejne wystapienia
-                        regex = new Regex(@".*?[0-9]{3,4}.");
-                        match = regex.Match(textToRecognize);
-                        while (match.Success)
-                        {
-                            WriteText(match.Value, "cytat");
-                            textToRecognize = textToRecognize.Replace(match.Value, "");
-                            regex = new Regex(@".*?[0-9]{3,4}.");
-                        match = regex.Match(textToRecognize);
-                        }
-                    }
-                    
-                    //inny rodzaj cytatu
-                    regex = new Regex(@":.*s.?[0-9]{3,4}.");
-                    match = regex.Match(textToRecognize);
-
-                    if (match.Success)
-                    {
-                        WriteText(match.Value, "cytat");
-                        textToRecognize = textToRecognize.Replace(match.Value, "");
-                        //kolejne wystapienia
-                        while (match.NextMatch().Success)
-                        {
-                            WriteText(match.Value, "cytat");
-                            textToRecognize = textToRecognize.Replace(match.Value, "");
-                        }
-                    }
-
-                    //inny rodzaj cytatu
-                    regex = new Regex(@":.*?[0-9]{3,4}.");
-                    match = regex.Match(textToRecognize);
-
-                    if (match.Success)
-                    {
-                        WriteText(match.Value, "cytat");
-                        textToRecognize = textToRecognize.Replace(match.Value, "");
-                    }
-                }
-
-                //rozpoznanie znaczen pomiedzy <>
-                regex = new Regex(@"<.*>");
-                match = regex.Match(textToRecognize);
-
-                if (match.Success)
-                {
-                    WriteText(match.Value, "wyjaśnienie etymologiczne wyrazu");
-                    textToRecognize = textToRecognize.Replace(match.Value, "");
-                }
-                
-
-
-                //przejscie po całym zdaniu (bez pierwszego słowa
-                var temptext = "";
-                var counter = 0;
-                _max = textToRecognize.Length;
-                int result;
-
-                for (counter = 0; counter < _max; counter++)
-                {
-                    //wyszukanie znaczenia słowa z podwojnych nawiasach skosnych
-                    //if (textToRecognize[counter] == '«')
-                    //{
-                    //    regex = new Regex(@"«.*»");
-                    //    match = regex.Match(textToRecognize);
-
-                    //    if (match.Success)
-                    //    {
-                    //        WriteText(match.Value, "definicja");
-                    //        temptext = String.Empty;
-                    //        counter += match.Length;
-                    //    }
-                    //}
-
-                    //rozpoznanie początku cyctatow
-                    //if (textToRecognize[counter] == ':')
-                    //{
-                    //    regex = new Regex(@":.*?[0-9]{3,4}.");
-                    //    match = regex.Match(textToRecognize);
-
-                    //    if (match.Success)
-                    //    {
-                    //        WriteText(match.Value, "cytat");
-                    //        temptext = String.Empty;
-                    //        counter += match.Length;
-                            
-                    //    }
-
-                    //    while (match.NextMatch().Success)
-                    //    {
-                    //        WriteText(match.Value, "cytat");
-                    //        temptext = String.Empty;
-                    //        counter += match.Length;
-                    //    }
-
-                        
-                        
-                    //    regex = new Regex(@":.*s.?[0-9]{3,4}.");
-                    //    match = regex.Match(textToRecognize);
-
-                    //    if (match.Success)
-                    //    {
-                    //        WriteText(match.Value, "cytat");
-                    //        temptext = String.Empty;
-                    //        counter += match.Length;
-                    //    }
-
-
-                    //    regex = new Regex(@":.*?[0-9]{3,4}.");
-                    //    match = regex.Match(textToRecognize);
-
-                    //    if (match.Success)
-                    //    {
-                    //        WriteText(match.Value, "cytat");
-                    //        temptext = String.Empty;
-                    //        counter += match.Length;
-                    //    }
-
-                    //    //var isnumeric = false;
-
-                    //    //for (int j = counter + 2; j < textToRecognize.Length; j++)
-                    //    //{
-                    //    //    //cytat kończy się gdy jest koniec linii lub gdy po cyfrze z kropka jest spacja i litera np."1996. Poczatek"
-                    //    //    //dodanie kolejnego znaku do słowa
-                    //    //    if (textToRecognize[j] == '<')
-                    //    //    {
-                    //    //        break;
-                    //    //    }
-
-
-                    //    //    temptext += textToRecognize[j];
-
-                    //    //    //sprawdzenie czy znak jest liczbą, jesli prawda to flage liczby ustawiamy na true
-
-                    //    //    if (int.TryParse(textToRecognize[j].ToString(), out result))
-                    //    //    {
-                    //    //        isnumeric = true;
-                    //    //    }
-
-                    //    //    //jesli była znaleziona liczba i kolejny znak to '.' i nastepny znak to spacja i znak to mamy cały cytat 954, s. 570.
-                    //    //    var letter = false;
-
-                    //    //    if (j == _max || j + 1 == _max || j + 2 == _max)
-                    //    //    {
-                    //    //        letter = true;
-                    //    //    }
-                    //    //    else if (!int.TryParse(textToRecognize[j + 2].ToString(), out result))
-                    //    //    {
-                    //    //        letter = true;
-                    //    //    }
-
-                    //    //    if (isnumeric && textToRecognize[j] == '.' && letter)
-                    //    //    {
-                    //    //        WriteText(temptext, "cytat");
-                    //    //        j++;
-                    //    //        temptext = String.Empty;
-                    //    //        isnumeric = false;
-                    //    //        counter = j + 1 > _max ? _max - 1 : j + 1;
-                    //    //    }
-                    //    //}
-                    //}
-
-                    //rozpoznanie znaczen pomiedzy <>
-                    //if (textToRecognize[counter] == '<')
-                    //{
-                    //    regex = new Regex(@"<.*>");
-                    //    match = regex.Match(textToRecognize);
-
-                    //    if (match.Success)
-                    //    {
-                    //        WriteText(match.Value, "wyjaśnienie etymologiczne wyrazu");
-                    //        temptext = String.Empty;
-                    //        counter += match.Length;
-                    //    }
-
-                    //}
-
-
-                    if (textToRecognize[counter] != ' ')
-                    {
-                        temptext += textToRecognize[counter];
-                        //jesli znaleziono przymiotnik
-                        if (temptext == "przym.")
-                        {
-                            var meaning = RecognizeMeaningWord(temptext);
-                            WriteText(temptext, meaning);
-                            temptext = String.Empty;
-                            counter += 2;
-
-                            do
-                            {
-                                temptext += textToRecognize[counter];
-                                counter++;
-                            } while (textToRecognize[counter] != ':');
-                            counter--;
-                            WriteText(temptext, "Przymiotnik hasła");
-                            temptext = String.Empty;
-
-                            //jesli hasło ma numerowane znaczenia
-                        }//jesli jest cyfra
-                        //else if (int.TryParse(temptext[0].ToString(),out result)&&temptext.Length==2)
-                        //{
-                        //    //po cyfrze jest kropka
-                        //    if (temptext[1]=='.')
-                        //    {
-                        //        WriteText(temptext,result+" znaczenie hasła");
-                        //        temptext = Empty;
-                        //    }
-                        //}
-                    }
-                    else
-                    {
-                        if (temptext != "")
-                        {
-                            //wyszukanie słowa w słowniku znaczeń
-                            var meaning = RecognizeMeaningWord(temptext);
-                            WriteText(temptext, meaning);
-                            temptext = String.Empty;
-                        }
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                
-            }
-        }
-
-        private string RecognizeMeaningWord(string text)
-        {
-            if (_dictionary.ContainsKey(text))
-                return _dictionary[text];
-
-            if (text[0] == '~')
-                return "końcówka fleksyjna wraz z cząstką tematu";
-            if (text[0] == '-')
-                return "końcówka fleksyjna";
-
-            if (int.TryParse(text[0].ToString(), out int result) && text.Length == 2 && text[1] == '.')
-                return result + " znaczenie hasła";
-
-            if (text.Contains("I") || text.Contains("II") || text.Contains("III") || text.Contains("IV"))
-            {
-                return text.TrimEnd(',', '.') + " koniugacja/ deklinacja";
-            }
-
-
-            return String.Empty;
-        }
-
-        private void WriteText(string text1, string text2 = "")
-        {
-            _recognizePasswordObservableCollection.Add(new DictionaryPasswordElement{Word=text1,Description=text2});
-
-            Debug.WriteLine("Hasło: {0,-90}\t\t\tObjaśnienie: {1}", text1, text2);
-        }
-
-        #endregion
-        
+       
         #endregion
     }
 }
