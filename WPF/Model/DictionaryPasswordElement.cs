@@ -8,7 +8,7 @@ namespace WPF.Model
         /// word - hasło słownika
         /// description - opis hasła
         /// </summary>
-        [Display(Name = "Hasło", Description = "Pojedyńczy element")]
+        [Display(Name = "Skrót", Description = "Pojedyńczy element")]
         public string Word { get; set; }
         [Display(Name = "Opis", Description = "Pojedyńczy opis hasła")]
         public string Description { get; set; }

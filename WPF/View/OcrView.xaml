@@ -7,7 +7,7 @@
         xmlns:command="http://www.galasoft.ch/mvvmlight"
         xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
         mc:Ignorable="d"
-        Title="Digitalles - Rozpoznawanie obrazu" Icon="/WPF;component/Icons/D2 ikona.png" Unloaded="Window_Unloaded" >
+        Title="Digitalles - Rozpoznawanie strony" Icon="/WPF;component/Icons/D2 ikona.png" Unloaded="Window_Unloaded" >
     <Window.Resources>
         <DataTemplate x:Key="BitmapImageTemplate">
             <WrapPanel>
@@ -38,10 +38,10 @@
                 <syncfusion:RibbonBar Header="">
                     <syncfusion:RibbonButton Label="Nowy" SizeForm="Large" Command="{Binding NewNewCommand, Mode=OneWay}" LargeIcon="/WPF;component/Icons/nowy.png"/>
                     <syncfusion:RibbonButton Label="Wczytaj obraz" SizeForm="Large" Command="{Binding  OpenImageCommand, Mode=OneWay}" LargeIcon="/WPF;component/Icons/otworz.png"/>
-                    <syncfusion:RibbonButton Label="Rozpoznaj strone" SizeForm="Large" Command="{Binding OcrPage, Mode=OneWay}" LargeIcon="/WPF;component/Icons/rozpoznaj strone.png" />
+                    <syncfusion:RibbonButton Label="Rozpoznaj stronę" SizeForm="Large" Command="{Binding OcrPage, Mode=OneWay}" LargeIcon="/WPF;component/Icons/rozpoznaj strone.png" />
                     <syncfusion:RibbonButton Label="Rozpoznaj hasło" SizeForm="Large" Command="{Binding RecognizeTextCommand, Mode=OneWay}" LargeIcon="/WPF;component/Icons/rozpoznaj haslo.png" />
-                    <syncfusion:RibbonButton Label="Zapisz strone do słownika" SizeForm="Large" Command="{Binding SavePageCommand, Mode=OneWay}" LargeIcon="/WPF;component/Icons/zapisz strone do slownika.png" />
-                    <syncfusion:RibbonButton Label="Język rozpoznawania" SizeForm="Large" Command="{Binding SelectLanguageCommand, Mode=OneWay}" LargeIcon="/WPF;component/Icons/jezyk rozpoznawania.png" />
+                    <syncfusion:RibbonButton Label="Zapisz do słownika" SizeForm="Large" Command="{Binding SavePageCommand, Mode=OneWay}" LargeIcon="/WPF;component/Icons/zapisz strone do slownika.png" />
+                    <syncfusion:RibbonButton Label="Język" SizeForm="Large" Command="{Binding SelectLanguageCommand, Mode=OneWay}" LargeIcon="/WPF;component/Icons/jezyk rozpoznawania.png" />
                     <syncfusion:RibbonButton Label="Wyjście" SizeForm="Large" Command="{Binding ExitCommand, Mode=OneWay}" LargeIcon="/WPF;component/Icons/wyjscie.png"/>
                 </syncfusion:RibbonBar>
             </syncfusion:RibbonTab>

@@ -16,6 +16,7 @@ namespace WPF.Helpers
         private static string _textToRecognize;
         private static readonly List<string > RegexCitationList = new List<string>
         {
+            @":.*?[0-9]{2}.",
             @":.*, s.*?[0-9]{3}.",
             @":.*?[0-9]{4,4}.",
             @":.*?[0-9]{3,4}.",

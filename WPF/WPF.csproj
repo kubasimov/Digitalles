@@ -295,10 +295,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Icons\D2.png" />
-    <Resource Include="Icons\rozpoznanie hasla.png" />
-    <Resource Include="Icons\rozpoznanie obrazu.png" />
-    <Resource Include="Icons\slowinik.png" />
-    <Resource Include="Icons\wyjscie1.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Icons\D2 ikona.png" />
@@ -330,6 +326,12 @@
     <Resource Include="Icons\zapisz jako.png" />
     <Resource Include="Icons\zapisz strone do slownika.png" />
     <Resource Include="Icons\zapisz.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\przycisk rozpoznanie hasla.png" />
+    <Resource Include="Icons\przycisk rozpoznanie strony.png" />
+    <Resource Include="Icons\przycisk slownik.png" />
+    <Resource Include="Icons\przycisk wyjscie.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
