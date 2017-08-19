@@ -2,40 +2,40 @@
 
 namespace Core.Model
 {
-    public class MyImage : IMyImage
+    public class MyImage //: IMyImage
     {
-        private string _filename;
-        private int _height;
-        private int _width;
+        //private string _filename;
+        //private int _height;
+        //private int _width;
 
-        public int GetHeight()
-        {
-            return _height;
-        }
+        //public int GetHeight()
+        //{
+        //    return _height;
+        //}
 
-        public void SetHeight(int value)
-        {
-            _height = value;
-        }
+        //public void SetHeight(int value)
+        //{
+        //    _height = value;
+        //}
 
-        public int GetWidth()
-        {
-            return _width;
-        }
+        //public int GetWidth()
+        //{
+        //    return _width;
+        //}
 
-        public void SetWidth(int value)
-        {
-            _width = value;
-        }
+        //public void SetWidth(int value)
+        //{
+        //    _width = value;
+        //}
 
-        public string GetName()
-        {
-            return _filename;
-        }
+        //public string GetName()
+        //{
+        //    return _filename;
+        //}
 
-        public void SetName(string value)
-        {
-            _filename = value;
-        }
+        //public void SetName(string value)
+        //{
+        //    _filename = value;
+        //}
     }
 }

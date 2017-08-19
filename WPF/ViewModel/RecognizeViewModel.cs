@@ -96,7 +96,10 @@ namespace WPF.ViewModel
 
             if (result==true)
             {
-                File.WriteAllText(saveFileDialog.FileName, JsonConvert.SerializeObject(_recognizePasswordObservableCollection, Formatting.Indented));
+
+
+                File.WriteAllText(saveFileDialog.FileName, 
+                    JsonConvert.SerializeObject(_recognizePasswordObservableCollection, Formatting.Indented));
 
             }
         }

@@ -33,16 +33,16 @@ namespace WPF.Helpers
             {
                 //znalezienie i wyciêcie pierwszego s³owa
                 RegexRecognize(@"\D*? ", "has³o");
-                
+
                 //znalezienie i wyciêcie tekstu do pierwszego znaku '«' o ile istnieje (has³o typowe wersja 1)
+
                 var regex = new Regex(@"\D*«");
                 var match = regex.Match(_textToRecognize);
                 
-
                 if (match.Success)
                 {
-                    //WriteText(match.Value, "ZNACZENIA DO OSOBNEGO OPRACOWANIA");
                     AnalizeText(match.Value);
+
                     _textToRecognize =_textToRecognize.Remove(0, match.Length - 1);
 
                     //wyszukanie znaczenia s³owa z podwojnych nawiasach skosnych
@@ -70,12 +70,7 @@ namespace WPF.Helpers
                     RegexRecognize( @"<.*>", "wyjaœnienie etymologiczne wyrazu");
                     
                 }
-
                 
-                
-                
-
-
                 //przejscie po ca³ym zdaniu (bez pierwszego s³owa
                 var temptext = "";
                 int counter;
@@ -136,7 +131,7 @@ namespace WPF.Helpers
             return ObserColl;
         }
 
-        //znajduje ci¹ podany wzorem, zapisuje do s³ownika, i kasuje z tekstu
+        //znajduje ci¹g podany wzorem, zapisuje do s³ownika, i kasuje z tekstu
         private static bool RegexRecognize(string regexText,string description)
         {
             var regex = new Regex(regexText);
@@ -151,18 +146,19 @@ namespace WPF.Helpers
 
 
         //dzielenie s³owa po spacjach i analiza poszczególnych elementów
+
         private static void AnalizeText(string text)
         {
             text = text.Replace('«', ' ').TrimEnd();
 
             var splitText = text.Split(' ');
-            
             foreach (string s in splitText)
             {
                 var e = RecognizeMeaningWord(s);
                 WriteText(s,e);
             }
         }
+
         private static string RecognizeMeaningWord(string text)
         {
             if (_dictionary.ContainsKey(text))
@@ -174,7 +170,6 @@ namespace WPF.Helpers
                 return "koñcówka fleksyjna";
 
             //1. 2. itp - kolejne znaczenia jednego has³a
-
             if (int.TryParse(text[0].ToString(), out int result) && text.Length == 2 && text[1] == '.')
                 return result + " znaczenie has³a";
 
@@ -182,10 +177,10 @@ namespace WPF.Helpers
             {
                 return text.TrimEnd(',', '.') + " koniugacja/ deklinacja";
             }
-
-
+            
             return String.Empty;
         }
+
 
         private static void WriteText(string text1, string text2 = "")
         {

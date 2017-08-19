@@ -182,9 +182,7 @@
     <Compile Include="Implement\DataExchangeViewModel.cs" />
     <Compile Include="Interface\IDataExchangeViewModel.cs" />
     <Compile Include="Interface\IDataService.cs" />
-    <Compile Include="Model\DictionaryModel.cs" />
     <Compile Include="Model\DictionaryPasswordElement.cs" />
-    <Compile Include="Model\DigDictionary.cs" />
     <Compile Include="Model\LangModel.cs" />
     <Compile Include="Model\SettingsModel.cs" />
     <Compile Include="Helpers\DocumentAdvCrud.cs" />
@@ -274,11 +272,15 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="ClassDiagram\Interface_ClassDiagram.cd" />
+    <None Include="ClassDiagram\Model_ClassDiagram.cd" />
+    <None Include="ClassDiagram\View_ClassDiagram.cd" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Include="ClassDiagram\ViewModel_ClassDiagram.cd" />
     <None Include="WPF_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>

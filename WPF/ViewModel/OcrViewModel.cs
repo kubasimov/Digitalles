@@ -30,7 +30,7 @@ namespace WPF.ViewModel
         private readonly SettingsModel _settingsModel;
         private readonly List<LangModel> _languages;
         private ObservableCollection<DocumentAdv> _documentsAdv;
-        private DictionaryModel _dictionaryModel;
+        //private DictionaryModel _dictionaryModel;
 
         #endregion
         
@@ -43,7 +43,7 @@ namespace WPF.ViewModel
             _settingsModel = _dataService.LoadSettings();
             _pageCounter = 0;
             _languages = _settingsModel.Language;
-            _dictionaryModel=new DictionaryModel();
+            //_dictionaryModel=new DictionaryModel();
             _selectionAdvtext = new SelectionAdv();
            
 
@@ -76,7 +76,7 @@ namespace WPF.ViewModel
             _bitmapImage = null;
             _bitmapImages = new ObservableCollection<BitmapImage>();
             _pageCounter = 0;
-            _dictionaryModel = new DictionaryModel() ;
+            //_dictionaryModel = new DictionaryModel() ;
             _documentsAdv = new ObservableCollection<DocumentAdv>();
             _documentAdv = null;
             RaisePropertyChanged(BitmapImagePropertyName);
@@ -180,7 +180,7 @@ namespace WPF.ViewModel
         //exit window
         private void ExecuteExitCommand()
         {
-            _dataExchangeViewModel.Add(EnumExchangeViewmodel.Dictionary,_dictionaryModel );
+            //_dataExchangeViewModel.Add(EnumExchangeViewmodel.Dictionary,_dictionaryModel );
             Messenger.Default.Send(new NotificationMessage(this, "CloseOcr"));
         }
 
@@ -192,7 +192,7 @@ namespace WPF.ViewModel
            
             foreach (var item in dictionaryParagraph)
             {
-                _dictionaryModel.Add(item.Split(' ').First(), item.Substring(item.IndexOf(" ")+1));
+                //_dictionaryModel.Add(item.Split(' ').First(), item.Substring(item.IndexOf(" ")+1));
             }
 
         }

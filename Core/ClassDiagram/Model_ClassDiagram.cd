@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Core.Helpers.Coord" Collapsed="true">
+    <Position X="6.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAYAA=</HashCode>
+      <FileName>Helpers\Coord.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Core.Model.TextLetter" Collapsed="true">
+    <Position X="11.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAgA=</HashCode>
+      <FileName>Model\TextLetter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Core.Model.TextLine" Collapsed="true">
+    <Position X="6.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAgA=</HashCode>
+      <FileName>Model\TextLine.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Core.Model.TextPage" Collapsed="true">
+    <Position X="2.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\TextPage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Core.Model.TextParagraph" Collapsed="true">
+    <Position X="4.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAgA=</HashCode>
+      <FileName>Model\TextParagraph.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Core.Model.TextWord" Collapsed="true">
+    <Position X="9" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAACAAAAAAAIAAAAAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Model\TextWord.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
