@@ -69,7 +69,7 @@
     <Compile Include="Ocr.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Interface\IReadPicture.cs" />
-    <Compile Include="ReadPicture.cs" />
+    <Compile Include="Implement\ReadPicture.cs" />
     <Compile Include="SerializePagesList.cs" />
     <Compile Include="Start.cs" />
   </ItemGroup>
