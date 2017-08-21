@@ -12,7 +12,7 @@ namespace AddToDictionary.ViewModel
     public class MainViewModel : ViewModelBase
     {
 
-        Dictionary<string, string> MyDictionary;
+        SortedDictionary<string, string> MyDictionary;
 
 
         public MainViewModel()
@@ -20,12 +20,12 @@ namespace AddToDictionary.ViewModel
             if (File.Exists(@"D:\dane\skroty.json"))
             {
                 MyDictionary =
-                    JsonConvert.DeserializeObject<Dictionary<string, string>>(File.ReadAllText(@"D:\dane\skroty.json"));
+                    JsonConvert.DeserializeObject<SortedDictionary<string, string>>(File.ReadAllText(@"D:\dane\skroty.json"));
                 Dictio = CopyFromDictionary(MyDictionary);
             }
             else
             {
-                MyDictionary = new Dictionary<string, string>();
+                MyDictionary = new SortedDictionary<string, string>();
                 Dictio = new ObservableCollection<ItemMyDictionary>();
             }
 
@@ -33,7 +33,7 @@ namespace AddToDictionary.ViewModel
 
         }
 
-        private ObservableCollection<ItemMyDictionary> CopyFromDictionary(Dictionary<string, string> itemDictionary)
+        private ObservableCollection<ItemMyDictionary> CopyFromDictionary(SortedDictionary<string, string> itemDictionary)
         {
             var temp = new ObservableCollection<ItemMyDictionary>();
 
@@ -45,9 +45,9 @@ namespace AddToDictionary.ViewModel
             return temp;
         }
 
-        private Dictionary<string, string> CopyFromObservableCollection(ObservableCollection<ItemMyDictionary> itemMyDictionaries)
+        private SortedDictionary<string, string> CopyFromObservableCollection(ObservableCollection<ItemMyDictionary> itemMyDictionaries)
         {
-            var temp = new Dictionary<string, string>();
+            var temp = new SortedDictionary<string, string>();
             foreach (ItemMyDictionary itemMyDictionary in itemMyDictionaries)
             {
                 temp.Add(itemMyDictionary.text1, itemMyDictionary.text2);
@@ -70,6 +70,8 @@ namespace AddToDictionary.ViewModel
                 RaisePropertyChanged(Text2PropertyName);
                 RaisePropertyChanged(DictioPropertyName);
             }
+
+            ExecuteSaveCommand();
 
         }
         private void ExecuteSaveCommand()

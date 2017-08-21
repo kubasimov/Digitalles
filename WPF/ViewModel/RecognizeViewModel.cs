@@ -149,25 +149,21 @@ namespace WPF.ViewModel
 
         private void ExecuteSettingsCommand()
         {
-            List<List<DictionaryPasswordElement>> tt ;
+            List<List<DictionaryPasswordElement>> dictionaryFromFile ;
 
-            if (File.Exists(@"D:\dane\slownik.json"))
+            if (File.Exists(@"\slownik.json"))
             {
-                tt =
+                dictionaryFromFile =
                     JsonConvert.DeserializeObject<List<List<DictionaryPasswordElement>>>(
-                        File.ReadAllText(@"D:\dane\slownik.json"));
+                        File.ReadAllText(@"\slownik.json"));
             }
             else
             {
-                tt = new List<List<DictionaryPasswordElement>>();
+                dictionaryFromFile = new List<List<DictionaryPasswordElement>>();
             }
-
-            var t = _recognizePasswordObservableCollection.ToList();
             
-            tt.Add(t);
-            
-            File.WriteAllText(@"D:\dane\slownik.json",JsonConvert.SerializeObject(tt,Formatting.Indented));
-            
+            dictionaryFromFile.Add(_recognizePasswordObservableCollection.ToList());
+            File.WriteAllText(@"\slownik.json",JsonConvert.SerializeObject(dictionaryFromFile,Formatting.Indented));
             
         }
 
