@@ -8,7 +8,7 @@ using WPF.Model;
 
 namespace WPF.Helpers
 {
-    public class RecognizePasswordText
+    public class RecognizePasswordText : IRecognizePasswordText
     {
        
         private int _max;

@@ -17,6 +17,8 @@ namespace Tests
         private Dictionary<string, string> _dictionary;
         private readonly ITestOutputHelper output;
         private DataTestForRecognizePassword dataTest;
+
+        private IRecognizePasswordText _recognize;
         private void LoadDictionaryPassword()
         {
             _dictionary = File.Exists(@"D:\dane\skroty.json") ? JsonConvert.DeserializeObject<Dictionary<string, string>>(File.ReadAllText(@"D:\dane\skroty.json")) : new Dictionary<string, string>();
@@ -113,10 +115,12 @@ namespace Tests
         [Fact]
         public void AnalizeRecognizePasswordText3()
         {
+            _recognize = new RecognizePasswordText();
+
             var text = dataTest.Text3;
             var result = dataTest.Result3;
 
-            var test = new RecognizePasswordText().Recognize(text, _dictionary);
+            var test = _recognize.Recognize(text, _dictionary);
 
             for (var i = 0; i < test.Count; i++)
             {
@@ -128,10 +132,12 @@ namespace Tests
         [Fact]
         public void AnalizeRecognizePasswordText4()
         {
+            _recognize = new RecognizePasswordText();
+
             var text = dataTest.Text4;
             var result = dataTest.Result4;
 
-            var test = new RecognizePasswordText().Recognize(text, _dictionary);
+            var test = _recognize.Recognize(text, _dictionary);
 
             for (var i = 0; i < test.Count; i++)
             {
@@ -143,10 +149,11 @@ namespace Tests
         [Fact]
         public void AnalizeRecognizePasswordText5()
         {
+            _recognize = new RecognizePasswordText();
             var text = dataTest.Text5;
             var result = dataTest.Result5;
 
-            var test = new RecognizePasswordText().Recognize(text, _dictionary);
+            var test = _recognize.Recognize(text, _dictionary);
 
             for (var i = 0; i < test.Count; i++)
             {

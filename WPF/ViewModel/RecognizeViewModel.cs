@@ -22,7 +22,7 @@ namespace WPF.ViewModel
         private Dictionary<string, string> _dictionary;
         private readonly IDataExchangeViewModel _dataExchangeViewModel;
         private readonly TextImporting _textImporting = new TextImporting();
-        
+        private IRecognizePasswordText _recognizePasswordText;
 
         public RecognizeViewModel(IDataExchangeViewModel dataExchangeViewModel)
         {
@@ -78,6 +78,9 @@ namespace WPF.ViewModel
                 LoadDictionaryPassword();
             }
             
+            //TODO: Zmienić na fabryke
+            _recognizePasswordText = new RecognizePasswordText();
+
         }
 
         private void ExecuteNewCommand()
@@ -125,8 +128,9 @@ namespace WPF.ViewModel
 
         private void ExecuteRecognizeCommand()
         {
+
             _recognizePasswordObservableCollection.Clear();
-            _recognizePasswordObservableCollection = new RecognizePasswordText().Recognize(TextExporting.ConvertToText(_textToRecognize),_dictionary);
+            _recognizePasswordObservableCollection = _recognizePasswordText.Recognize(TextExporting.ConvertToText(_textToRecognize),_dictionary);
 
             RaisePropertyChanged(RecognizePasswordPropertyName);
         }
