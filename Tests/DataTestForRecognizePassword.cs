@@ -1,5 +1,5 @@
 ﻿using System.Collections.ObjectModel;
-using WPF.Model;
+using RecognizePassword.Model;
 
 namespace Tests
 {

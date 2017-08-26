@@ -70,6 +70,7 @@
     <Compile Include="Test_RecognizePassword.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -77,9 +78,9 @@
       <Project>{FF1ABF63-25AF-475A-8ACF-AEC22F8D06AE}</Project>
       <Name>Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\WPF\WPF.csproj">
-      <Project>{f552a890-c736-4e24-8506-bbe24e26850a}</Project>
-      <Name>WPF</Name>
+    <ProjectReference Include="..\RecognizePassword\RecognizePassword.csproj">
+      <Project>{44ab4bb2-72d0-456e-8a7d-5fbb2fbc0002}</Project>
+      <Name>RecognizePassword</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

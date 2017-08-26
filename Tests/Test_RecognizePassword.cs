@@ -1,22 +1,19 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.IO;
 using Newtonsoft.Json;
-using WPF.Helpers;
-using WPF.Model;
+using RecognizePassword.Implement;
+using RecognizePassword.Interface;
 using Xunit;
 using Xunit.Abstractions;
-using Xunit.Sdk;
 
-[assembly: CollectionBehavior(DisableTestParallelization = true)]
+
 namespace Tests
 {
     public class TestRecognizePassword
     {
         private Dictionary<string, string> _dictionary;
-        private readonly ITestOutputHelper output;
-        private DataTestForRecognizePassword dataTest;
+        private readonly ITestOutputHelper _output;
+        private readonly DataTestForRecognizePassword _dataTest;
 
         private IRecognizePasswordText _recognize;
         private void LoadDictionaryPassword()
@@ -26,9 +23,9 @@ namespace Tests
 
         public TestRecognizePassword(ITestOutputHelper output)
         {
-            this.output = output;
+            _output = output;
             LoadDictionaryPassword();
-            dataTest = new DataTestForRecognizePassword();
+            _dataTest = new DataTestForRecognizePassword();
         }
 
         //string _text1 = "animalistyka ż III blm szt. " +
@@ -115,10 +112,10 @@ namespace Tests
         [Fact]
         public void AnalizeRecognizePasswordText3()
         {
-            _recognize = new RecognizePasswordText();
+            _recognize = new RecognizePasswordTextType1();
 
-            var text = dataTest.Text3;
-            var result = dataTest.Result3;
+            var text = _dataTest.Text3;
+            var result = _dataTest.Result3;
 
             var test = _recognize.Recognize(text, _dictionary);
 
@@ -132,10 +129,10 @@ namespace Tests
         [Fact]
         public void AnalizeRecognizePasswordText4()
         {
-            _recognize = new RecognizePasswordText();
+            _recognize = new RecognizePasswordTextType1();
 
-            var text = dataTest.Text4;
-            var result = dataTest.Result4;
+            var text = _dataTest.Text4;
+            var result = _dataTest.Result4;
 
             var test = _recognize.Recognize(text, _dictionary);
 
@@ -149,9 +146,9 @@ namespace Tests
         [Fact]
         public void AnalizeRecognizePasswordText5()
         {
-            _recognize = new RecognizePasswordText();
-            var text = dataTest.Text5;
-            var result = dataTest.Result5;
+            _recognize = new RecognizePasswordTextType1();
+            var text = _dataTest.Text5;
+            var result = _dataTest.Result5;
 
             var test = _recognize.Recognize(text, _dictionary);
 

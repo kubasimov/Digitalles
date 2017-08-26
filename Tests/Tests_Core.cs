@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using Core;
 using System.IO;
-using System.Linq;
 using Core.Decode;
 using Core.Interface;
-using Core.Model;
 using Moq;
 using Newtonsoft.Json;
+using RecognizePassword.Implement;
+using RecognizePassword.Model;
 using Tesseract;
-using WPF.Helpers;
-using WPF.Model;
+
 using Xunit;
 
 namespace Tests
@@ -126,7 +123,7 @@ namespace Tests
         [Fact]
         public void AnalizeRecognizePasswordText()
         {
-            var test = new RecognizePasswordText().Recognize(_text, _dictionary);
+            var test = new RecognizePasswordTextType1().Recognize(_text, _dictionary);
 
             Assert.Equal(_result,test);
         }
