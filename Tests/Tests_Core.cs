@@ -126,7 +126,7 @@ namespace Tests
         [Fact]
         public void AnalizeRecognizePasswordText()
         {
-            var test = RecognizePasswordText.Recognize(_text, _dictionary);
+            var test = new RecognizePasswordText().Recognize(_text, _dictionary);
 
             Assert.Equal(_result,test);
         }

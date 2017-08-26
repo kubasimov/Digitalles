@@ -126,7 +126,7 @@ namespace WPF.ViewModel
         private void ExecuteRecognizeCommand()
         {
             _recognizePasswordObservableCollection.Clear();
-            _recognizePasswordObservableCollection = RecognizePasswordText.Recognize(TextExporting.ConvertToText(_textToRecognize),_dictionary);
+            _recognizePasswordObservableCollection = new RecognizePasswordText().Recognize(TextExporting.ConvertToText(_textToRecognize),_dictionary);
 
             RaisePropertyChanged(RecognizePasswordPropertyName);
         }

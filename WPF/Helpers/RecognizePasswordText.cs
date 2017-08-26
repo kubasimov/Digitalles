@@ -2,21 +2,22 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Text.RegularExpressions;
 using WPF.Model;
 
 namespace WPF.Helpers
 {
-    public static class RecognizePasswordText
+    public class RecognizePasswordText
     {
        
-        private static int _max;
-        private static readonly ObservableCollection<DictionaryPasswordElement> ObserColl = new ObservableCollection<DictionaryPasswordElement>();
-        private static Dictionary<string, string> _dictionary;
-        private static string _textToRecognize;
-        private static readonly List<string > RegexCitationList = new List<string>
+        private int _max;
+        private readonly ObservableCollection<DictionaryPasswordElement> ObserColl = new ObservableCollection<DictionaryPasswordElement>();
+        private Dictionary<string, string> _dictionary;
+        private string _textToRecognize;
+        private readonly List<string > RegexCitationList = new List<string>
         {
-            @":.*?[0-9]{2}.",
+            @":.*?[0-9]{3}.",
             @":.*, s.*?[0-9]{3}.",
             @":.*?[0-9]{4,4}.",
             @":.*?[0-9]{3,4}.",
@@ -25,15 +26,15 @@ namespace WPF.Helpers
             @":.*?[0-9]{3,4}."
         };
         
-        public static ObservableCollection<DictionaryPasswordElement> Recognize(string textToRecognize, Dictionary<string, string> dictionary)
+        public ObservableCollection<DictionaryPasswordElement> Recognize(string textToRecognize, Dictionary<string, string> dictionary)
         {
             _textToRecognize = textToRecognize;
             _dictionary = dictionary;
             try
             {
                 //znalezienie i wyciêcie pierwszego s³owa
-                RegexRecognize(@"\D*? ", "has³o");
-
+                
+                GetDefiniendum();
                 //znalezienie i wyciêcie tekstu do pierwszego znaku '«' o ile istnieje (has³o typowe wersja 1)
 
                 var regex = new Regex(@"\D*«");
@@ -48,7 +49,7 @@ namespace WPF.Helpers
                     //wyszukanie znaczenia s³owa z podwojnych nawiasach skosnych
                     for (var i = 0; i < 3; i++)
                     {
-                        RegexRecognize(@"«.*?»", "definicja");
+                        RegexRecognize(@"«.*?»", "definiens");
                     }
 
 
@@ -131,14 +132,26 @@ namespace WPF.Helpers
             return ObserColl;
         }
 
+        private void GetDefiniendum()
+        {
+            var regex = new Regex(@"\D*? ");
+            var match = regex.Match(_textToRecognize);
+            if (match.Success)
+            {
+                WriteText(match.Value.TrimEnd(), "definiendum");
+                _textToRecognize = _textToRecognize.Remove(0, match.Length);
+            }
+
+        }
+
         //znajduje ci¹g podany wzorem, zapisuje do s³ownika, i kasuje z tekstu
-        private static bool RegexRecognize(string regexText,string description)
+        private bool RegexRecognize(string regexText,string description)
         {
             var regex = new Regex(regexText);
             var match = regex.Match(_textToRecognize);
             if (match.Success)
             {
-                WriteText(match.Value, description);
+                WriteText(match.Value.TrimEnd(), description);
                 _textToRecognize = _textToRecognize.Replace(match.Value, "");
             }
             return match.Success;
@@ -147,7 +160,7 @@ namespace WPF.Helpers
 
         //dzielenie s³owa po spacjach i analiza poszczególnych elementów
 
-        private static void AnalizeText(string text)
+        private void AnalizeText(string text)
         {
             text = text.Replace('«', ' ').TrimEnd();
 
@@ -155,17 +168,17 @@ namespace WPF.Helpers
             foreach (string s in splitText)
             {
                 var e = RecognizeMeaningWord(s);
-                WriteText(s,e);
+                WriteText(s.Replace(",",""),e);
             }
         }
 
-        private static string RecognizeMeaningWord(string text)
+        private string RecognizeMeaningWord(string text)
         {
             if (_dictionary.ContainsKey(text))
                 return _dictionary[text];
 
             if (text[0] == '~')
-                return "koñcówka fleksyjna wraz z cz¹stk¹ tematu";
+                return "~ znak przed koñcówk¹ fleksyjn¹ wraz z cz¹stk¹ tematu";
             if (text[0] == '-')
                 return "koñcówka fleksyjna";
 
@@ -175,14 +188,14 @@ namespace WPF.Helpers
 
             if (text.Contains("I") || text.Contains("II") || text.Contains("III") || text.Contains("IV"))
             {
-                return text.TrimEnd(',', '.') + " koniugacja/ deklinacja";
+                return text.Replace("," , "") + " koniugacja/deklinacja";
             }
             
             return String.Empty;
         }
 
 
-        private static void WriteText(string text1, string text2 = "")
+        private void WriteText(string text1, string text2 = "")
         {
             ObserColl.Add(new DictionaryPasswordElement{Word=text1,Description=text2});
 
