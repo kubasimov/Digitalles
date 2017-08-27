@@ -526,6 +526,25 @@ namespace Tests
                 new DictionaryPasswordElement{Word = "babuniny", Description = "definiendum"},
                 new DictionaryPasswordElement{Word = "«należący do babuni, dotyczący babuni»", Description = "definiens"},
                 new DictionaryPasswordElement{Word = ": Miliony babunine spać nie dawały. Krasz. cyt. SW.", Description = "cytat"},
-};
+            };
+
+
+        public string Text21 = "malignowy " +
+                               "rzad. " +
+                               "przym. " +
+                               "od maligna" +
+                               ": Siedział na łóżku i z krzyku, upojenia, ekstazy przeszedł w łzy i szept, i mamrot malignowy. ZEG. Zmory 401. " +
+                               "To marzenie jest awanturnictwem, jest, że tak powiem, malignową sił gorączką. TRENT. Demon. 120";
+
+        public ObservableCollection<DictionaryPasswordElement> Result21 =
+            new ObservableCollection<DictionaryPasswordElement>
+            {
+                new DictionaryPasswordElement{Word = "malignowy", Description = "definiendum"},
+                new DictionaryPasswordElement{Word = "rzad.", Description = "rzadko używany (kwalifikator)"},
+                new DictionaryPasswordElement{Word = "przym.", Description = "przymiotnik"},
+                new DictionaryPasswordElement{Word = "od maligna", Description = "definiens"},
+                new DictionaryPasswordElement{Word = ": Siedział na łóżku i z krzyku, upojenia, ekstazy przeszedł w łzy i szept, i mamrot malignowy. ZEG. Zmory 401.", Description = "cytat"},
+                new DictionaryPasswordElement{Word = "To marzenie jest awanturnictwem, jest, że tak powiem, malignową sił gorączką. TRENT. Demon. 120.", Description = "cytat"},
+            };
     }
 }

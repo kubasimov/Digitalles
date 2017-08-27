@@ -486,5 +486,26 @@ namespace Tests
 
             Assert.Equal(result.Count, test.Count);
         }
+
+        [Fact]
+        public void AnalizeRecognizePasswordText21()
+        {
+            _recognize = new RecognizePasswordTextType4();
+            var text = _dataTest.Text21;
+            var result = _dataTest.Result21;
+
+            var test = _recognize.Recognize(text, _dictionary);
+
+            for (var i = 0; i < test.Count; i++)
+            {
+                _output.WriteLine(result[i].Word + "\t" + result[i].Description);
+                _output.WriteLine(test[i].Word + "\t" + test[i].Description);
+                Assert.Equal(result[i].Word.ToLower(), test[i].Word.ToLower());
+                Assert.Equal(result[i].Description.ToLower(), test[i].Description.ToLower());
+
+            }
+
+            Assert.Equal(result.Count, test.Count);
+        }
     }
 }

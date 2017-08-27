@@ -71,6 +71,25 @@ namespace RecognizePassword.Implement
                            
 
                         }
+                        if (s=="przym.")
+                        {
+                            var e = RecognizeMeaningWord.Get(s.Replace(",", ""), _dictionary);
+                            WriteText.Write(s.Replace(",", ""), e, _obserColl);
+                            _textToRecognize = _textToRecognize.Remove(0, s.Length + 1);
+
+                            var regex1 = new Regex(@"\D*:");
+                            var match1 = regex1.Match(_textToRecognize);
+
+                            if (match1.Success)
+                            {
+                                var text = _textToRecognize.Substring(0, match1.Length-1);
+                                WriteText.Write(text.Trim(), "definiens", _obserColl);
+                                _textToRecognize = _textToRecognize.Replace(text.TrimEnd(':'), "");
+                                break;
+                            }
+
+
+                        }
                         else
                         {
                             var e = RecognizeMeaningWord.Get(s.Replace(",", ""), _dictionary);
