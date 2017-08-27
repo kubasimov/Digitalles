@@ -152,7 +152,7 @@ namespace Tests
                               "przen. " +
                               "Z obrzydzeniem zdzierał zabrudzone łachy komedianctwa. WIKT. Miasto 4." +
                               " // L " +
-                              "<możliwe pochodzenie od staro-wysoko-niemieckiego: lahhan; wg Brücknera: z gr. od łata>\r\n";
+                              "<możliwe pochodzenie od staro-wysoko-niemieckiego: lahhan; wg Brücknera: zgr. od łata>\r\n";
 
 
 
@@ -168,7 +168,7 @@ namespace Tests
                 new DictionaryPasswordElement{Word = "Na jednym z krzeseł leżała otwarta walizka, pełna nieporządnie porozrzucanych kolorowych łachów. Andrz. Popiół 173.", Description = "cytat"},
                 new DictionaryPasswordElement{Word = "Coraz niechętniej przyjmowała pracę po domach. Wolała u siebie prać ludzkie łachy. Kłos. Wiosna 117.", Description = "cytat"},
                 new DictionaryPasswordElement{Word = "Czy ja gdzieś chodzę, czy się ubieram. Mam ma to? Wstyd pokazać się w tych łachach. Wikt. Miasto 102.", Description = "cytat"},
-                new DictionaryPasswordElement{Word = "Siadła na stoiku, wytarłszy go (przedtem jakimś łachem. Bogusz. Kura 204.", Description = "cytat"},
+                new DictionaryPasswordElement{Word = "Siadła na stoiku, wytarłszy go przedtem jakimś łachem. Bogusz. Kura 204.", Description = "cytat"},
                 new DictionaryPasswordElement{Word = "W dużym pokoju były rzucone na podłodze różne łachy mężczyzn i kobiet, palta i buty. Nałk. Z. Medal. 74.", Description = "cytat"},
                 new DictionaryPasswordElement{Word = "Sprzedam salopę. To łach. Prus Wiecz. 65.", Description = "cytat"},
                 new DictionaryPasswordElement{Word = "Stare gałgany i łachy sukienne, które dawniej wyrzucaliśmy na śmiecie, przerabiają się teraz na wełnę. Dz. Lit. Lw. 24,1857.", Description = "cytat"},
