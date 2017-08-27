@@ -184,6 +184,165 @@ namespace Tests
                 new DictionaryPasswordElement{Word = "// L", Description = "odwołanie do Słownika Lindego"},
                 new DictionaryPasswordElement{Word = "<możliwe pochodzenie od staro-wysoko-niemieckiego: lahhan; wg Brücknera: zgr. od łata>", Description = "wyjaśnienie etymologiczne wyrazu"},
                 };
-    
+
+
+        public string Text6 = "auspicje " +
+                              "blp, " +
+                              "D. " +
+                              "-ów " +
+                              "«w starożytnym Rzymie wróżenie, zwłaszcza z lotu ptaków; wróżba» " +
+                              "◊ " +
+                              "fraz. " +
+                              "Pod dobrymi, złymi, pomyślnymi, fatalnymi auspicjami " +
+                              "«pod dobrą itp. wróżbą»" +
+                              ": Pierwsze przyjęcie w mieście i w gimnazjum odbyło się pod złymi auspicjami: z grubą awanturą. PIGOŃ Komb. 120." +
+                              "⌂" +
+                              "Pod czyimi auspicjami " +
+                              "«pod czyją opieką, kierownictwem, zwierzchnictwem, wpływem»" +
+                              ": Wy, Polacy, obejmując tu stanowiska po Niemcach, zwłaszcza pod auspicjami rządu, powinniście wprowadzać naszą kulturę! KRAH. Zdrada 257. " +
+                              "Kto nie pamięta pod czyimi auspicjami rozpoczął się i prowadził ten kunktatorski sposób wojowania? LAM J. Kron.251. " +
+                              "<łc. lm auspicia>";
+
+
+        public ObservableCollection<DictionaryPasswordElement> Result6 =
+            new ObservableCollection<DictionaryPasswordElement>
+            {
+                new DictionaryPasswordElement{Word = "auspicje", Description = "definiendum"},
+                new DictionaryPasswordElement{Word = "blp", Description = "bez liczby pojedynczej"},
+                new DictionaryPasswordElement{Word = "D.", Description = "dopełniacz"},
+                new DictionaryPasswordElement{Word = "-ów", Description = "końcówka fleksyjna"},
+                new DictionaryPasswordElement{Word = "«w starożytnym Rzymie wróżenie, zwłaszcza z lotu ptaków; wróżba»", Description = "definiens"},
+                new DictionaryPasswordElement{Word = "◊", Description = "znak używany dla wyróżnienia grup frazeologicznych, znaczeń przenośnych wyrazu i przysłów"},
+                new DictionaryPasswordElement{Word = "fraz.", Description = "frazeologia (kwalifikator)"},
+                new DictionaryPasswordElement{Word = "Pod dobrymi, złymi, pomyślnymi, fatalnymi auspicjami", Description = "przykład/połączenie wyrazowe (kolokacja)/związek frazeologiczny"},
+                new DictionaryPasswordElement{Word = "«pod dobrą itp. wróżbą»", Description = "definiens"},
+                new DictionaryPasswordElement{Word = ": Pierwsze przyjęcie w mieście i w gimnazjum odbyło się pod złymi auspicjami: z grubą awanturą. Pigoń Komb. 120.", Description = "cytat"},
+                new DictionaryPasswordElement{Word = "⌂", Description = "znak oddzielający optycznie objaśniane związki wyrazowe"},
+                new DictionaryPasswordElement{Word = "Pod czyimi auspicjami", Description = "przykład/połączenie wyrazowe (kolokacja)/związek frazeologiczny"},
+                new DictionaryPasswordElement{Word = "«pod czyją opieką, kierownictwem, zwierzchnictwem, wpływem»", Description = "definiens"},
+                new DictionaryPasswordElement{Word = ": Wy, Polacy, obejmując tu stanowiska po Niemcach, zwłaszcza pod auspicjami rządu, powinniście wprowadzać naszą kulturę! Krah. Zdrada 257.", Description = "cytat"},
+                new DictionaryPasswordElement{Word = "Kto nie pamięta pod czyimi auspicjami rozpoczął się i prowadził ten kunktatorski sposób wojowania? Lam J. Kron.251.", Description = "cytat"},
+                new DictionaryPasswordElement{Word = "<łc. lm auspicia>", Description = "wyjaśnienie etymologiczne wyrazu"}
+                };
+
+        public string Text7 = "gablotka " +
+                              "ż " +
+                              "III, " +
+                              "lm " +
+                              "D. " +
+                              "~tek " +
+                              "«oszklona szafka, półka albo oszklone pudło służące do wystawiania różnego rodzaju okazów, przedmiotów wartościowych, artystycznie wykonanych itp.»" +
+                              ": Porcelana przetarra z kurzu, kryształy wypucowane odświętnie wypełniły szklane gablotki. PUTR. Wrzes, 197. " +
+                              "Pokazuje gablotkę, w której piętrzy się gipsowy model tamy. KUREK Woda 205. " +
+                              "Był to nie tyle sklep, ile raczej mała knajpa. W pierwszej izbie stała gablotka z gotowanymi jajami, salcesonem i wyschłą szynką, w tyle — półki z delikatesami. Rus. Wiatr 135. " +
+                              "Robił przegląd towarów w gablotkach i szafach. Prus Lalka I, 13. " +
+                              "// SW "
+            ;
+
+        public ObservableCollection<DictionaryPasswordElement> Result7 =
+            new ObservableCollection<DictionaryPasswordElement>
+            {
+                new DictionaryPasswordElement{Word = "gablotka", Description = "definiendum"},
+                new DictionaryPasswordElement{Word = "ż", Description = "żeński (rodzaj)"},
+                new DictionaryPasswordElement{Word = "III", Description = "III koniugacja/deklinacja"},
+                new DictionaryPasswordElement{Word = "lm", Description = "liczba mnoga"},
+                new DictionaryPasswordElement{Word = "D.", Description = "dopełniacz"},
+                new DictionaryPasswordElement{Word = "~tek", Description = "~ znak przed końcówką fleksyjną wraz z cząstką tematu"},
+                new DictionaryPasswordElement{Word = "«oszklona szafka, półka albo oszklone pudło służące do wystawiania różnego rodzaju okazów, przedmiotów wartościowych, artystycznie wykonanych itp.»", Description = "definiens"},
+                new DictionaryPasswordElement{Word = ": Porcelana przetarra z kurzu, kryształy wypucowane odświętnie wypełniły szklane gablotki. Putr. Wrzes, 197.", Description = "cytat"},
+                new DictionaryPasswordElement{Word = "Pokazuje gablotkę, w której piętrzy się gipsowy model tamy. Kurek Woda 205.", Description = "cytat"},
+                new DictionaryPasswordElement{Word = "Był to nie tyle sklep, ile raczej mała knajpa. W pierwszej izbie stała gablotka z gotowanymi jajami, salcesonem i wyschłą szynką, w tyle — półki z delikatesami. Rus. Wiatr 135.", Description = "cytat"},
+                new DictionaryPasswordElement{Word = "Robił przegląd towarów w gablotkach i szafach. Prus Lalka I, 13.", Description = "cytat"},
+                new DictionaryPasswordElement{Word = "// SW", Description = "odwołanie do Słownika warszawskiego"},
+                };
+
+        public string Text8 = "egzystować " +
+                             "ndk " +
+                             "IV " +
+                             "«istnieć, być, znajdować się na świecie; żyć, mieć środki do życia»" +
+                             ": Wrażenia to nie substancje, które mogą egzystować samoistnie. AJD. Zagadn. 126. " +
+                             "Zawsze mnie interesowało, z czego właściwie i jak Lewicki egzystuje. CHOYN. Miód. 38. " +
+                             "Egzystuję — na razie. Bo jeszcze nie sprzedało się wszystkich gratów na tandecie. Ale co będzie potem? RITT. NOC. 104. " +
+                             "Byliśmy w Kachariath: jest to mały kościółek bizantyjski, w którym, lubo go zmieniono na meczet, dochowały się mozaiki w przedsionkach, jedne z najpiękniejszych, jakie egzystują. SIENK. Koresp. I, 328. " +
+                             "W tamtych czasach w górzystym kraju siedmiogrodzkim egzystował bogaty klasztor benedyktynów, zbudowany na skale. PRUS Wlecz. 173. " +
+                             "W czasie kiedy Gucewicz katedrę na nowo z gruzów stwarzał, zamek dolny egzystował jeszcze. KRASZ. Wilno II, 195. " +
+                             "Lepiej więc, że się rozstaniemy, że ja zniknę, jak gdybym nigdy nie egzystował, nigdy nie żył. SLOW. Listy 11,151. " +
+                             "Za króla Łokietka, półpięta wieku egzystujące Bolesławów państwo, zdawało się, że dogorywa i gaśnie. LEL. Polska IV, 245. " +
+                             "// L " +
+                             "<łc. ezisto = trwam, jestem>";
+
+        public ObservableCollection<DictionaryPasswordElement> Result8 =
+            new ObservableCollection<DictionaryPasswordElement>
+            {
+                new DictionaryPasswordElement{Word = "egzystować", Description = "definiendum"},
+                new DictionaryPasswordElement{Word = "ndk", Description = "niedokonany (aspekt)"},
+                new DictionaryPasswordElement{Word = "IV", Description = "IV koniugacja/deklinacja"},
+                new DictionaryPasswordElement{Word = "«istnieć, być, znajdować się na świecie; żyć, mieć środki do życia»", Description = "definiens"},
+                new DictionaryPasswordElement{Word = ": Wrażenia to nie substancje, które mogą egzystować samoistnie. Ajd. Zagadn. 126.", Description = "cytat"},
+                new DictionaryPasswordElement{Word = "Zawsze mnie interesowało, z czego właściwie i jak Lewicki egzystuje. Choyn. Miód. 38.", Description = "cytat"},
+                new DictionaryPasswordElement{Word = "Egzystuję — na razie. Bo jeszcze nie sprzedało się wszystkich gratów na tandecie. Ale co będzie potem? Ritt. Noc. 104.", Description = "cytat"},
+                new DictionaryPasswordElement{Word = "Byliśmy w Kachariath: jest to mały kościółek bizantyjski, w którym, lubo go zmieniono na meczet, dochowały się mozaiki w przedsionkach, jedne z najpiękniejszych, jakie egzystują. Sienk. Koresp. I, 328.", Description = "cytat"},
+                new DictionaryPasswordElement{Word = "W tamtych czasach w górzystym kraju siedmiogrodzkim egzystował bogaty klasztor benedyktynów, zbudowany na skale. Prus Wlecz. 173.", Description = "cytat"},
+                new DictionaryPasswordElement{Word = "W czasie kiedy Gucewicz katedrę na nowo z gruzów stwarzał, zamek dolny egzystował jeszcze. Krasz. Wilno II, 195.", Description = "cytat"},
+                new DictionaryPasswordElement{Word = "Lepiej więc, że się rozstaniemy, że ja zniknę, jak gdybym nigdy nie egzystował, nigdy nie żył. Slow. Listy 11,151.", Description = "cytat"},
+                new DictionaryPasswordElement{Word = "Za króla Łokietka, półpięta wieku egzystujące Bolesławów państwo, zdawało się, że dogorywa i gaśnie. Lel. Polska IV, 245.", Description = "cytat"},
+                new DictionaryPasswordElement{Word = "// L", Description = "odwołanie do Słownika Lindego"},
+                new DictionaryPasswordElement{Word = "<łc. ezisto = trwam, jestem>", Description = "wyjaśnienie etymologiczne wyrazu"},
+                };
+
+        public string Text9 = "maligna " +
+                             "ż " +
+                             "IV, " +
+                             "CMs. " +
+                             "~gnie, " +
+                             "blm " +
+                             "«nieprzytomność połączona z majaczeniem, wywołana bardzo silną gorączką»" +
+                             ": Wpatrywała się do świtu w rozgorączkowaną twarz ojca, nasłuchując jego bredzeń i trzymając go za ręce, gdy chciał zrywać się z łóżka w malignie. Brand. K. Obyw. 358. " +
+                             "Miała silną malignę, rzucała się na łóżku, i gadała od rzeczy. Gomul. Obraz. 93. " +
+                             "Leżał w gorączce i malignie, z gnijącą w brudzie raną i zakażeniem krwi. Święt. A. T winko 145. " +
+                             "Pierwszej nocy ogarnęła mię maligna: zdawało mi się widzieć przed oczyma szeroko rozlane morze i na nim dwa okręty jakby należące do mnie. Niemc. Pam. czasów 307. " +
+                             "◊ " +
+                             "fraz. " +
+                             "Mówić, pot. gadać, daw. prawić itp. jak w malignie " +
+                             "«mówić, gadać itp. bez sensu, od rzeczy»" +
+                             ": Ten, jak w malignie, prawi trzy po trzy. Zabł. Zabob. 56. " +
+                             "Jam to przed ludźmi prawił jako pewne dzieje, aż niejeden uczony natrząsa się, śmieje, mówiąc w oczy, że prawię dziwactwa, androny właśnie jakby w malignie. Piotr. Satyr 120. " +
+                             "// L " +
+                             "<łc. maligna (febris) = złośliwa (gorączka)>";
+
+        public ObservableCollection<DictionaryPasswordElement> Result9 =
+            new ObservableCollection<DictionaryPasswordElement>
+            {
+                new DictionaryPasswordElement{Word = "maligna", Description = "definiendum"},
+                new DictionaryPasswordElement{Word = "ż", Description = "żeński (rodzaj)"},
+                new DictionaryPasswordElement{Word = "IV", Description = "IV koniugacja/deklinacja"},
+                new DictionaryPasswordElement{Word = "CMs.", Description = "celownik, miejscownik"},
+                new DictionaryPasswordElement{Word = "~gnie", Description = "~ znak przed końcówką fleksyjną wraz z cząstką tematu"},
+                new DictionaryPasswordElement{Word = "blm", Description = "bez liczby mnogiej"},
+                new DictionaryPasswordElement{Word = "«nieprzytomność połączona z majaczeniem, wywołana bardzo silną gorączką»", Description = "definiens"},
+                new DictionaryPasswordElement{Word = ": Wpatrywała się do świtu w rozgorączkowaną twarz ojca, nasłuchując jego bredzeń i trzymając go za ręce, gdy chciał zrywać się z łóżka w malignie. Brand. K. Obyw. 358.", Description = "cytat"},
+                new DictionaryPasswordElement{Word = "Miała silną malignę, rzucała się na łóżku, i gadała od rzeczy. Gomul. Obraz. 93.", Description = "cytat"},
+                new DictionaryPasswordElement{Word = "Leżał w gorączce i malignie, z gnijącą w brudzie raną i zakażeniem krwi. Święt. A. T winko 145.", Description = "cytat"},
+                new DictionaryPasswordElement{Word = "Pierwszej nocy ogarnęła mię maligna: zdawało mi się widzieć przed oczyma szeroko rozlane morze i na nim dwa okręty jakby należące do mnie. Niemc. Pam. czasów 307.", Description = "cytat"},
+                new DictionaryPasswordElement{Word = "◊", Description = "znak używany dla wyróżnienia grup frazeologicznych, znaczeń przenośnych wyrazu i przysłów"},
+                new DictionaryPasswordElement{Word = "fraz.", Description = "frazeologia (kwalifikator)"},
+                new DictionaryPasswordElement{Word = "Mówić, pot. gadać, daw. prawić itp. jak w malignie", Description = "przykład/połączenie wyrazowe (kolokacja)/związek frazeologiczny"},
+                new DictionaryPasswordElement{Word = "«mówić, gadać itp. bez sensu, od rzeczy»", Description = "definiens"},
+                new DictionaryPasswordElement{Word = ": Ten, jak w malignie, prawi trzy po trzy. Zabł. Zabob. 56.", Description = "cytat"},
+                new DictionaryPasswordElement{Word = "Jam to przed ludźmi prawił jako pewne dzieje, aż niejeden uczony natrząsa się, śmieje, mówiąc w oczy, że prawię dziwactwa, androny właśnie jakby w malignie. Piotr. Satyr 120.", Description = "cytat"},
+                new DictionaryPasswordElement{Word = "// L", Description = "odwołanie do Słownika Lindego"},
+                new DictionaryPasswordElement{Word = "<łc. maligna (febris) = złośliwa (gorączka)>", Description = "wyjaśnienie etymologiczne wyrazu"},
+            };
+
+        public string Text10 = "gachować się daw. «stroić się, robić z siebie eleganta» // L ";
+
+        public ObservableCollection<DictionaryPasswordElement> Result10 =
+            new ObservableCollection<DictionaryPasswordElement>
+            {
+                new DictionaryPasswordElement{Word = "gachować się", Description = "definiendum"},
+                new DictionaryPasswordElement{Word = "daw.", Description = "dawny, dawniej (kwalifikator)"},
+                new DictionaryPasswordElement{Word = "«stroić się, robić z siebie eleganta»", Description = "definiens"},
+                new DictionaryPasswordElement{Word = "// L", Description = "odwołanie do Słownika Lindego"},
+            };
     }
 }

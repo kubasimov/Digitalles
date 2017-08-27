@@ -171,5 +171,110 @@ namespace Tests
 
             Assert.Equal(result.Count,test.Count);
         }
+
+        [Fact]
+        public void AnalizeRecognizePasswordText6()
+        {
+            _recognize = new RecognizePasswordTextType3();
+            var text = _dataTest.Text6;
+            var result = _dataTest.Result6;
+
+            var test = _recognize.Recognize(text, _dictionary);
+
+            for (var i = 0; i < test.Count; i++)
+            {
+                _output.WriteLine(result[i].Word + "\t" + result[i].Description);
+                _output.WriteLine(test[i].Word + "\t" + test[i].Description);
+                Assert.Equal(result[i].Word.ToLower(), test[i].Word.ToLower());
+                Assert.Equal(result[i].Description.ToLower(), test[i].Description.ToLower());
+
+            }
+
+            Assert.Equal(result.Count, test.Count);
+        }
+
+        [Fact]
+        public void AnalizeRecognizePasswordText7()
+        {
+            _recognize = new RecognizePasswordTextType1();
+            var text = _dataTest.Text7;
+            var result = _dataTest.Result7;
+
+            var test = _recognize.Recognize(text, _dictionary);
+
+            for (var i = 0; i < test.Count; i++)
+            {
+                _output.WriteLine(result[i].Word + "\t" + result[i].Description);
+                _output.WriteLine(test[i].Word + "\t" + test[i].Description);
+                Assert.Equal(result[i].Word.ToLower(), test[i].Word.ToLower());
+                Assert.Equal(result[i].Description.ToLower(), test[i].Description.ToLower());
+
+            }
+
+            Assert.Equal(result.Count, test.Count);
+        }
+
+        [Fact]
+        public void AnalizeRecognizePasswordText8()
+        {
+            _recognize = new RecognizePasswordTextType1();
+            var text = _dataTest.Text8;
+            var result = _dataTest.Result8;
+
+            var test = _recognize.Recognize(text, _dictionary);
+
+            for (var i = 0; i < test.Count; i++)
+            {
+                _output.WriteLine(result[i].Word + "\t" + result[i].Description);
+                _output.WriteLine(test[i].Word + "\t" + test[i].Description);
+                Assert.Equal(result[i].Word.ToLower(), test[i].Word.ToLower());
+                Assert.Equal(result[i].Description.ToLower(), test[i].Description.ToLower());
+
+            }
+
+            Assert.Equal(result.Count, test.Count);
+        }
+
+        [Fact]
+        public void AnalizeRecognizePasswordText9()
+        {
+            _recognize = new RecognizePasswordTextType3();
+            var text = _dataTest.Text9;
+            var result = _dataTest.Result9;
+
+            var test = _recognize.Recognize(text, _dictionary);
+
+            for (var i = 0; i < test.Count; i++)
+            {
+                _output.WriteLine(result[i].Word + "\t" + result[i].Description);
+                _output.WriteLine(test[i].Word + "\t" + test[i].Description);
+                Assert.Equal(result[i].Word.ToLower(), test[i].Word.ToLower());
+                Assert.Equal(result[i].Description.ToLower(), test[i].Description.ToLower());
+
+            }
+
+            Assert.Equal(result.Count, test.Count);
+        }
+
+        [Fact]
+        public void AnalizeRecognizePasswordText10()
+        {
+            _recognize = new RecognizePasswordTextType1();
+            var text = _dataTest.Text10;
+            var result = _dataTest.Result10;
+
+            var test = _recognize.Recognize(text, _dictionary);
+
+            for (var i = 0; i < test.Count; i++)
+            {
+                _output.WriteLine(result[i].Word + "\t" + result[i].Description);
+                _output.WriteLine(test[i].Word + "\t" + test[i].Description);
+                Assert.Equal(result[i].Word.ToLower(), test[i].Word.ToLower());
+                Assert.Equal(result[i].Description.ToLower(), test[i].Description.ToLower());
+
+            }
+
+            Assert.Equal(result.Count, test.Count);
+        }
     }
 }

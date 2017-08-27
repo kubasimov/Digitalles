@@ -36,8 +36,8 @@ namespace RecognizePassword.Implement
             try
             {
                 //znalezienie i wycięcie pierwszego słowa
-                GetDefiniendum();
-                
+                GetDefiniendum.Get(ref _textToRecognize, _dictionary, _obserColl);
+
                 //znalezienie i wycięcie tekstu do pierwszego znaku '«'
                 GetDescriptionList();
 
@@ -109,74 +109,16 @@ namespace RecognizePassword.Implement
                                 //wykrycie sytatów
                                 GetCitation(ref text);
 
-                                //wykrycie odwołania i nadanie opisu
-                                regex = new Regex(@"\/+ \w+");
-                                match = regex.Match(text);
-                                e = RecognizeMeaningWord(match.Value);
-                                WriteText.Write(match.Value, e, _obserColl);
-                                text = text.Remove(0, match.Length + 1);
+                                GetReferenceToDictionary(ref text);
 
                                 GetEtymologicalExplanation(ref text);
                                 break;
                         }
                     }
-
-
                     
                 }
 
-
-
-                ////przejscie po całym zdaniu (bez pierwszego słowa
-                //var temptext = "";
-                //int counter;
-                //_max = _textToRecognize.Length;
-
-                //for (counter = 0; counter < _max; counter++)
-                //{
-                //    if (_textToRecognize[counter] != ' ')
-                //    {
-                //        temptext += _textToRecognize[counter];
-                //        //jesli znaleziono przymiotnik
-                //        if (temptext == "przym.")
-                //        {
-                //            var meaning = RecognizeMeaningWord(temptext);
-                //            WriteText.Write(temptext, meaning,_obserColl);
-                //            temptext = String.Empty;
-                //            counter += 2;
-
-                //            do
-                //            {
-                //                temptext += _textToRecognize[counter];
-                //                counter++;
-                //            } while (_textToRecognize[counter] != ':');
-                //            counter--;
-                //            WriteText.Write(temptext, "Przymiotnik hasła",_obserColl);
-                //            temptext = String.Empty;
-
-                //            //jesli hasło ma numerowane znaczenia
-                //        }//jesli jest cyfra
-                //        //else if (int.TryParse(temptext[0].ToString(),out result)&&temptext.Length==2)
-                //        //{
-                //        //    //po cyfrze jest kropka
-                //        //    if (temptext[1]=='.')
-                //        //    {
-                //        //        WriteText(temptext,result+" znaczenie hasła");
-                //        //        temptext = Empty;
-                //        //    }
-                //        //}
-                //    }
-                //    else
-                //    {
-                //        if (temptext != "")
-                //        {
-                //            //wyszukanie słowa w słowniku znaczeń
-                //            var meaning = RecognizeMeaningWord(temptext);
-                //            WriteText.Write(temptext, meaning,_obserColl);
-                //            temptext = String.Empty;
-                //        }
-                //    }
-                //}
+                
             }
             catch (Exception e)
             {
@@ -185,6 +127,16 @@ namespace RecognizePassword.Implement
             }
 
             return _obserColl;
+        }
+
+        private void GetReferenceToDictionary(ref string text)
+        {
+            //wykrycie odwołania i nadanie opisu
+            var regex = new Regex(@"\/+ \w+");
+            var match = regex.Match(text);
+            var e = RecognizeMeaningWord(match.Value);
+            WriteText.Write(match.Value, e, _obserColl);
+            text = text.Remove(0, match.Length + 1);
         }
 
         private List<string> GetPhraseologicalGroup()
@@ -246,7 +198,7 @@ namespace RecognizePassword.Implement
 
         private void GetDescriptionList()
         {
-            var regex = new Regex(@"\D*«");
+            var regex = new Regex(@"\D*?«");
             var match = regex.Match(_textToRecognize);
 
             if (match.Success)
@@ -257,18 +209,7 @@ namespace RecognizePassword.Implement
 
         }
 
-        private void GetDefiniendum()
-        {
-            var regex = new Regex(@"\D*? ");
-            var match = regex.Match(_textToRecognize);
-            if (match.Success)
-            {
-                WriteText.Write(match.Value.TrimEnd(), "definiendum",_obserColl);
-                _textToRecognize = _textToRecognize.Remove(0, match.Length);
-            }
-
-        }
-
+        
         //znajduje ciąg podany wzorem, zapisuje do słownika, i kasuje z tekstu
         private string  RegexRecognize(string regexText, string description,string toSearch)
         {
@@ -292,7 +233,7 @@ namespace RecognizePassword.Implement
             var splitText = text.Split(' ');
             foreach (string s in splitText)
             {
-                var e = RecognizeMeaningWord(s);
+                var e = RecognizeMeaningWord(s.Replace(",",""));
                 WriteText.Write(s.Replace(",", ""), e,_obserColl);
             }
         }
