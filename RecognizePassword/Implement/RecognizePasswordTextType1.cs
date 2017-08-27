@@ -51,7 +51,7 @@ namespace RecognizePassword.Implement
                 //trzy próby znalezienia cytatu
                 GetCitation(ref _textToRecognize);
 
-                GetReferenceToDictionary(ref _textToRecognize);
+                GetReferenceToDictionary.Get(ref _textToRecognize, _dictionary, _obserColl);
 
                 //rozpoznanie znaczen pomiedzy <>
                 GetEtymologicalExplanation(ref _textToRecognize);
@@ -66,7 +66,7 @@ namespace RecognizePassword.Implement
                     var match = regex.Match(text);
                     if (match.Success)
                     {
-                        var e = RecognizeMeaningWord(match.Value);
+                        var e = RecognizeMeaningWord.Get(match.Value,_dictionary);
                         WriteText.Write(match.Value, e, _obserColl);
                         text = text.Remove(0, match.Length + 1);
                     }
@@ -82,7 +82,7 @@ namespace RecognizePassword.Implement
                         case "fraz.":
                             {
                                 //nadanie opisu skrótowi
-                                var e = RecognizeMeaningWord(match.Value);
+                                var e = RecognizeMeaningWord.Get(match.Value, _dictionary);
                                 WriteText.Write(match.Value, e, _obserColl);
                                 text = text.Remove(0, match.Length + 1);
 
@@ -105,15 +105,15 @@ namespace RecognizePassword.Implement
                         case "przen.":
                             {
                                 //nadanie opisu skrótowi
-                                var e = RecognizeMeaningWord(match.Value);
+                                var e = RecognizeMeaningWord.Get(match.Value, _dictionary);
                                 WriteText.Write(match.Value, e, _obserColl);
                                 text = text.Remove(0, match.Length + 1);
 
                                 //wykrycie sytatów
                                 GetCitation(ref text);
 
-                                GetReferenceToDictionary(ref text);
-                                
+                                GetReferenceToDictionary.Get(ref text, _dictionary, _obserColl);
+
                                 GetEtymologicalExplanation(ref text);
                                 break;
                             }
@@ -121,9 +121,9 @@ namespace RecognizePassword.Implement
 
                 }
 
-                GetReferenceToDictionary(ref _textToRecognize);
+                GetReferenceToDictionary.Get(ref _textToRecognize, _dictionary, _obserColl);
 
-                
+
             }
             catch (Exception e)
             {
@@ -134,20 +134,7 @@ namespace RecognizePassword.Implement
             return _obserColl;
         }
 
-        private void GetReferenceToDictionary(ref string text)
-        {
-            //wykrycie odwołania i nadanie opisu
-            var regex = new Regex(@"\/+ \w+");
-            var match = regex.Match(text);
-            if (match.Success)
-            {
-                var e = RecognizeMeaningWord(match.Value);
-                WriteText.Write(match.Value, e, _obserColl);
-                text = text.Remove(0, match.Length + 1);
-            }
-            
-        }
-
+        
         private List<string> GetPhraseologicalGroup()
         {
             var regex = new Regex("◊");
@@ -241,33 +228,11 @@ namespace RecognizePassword.Implement
             var splitText = text.Split(' ');
             foreach (string s in splitText)
             {
-                var e = RecognizeMeaningWord(s.Replace(",", ""));
+                var e = RecognizeMeaningWord.Get(s.Replace(",", ""),_dictionary);
                 WriteText.Write(s.Replace(",", ""), e, _obserColl);
             }
         }
 
-        private string RecognizeMeaningWord(string text)
-        {
-            if (_dictionary.ContainsKey(text))
-                return _dictionary[text];
-
-            if (text[0] == '~')
-                return "~ znak przed końcówką fleksyjną wraz z cząstką tematu";
-            if (text[0] == '-')
-                return "końcówka fleksyjna";
-
-            //1. 2. itp - kolejne znaczenia jednego hasła
-            if (int.TryParse(text[0].ToString(), out int result) && text.Length == 2 && text[1] == '.')
-                return result + " znaczenie hasła";
-
-            if (text.Contains("I") || text.Contains("II") || text.Contains("III") || text.Contains("IV"))
-            {
-                return text.Replace(",", "") + " koniugacja/deklinacja";
-            }
-
-            return Empty;
-        }
-
-
+        
     }
 }

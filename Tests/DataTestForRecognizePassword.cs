@@ -344,5 +344,31 @@ namespace Tests
                 new DictionaryPasswordElement{Word = "«stroić się, robić z siebie eleganta»", Description = "definiens"},
                 new DictionaryPasswordElement{Word = "// L", Description = "odwołanie do Słownika Lindego"},
             };
+
+        public string Text11 = "jałowieć " +
+                             "ndk " +
+                             "III " +
+                             "«stawać się jałowym»" +
+                             ": Marnuje się bezużytecznie, bezpłodnie ziemia (...) Ziemia, która zamiast jałowieć w chwastach i cierniach (...) mogłaby rodzić kukurydzę na smaczną polentę, pszenicę na chleb. ZAR. Ślad. 65. " +
+                             "Odłogiem leżące ziemie jałowieją... POL Obrazy I, 271. " +
+                             "◊ " +
+                             "przen. " +
+                             "Mnóstwo umysłów jałowieje ze strachu, ażeby nie paść ofiarą ludzi płytkich, którzy jutro będą karmili się chlebem, dziś przez nich samych oplutym. PRUS NOW. III, 107. " +
+                             "// L ";
+
+        public ObservableCollection<DictionaryPasswordElement> Result11 =
+            new ObservableCollection<DictionaryPasswordElement>
+            {
+                new DictionaryPasswordElement{Word = "jałowieć", Description = "definiendum"},
+                new DictionaryPasswordElement{Word = "ndk", Description = "niedokonany (aspekt)"},
+                new DictionaryPasswordElement{Word = "III", Description = "III koniugacja/deklinacja"},
+                new DictionaryPasswordElement{Word = "«stawać się jałowym»", Description = "definiens"},
+                new DictionaryPasswordElement{Word = ": Marnuje się bezużytecznie, bezpłodnie ziemia (...) Ziemia, która zamiast jałowieć w chwastach i cierniach (...) mogłaby rodzić kukurydzę na smaczną polentę, pszenicę na chleb. Zar. Ślad. 65.", Description = "cytat"},
+                new DictionaryPasswordElement{Word = "Odłogiem leżące ziemie jałowieją... Pol Obrazy I, 271.", Description = "cytat"},
+                new DictionaryPasswordElement{Word = "◊", Description = "znak używany dla wyróżnienia grup frazeologicznych, znaczeń przenośnych wyrazu i przysłów"},
+                new DictionaryPasswordElement{Word = "przen.", Description="przenośnie, przenośnia (kwalifikator)"},
+                new DictionaryPasswordElement{Word = "Mnóstwo umysłów jałowieje ze strachu, ażeby nie paść ofiarą ludzi płytkich, którzy jutro będą karmili się chlebem, dziś przez nich samych oplutym. Prus Now. III, 107.", Description = "cytat"},
+                new DictionaryPasswordElement{Word = "// L", Description = "odwołanie do Słownika Lindego"},
+};
     }
 }
