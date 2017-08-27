@@ -12,8 +12,6 @@ namespace RecognizePassword.Implement
 {
     public class RecognizePasswordTextType1 : IRecognizePasswordText
     {
-
-        private int _max;
         private readonly ObservableCollection<DictionaryPasswordElement> _obserColl = new ObservableCollection<DictionaryPasswordElement>();
         private Dictionary<string, string> _dictionary;
         private string _textToRecognize;
@@ -165,7 +163,7 @@ namespace RecognizePassword.Implement
         private void GetCitation(ref string text)
         {
             //wykrycie cytatów bez ostatniej kropki
-            var regex = new Regex(@"\D+\d*(, s\. \d*|, \d*|,\d*, s. dod. \d*|,\d*)?");
+            var regex = new Regex(@"\D+\d*(, s\. \d*|, \d*|,\d*, s. dod. \d*|,\d*, s. \d*|,\d*)?");
             var match = regex.Match(text);
 
             while (match.Success && IsNumber(match.Value.Last()) && match.Value.Length > 5)
@@ -197,9 +195,9 @@ namespace RecognizePassword.Implement
             var regex = new Regex(@"\D*?«");
             var match = regex.Match(_textToRecognize);
 
-            if (match.Success)
+            if (match.Success && match.Length>1)
             {
-                AnalizeText(match.Value);
+                AnalizeText.Get(match.Value,_dictionary,_obserColl);
                 _textToRecognize = _textToRecognize.Remove(0, match.Length - 1);
             }
 
@@ -219,20 +217,8 @@ namespace RecognizePassword.Implement
         }
 
 
-        //dzielenie słowa po spacjach i analiza poszczególnych elementów
-
-        private void AnalizeText(string text)
-        {
-            text = text.Replace('«', ' ').TrimEnd();
-
-            var splitText = text.Split(' ');
-            foreach (string s in splitText)
-            {
-                var e = RecognizeMeaningWord.Get(s.Replace(",", ""),_dictionary);
-                WriteText.Write(s.Replace(",", ""), e, _obserColl);
-            }
-        }
-
         
     }
+
+        
 }

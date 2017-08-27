@@ -89,7 +89,7 @@ namespace Tests
             {
                 new DictionaryPasswordElement{Word = "babusz", Description = "definiendum"},
                 new DictionaryPasswordElement{Word = "m", Description = "męski (rodzaj)"},
-                new DictionaryPasswordElement{Word = "II", Description = "II koniugacja/deklinacja"},
+                new DictionaryPasswordElement{Word = "II", Description = "koniugacja/deklinacja"},
                 new DictionaryPasswordElement{Word = "lm", Description = "liczba mnoga"},
                 new DictionaryPasswordElement{Word = "D.", Description = "dopełniacz"},
                 new DictionaryPasswordElement{Word = "-y", Description = "końcówka fleksyjna"},
@@ -119,9 +119,9 @@ namespace Tests
             {
                 new DictionaryPasswordElement{Word = "ichtiobiologia", Description = "definiendum"},
                 new DictionaryPasswordElement{Word = "ż", Description = "żeński (rodzaj)"},
-                new DictionaryPasswordElement{Word = "I", Description = "I koniugacja/deklinacja"},
+                new DictionaryPasswordElement{Word = "I", Description = "koniugacja/deklinacja"},
                 new DictionaryPasswordElement{Word = "DCMs.", Description = "dopełniacz, celownik, miejscownik"},
-                new DictionaryPasswordElement{Word = "~gii", Description = "~ znak przed końcówką fleksyjną wraz z cząstką tematu"},
+                new DictionaryPasswordElement{Word = "~gii", Description = "znak przed końcówką fleksyjną wraz z cząstką tematu"},
                 new DictionaryPasswordElement{Word = "blm", Description = "bez liczby mnogiej"},
                 new DictionaryPasswordElement{Word = "«biologia ryb»", Description = "definiens"},
                 new DictionaryPasswordElement{Word = ": W wyniku polskich badań o sielawie istnieją już obfite materiały zgromadzone w nie opublikowanych opracowaniach Zakładu Ichtiobiologii i Rybactwa SGGW. Staff F. Ryby 114.", Description = "cytat"},
@@ -161,7 +161,7 @@ namespace Tests
             {
                 new DictionaryPasswordElement{Word = "łach", Description = "definiendum"},
                 new DictionaryPasswordElement{Word = "m", Description = "męski (rodzaj)"},
-                new DictionaryPasswordElement{Word = "III", Description = "III koniugacja/deklinacja"},
+                new DictionaryPasswordElement{Word = "III", Description = "koniugacja/deklinacja"},
                 new DictionaryPasswordElement{Word = "pot.", Description = "potoczny (kwalifikator)"},
                 new DictionaryPasswordElement{Word = "«ubranie liche, stare, zniszczone (czasem ironicznie o każdym ubraniu); brudny, zniszczony kawałek tkaniny; łachman., szmata, gałgan»", Description = "definiens"},
                 new DictionaryPasswordElement{Word = ": Górnicy długo się myli, powoli wkładali swoje łachy, kapelusze i czapki. Szew. Kleszcze 63.", Description = "cytat"},
@@ -244,10 +244,10 @@ namespace Tests
             {
                 new DictionaryPasswordElement{Word = "gablotka", Description = "definiendum"},
                 new DictionaryPasswordElement{Word = "ż", Description = "żeński (rodzaj)"},
-                new DictionaryPasswordElement{Word = "III", Description = "III koniugacja/deklinacja"},
+                new DictionaryPasswordElement{Word = "III", Description = "koniugacja/deklinacja"},
                 new DictionaryPasswordElement{Word = "lm", Description = "liczba mnoga"},
                 new DictionaryPasswordElement{Word = "D.", Description = "dopełniacz"},
-                new DictionaryPasswordElement{Word = "~tek", Description = "~ znak przed końcówką fleksyjną wraz z cząstką tematu"},
+                new DictionaryPasswordElement{Word = "~tek", Description = "znak przed końcówką fleksyjną wraz z cząstką tematu"},
                 new DictionaryPasswordElement{Word = "«oszklona szafka, półka albo oszklone pudło służące do wystawiania różnego rodzaju okazów, przedmiotów wartościowych, artystycznie wykonanych itp.»", Description = "definiens"},
                 new DictionaryPasswordElement{Word = ": Porcelana przetarra z kurzu, kryształy wypucowane odświętnie wypełniły szklane gablotki. Putr. Wrzes, 197.", Description = "cytat"},
                 new DictionaryPasswordElement{Word = "Pokazuje gablotkę, w której piętrzy się gipsowy model tamy. Kurek Woda 205.", Description = "cytat"},
@@ -276,7 +276,7 @@ namespace Tests
             {
                 new DictionaryPasswordElement{Word = "egzystować", Description = "definiendum"},
                 new DictionaryPasswordElement{Word = "ndk", Description = "niedokonany (aspekt)"},
-                new DictionaryPasswordElement{Word = "IV", Description = "IV koniugacja/deklinacja"},
+                new DictionaryPasswordElement{Word = "IV", Description = "koniugacja/deklinacja"},
                 new DictionaryPasswordElement{Word = "«istnieć, być, znajdować się na świecie; żyć, mieć środki do życia»", Description = "definiens"},
                 new DictionaryPasswordElement{Word = ": Wrażenia to nie substancje, które mogą egzystować samoistnie. Ajd. Zagadn. 126.", Description = "cytat"},
                 new DictionaryPasswordElement{Word = "Zawsze mnie interesowało, z czego właściwie i jak Lewicki egzystuje. Choyn. Miód. 38.", Description = "cytat"},
@@ -315,9 +315,9 @@ namespace Tests
             {
                 new DictionaryPasswordElement{Word = "maligna", Description = "definiendum"},
                 new DictionaryPasswordElement{Word = "ż", Description = "żeński (rodzaj)"},
-                new DictionaryPasswordElement{Word = "IV", Description = "IV koniugacja/deklinacja"},
+                new DictionaryPasswordElement{Word = "IV", Description = "koniugacja/deklinacja"},
                 new DictionaryPasswordElement{Word = "CMs.", Description = "celownik, miejscownik"},
-                new DictionaryPasswordElement{Word = "~gnie", Description = "~ znak przed końcówką fleksyjną wraz z cząstką tematu"},
+                new DictionaryPasswordElement{Word = "~gnie", Description = "znak przed końcówką fleksyjną wraz z cząstką tematu"},
                 new DictionaryPasswordElement{Word = "blm", Description = "bez liczby mnogiej"},
                 new DictionaryPasswordElement{Word = "«nieprzytomność połączona z majaczeniem, wywołana bardzo silną gorączką»", Description = "definiens"},
                 new DictionaryPasswordElement{Word = ": Wpatrywała się do świtu w rozgorączkowaną twarz ojca, nasłuchując jego bredzeń i trzymając go za ręce, gdy chciał zrywać się z łóżka w malignie. Brand. K. Obyw. 358.", Description = "cytat"},
@@ -361,7 +361,7 @@ namespace Tests
             {
                 new DictionaryPasswordElement{Word = "jałowieć", Description = "definiendum"},
                 new DictionaryPasswordElement{Word = "ndk", Description = "niedokonany (aspekt)"},
-                new DictionaryPasswordElement{Word = "III", Description = "III koniugacja/deklinacja"},
+                new DictionaryPasswordElement{Word = "III", Description = "koniugacja/deklinacja"},
                 new DictionaryPasswordElement{Word = "«stawać się jałowym»", Description = "definiens"},
                 new DictionaryPasswordElement{Word = ": Marnuje się bezużytecznie, bezpłodnie ziemia (...) Ziemia, która zamiast jałowieć w chwastach i cierniach (...) mogłaby rodzić kukurydzę na smaczną polentę, pszenicę na chleb. Zar. Ślad. 65.", Description = "cytat"},
                 new DictionaryPasswordElement{Word = "Odłogiem leżące ziemie jałowieją... Pol Obrazy I, 271.", Description = "cytat"},
@@ -369,6 +369,163 @@ namespace Tests
                 new DictionaryPasswordElement{Word = "przen.", Description="przenośnie, przenośnia (kwalifikator)"},
                 new DictionaryPasswordElement{Word = "Mnóstwo umysłów jałowieje ze strachu, ażeby nie paść ofiarą ludzi płytkich, którzy jutro będą karmili się chlebem, dziś przez nich samych oplutym. Prus Now. III, 107.", Description = "cytat"},
                 new DictionaryPasswordElement{Word = "// L", Description = "odwołanie do Słownika Lindego"},
+            };
+
+        public string Text12 = "gacenie n I forma rzeczownikowa czas. gacić (p.)";
+
+        public ObservableCollection<DictionaryPasswordElement> Result12 =
+            new ObservableCollection<DictionaryPasswordElement>
+            {
+                new DictionaryPasswordElement{Word = "gacenie", Description = "definiendum"},
+                new DictionaryPasswordElement{Word = "n", Description = "nijaki (rodzaj)"},
+                new DictionaryPasswordElement{Word = "I", Description = "koniugacja/deklinacja"},
+                new DictionaryPasswordElement{Word = "forma rzeczownikowa czas. gacić", Description = "definiens"},
+                new DictionaryPasswordElement{Word = "(p.)", Description = "patrz"},
+            };
+
+        public string Text13 = "kapnięcie n I forma rzeczownikowa czas. kapnąć (p. kapać).";
+
+        public ObservableCollection<DictionaryPasswordElement> Result13 =
+            new ObservableCollection<DictionaryPasswordElement>
+            {
+                new DictionaryPasswordElement {Word = "kapnięcie", Description = "definiendum"},
+                new DictionaryPasswordElement {Word = "n", Description = "nijaki (rodzaj)"},
+                new DictionaryPasswordElement {Word = "I", Description = "koniugacja/deklinacja"},
+                new DictionaryPasswordElement {Word = "forma rzeczownikowa czas. kapnąć", Description = "definiens"},
+                new DictionaryPasswordElement {Word = "(p. kapać).", Description = "patrz + bezokolicznik"},
+            };
+
+
+        public string Text14 = "autarcha m odm. jak ż III, lm M. -owie, D. -ów «władca nieograniczony; samowładca, despota» <p. autarchia> ";
+        public ObservableCollection<DictionaryPasswordElement> Result14 =
+                new ObservableCollection<DictionaryPasswordElement>
+                {
+                    new DictionaryPasswordElement{Word = "autarcha", Description = "definiendum"},
+                    new DictionaryPasswordElement{Word = "m", Description = "męski (rodzaj)"},
+                    new DictionaryPasswordElement{Word = "odm. jak ż", Description = "odmiana jak żeński (rodzaj)"},
+                    new DictionaryPasswordElement{Word = "III", Description = "koniugacja/deklinacja"},
+                    new DictionaryPasswordElement{Word = "lm", Description = "liczba mnoga"},
+                    new DictionaryPasswordElement{Word = "M.", Description = "mianownik"},
+                    new DictionaryPasswordElement{Word = "-owie", Description = "końcówka fleksyjna"},
+                    new DictionaryPasswordElement{Word = "D.", Description = "dopełniacz"},
+                    new DictionaryPasswordElement{Word = "-ów", Description = "końcówka fleksyjna"},
+                    new DictionaryPasswordElement{Word = "«władca nieograniczony; samowładca, despota»", Description = "definiens"},
+                    new DictionaryPasswordElement{Word = "<p. autarchia>", Description = "wyjaśnienie etymologiczne wyrazu"},
+                };
+
+        public string Text15 = "ex p. eks. // L";
+        public ObservableCollection<DictionaryPasswordElement> Result15 =
+            new ObservableCollection<DictionaryPasswordElement>
+            {
+                new DictionaryPasswordElement{Word = "ex", Description = "definiendum"},
+                new DictionaryPasswordElement{Word = "p.", Description = "patrz"},
+                new DictionaryPasswordElement{Word = "eks.", Description = "definiens"},
+                new DictionaryPasswordElement{Word = "// L", Description = "odwołanie do Słownika Lindego"},
+            };
+
+        public string Text16 = "kapnąć p. kapać.";
+        public ObservableCollection<DictionaryPasswordElement> Result16 =
+            new ObservableCollection<DictionaryPasswordElement>
+            {
+                new DictionaryPasswordElement{Word = "kapnąć", Description = "definiendum"},
+                new DictionaryPasswordElement{Word = "p.", Description = "patrz"},
+                new DictionaryPasswordElement{Word = "kapać.", Description = "odsyłanie do haseł"},
+            };
+
+
+        public string Text17 = "ranga " +
+                               "ż " +
+                               "III " +
+                               "p. " +
+                               "tom VII. " +
+                               "⌂ " +
+                               "jęz. " +
+                               "Ranga wyrazu " +
+                               "«w statystyce leksykalnej: liczba porządkowa wyrazu na liście ułożonej według zmniejszającej się częstości występowania wyrazów w tekstach badanego języka»";
+
+        public ObservableCollection<DictionaryPasswordElement> Result17 =
+            new ObservableCollection<DictionaryPasswordElement>
+            {
+                new DictionaryPasswordElement{Word = "ranga", Description = "definiendum"},
+                new DictionaryPasswordElement{Word = "ż", Description = "żeński (rodzaj)"},
+                new DictionaryPasswordElement{Word = "III", Description = "koniugacja/deklinacja"},
+                new DictionaryPasswordElement{Word = "p.", Description = "patrz"},
+                new DictionaryPasswordElement{Word = "tom VII.", Description = "odsyłanie do haseł"},
+                new DictionaryPasswordElement{Word = "⌂", Description = "znak oddzielający optycznie objaśniane związki wyrazowe"},
+                new DictionaryPasswordElement{Word = "jęz.", Description = "językoznawstwo (kwalifikator)"},
+                new DictionaryPasswordElement{Word = "Ranga wyrazu", Description = "uszczegółowienie"},
+                new DictionaryPasswordElement{Word = "«w statystyce leksykalnej: liczba porządkowa wyrazu na liście ułożonej według zmniejszającej się częstości występowania wyrazów w tekstach badanego języka»", Description = "definiens"},
+            };
+
+        public string Text18 = "ęsi " +
+                               "«okrzyk dziecka zawiadamiający o potrzebie naturalnej; potrzeba naturalna (u dziecka)»" +
+                               ": Kiedyś, zamkniętej, zachciało mi się strasznie „ęsi”. Co tu zrobić — matka wyniosła nocnik na płot. Witów. Ludzie 21. " +
+                               "Ale kto ma liczną dziatwę, nic mu w życiu nie jest łatwe. Franio się przestraszył gęsi, a Maryjka woła ęsi. Boy Słow. 30.";
+
+        public ObservableCollection<DictionaryPasswordElement> Result18 =
+            new ObservableCollection<DictionaryPasswordElement>
+            {
+                new DictionaryPasswordElement{Word = "ęsi", Description = "definiendum"},
+                new DictionaryPasswordElement{Word = "«okrzyk dziecka zawiadamiający o potrzebie naturalnej; potrzeba naturalna (u dziecka)»", Description = "definiens"},
+                new DictionaryPasswordElement{Word = ": Kiedyś, zamkniętej, zachciało mi się strasznie „ęsi”. Co tu zrobić — matka wyniosła nocnik na płot. Witów. Ludzie 21.", Description = "cytat"},
+                new DictionaryPasswordElement{Word = "Ale kto ma liczną dziatwę, nic mu w życiu nie jest łatwe. Franio się przestraszył gęsi, a Maryjka woła ęsi. Boy Słow. 30.", Description = "cytat"},
+            };
+
+        public string Text19 = "ubezwładniać " +
+                               "ndk " +
+                               "I, " +
+                               "~any " +
+                               "– ubezwładnić " +
+                               "dk " +
+                               "VIa, " +
+                               "~nij, " +
+                               "~ony " +
+                               "przestarz. " +
+                               "«czynić bezwładnym, paraliżować, pozbawiać siły, władzy, swobody ruchów; obezwładniać, krępować»" +
+                               ": Chwytają mnie pod ramiona jak w kleszcze, ubezwładniają mnie w mig i prowadzą na odwach. WROŃ. Pam. 210. " +
+                               "Piotr Wysocki, ranny i ubezwładniony zwichnięciem nogi, dostał się do niewoli. SOKOŁ. A. Dzieje III, 373. " +
+                               "Trząsł się wszystek ubezwładniającym spazmem śmiechu. Lamus 8,1910, s. 453. " +
+                               "Dąży do odosobnienia, ubezwładnienia albo i zagłady słabszego państwa przeciwnika. Niwa VI, 1874, s. 590. " +
+                               "◊ " +
+                               "przen. " +
+                               "«pozbawiać możności działania, utrudniać, przeszkadzać; uniemożliwiać»" +
+                               ": W pracy przeszkadzali, a nawet ją ubezwładniali bezustannym wtrącaniem się w jego twórcze zamiary. PRZYBYSZ. Współ. II, 106. " +
+                               "Czyjeś oczy rzuciły nań urok ubezwładniający. GOMUL. Miecz II, 138. ";
+        public ObservableCollection<DictionaryPasswordElement> Result19 =
+            new ObservableCollection<DictionaryPasswordElement>
+            {
+                new DictionaryPasswordElement{Word = "ubezwładniać", Description = "definiendum"},
+                new DictionaryPasswordElement{Word = "ndk", Description = "niedokonany (aspekt)"},
+                new DictionaryPasswordElement{Word = "I", Description = "koniugacja/deklinacja"},
+                new DictionaryPasswordElement{Word = "~any", Description = "znak przed końcówką fleksyjną wraz z cząstką tematu"},
+                new DictionaryPasswordElement{Word = "– ubezwładnić", Description = "definiendum"},
+                new DictionaryPasswordElement{Word = "dk", Description = "dokonany (aspekt)"},
+                new DictionaryPasswordElement{Word = "VIa", Description = "koniugacja/deklinacja"},
+                new DictionaryPasswordElement{Word = "~nij", Description = "znak przed końcówką fleksyjną wraz z cząstką tematu"},
+                new DictionaryPasswordElement{Word = "~ony", Description = "znak przed końcówką fleksyjną wraz z cząstką tematu"},
+                new DictionaryPasswordElement{Word = "przestarz.", Description = "przestarzały (kwalifikator)"},
+                new DictionaryPasswordElement{Word = "«czynić bezwładnym, paraliżować, pozbawiać siły, władzy, swobody ruchów; obezwładniać, krępować»", Description = "definiens"},
+                new DictionaryPasswordElement{Word = ": Chwytają mnie pod ramiona jak w kleszcze, ubezwładniają mnie w mig i prowadzą na odwach. Wroń. Pam. 210.", Description = "cytat"},
+                new DictionaryPasswordElement{Word = "Piotr Wysocki, ranny i ubezwładniony zwichnięciem nogi, dostał się do niewoli. Sokoł. A. Dzieje III, 373.", Description = "cytat"},
+                new DictionaryPasswordElement{Word = "Trząsł się wszystek ubezwładniającym spazmem śmiechu. Lamus 8,1910, s. 453.", Description = "cytat"},
+                new DictionaryPasswordElement{Word = "Dąży do odosobnienia, ubezwładnienia albo i zagłady słabszego państwa przeciwnika. Niwa VI, 1874, s. 590.", Description = "cytat"},
+                new DictionaryPasswordElement{Word = "◊", Description = "znak używany dla wyróżnienia grup frazeologicznych, znaczeń przenośnych wyrazu i przysłów"},
+                new DictionaryPasswordElement{Word = "przen.", Description="przenośnie, przenośnia (kwalifikator)"},
+                new DictionaryPasswordElement{Word = "«pozbawiać możności działania, utrudniać, przeszkadzać; uniemożliwiać»", Description = "definiens"},
+                new DictionaryPasswordElement{Word = ": W pracy przeszkadzali, a nawet ją ubezwładniali bezustannym wtrącaniem się w jego twórcze zamiary. Przybysz. Współ. II, 106.", Description = "cytat"},
+                new DictionaryPasswordElement{Word = "Czyjeś oczy rzuciły nań urok ubezwładniający. Gomul. Miecz II, 138.", Description = "cytat"},
+};
+
+        public string Text20 = "babunin a. babuniny «należący do babuni, dotyczący babuni»: Miliony babunine spać nie dawały. Krasz. cyt. SW.";
+
+        public ObservableCollection<DictionaryPasswordElement> Result20 =
+            new ObservableCollection<DictionaryPasswordElement>
+            {
+                new DictionaryPasswordElement{Word = "babunin", Description = "definiendum"},
+                new DictionaryPasswordElement{Word = "a.", Description = "albo"},
+                new DictionaryPasswordElement{Word = "babuniny", Description = "definiendum"},
+                new DictionaryPasswordElement{Word = "«należący do babuni, dotyczący babuni»", Description = "definiens"},
+                new DictionaryPasswordElement{Word = ": Miliony babunine spać nie dawały. Krasz. cyt. SW.", Description = "cytat"},
 };
     }
 }

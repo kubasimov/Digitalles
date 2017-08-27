@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
 using RecognizePassword.Model;
 
-namespace RecognizePassword.Implement
+namespace RecognizePassword
 {
     public static class GetReferenceToDictionary
     {

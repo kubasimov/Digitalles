@@ -12,8 +12,6 @@ namespace RecognizePassword.Implement
 {
     public class RecognizePasswordTextType3 : IRecognizePasswordText
     {
-
-        private int _max;
         private readonly ObservableCollection<DictionaryPasswordElement> _obserColl = new ObservableCollection<DictionaryPasswordElement>();
         private Dictionary<string, string> _dictionary;
         private string _textToRecognize;
@@ -116,6 +114,8 @@ namespace RecognizePassword.Implement
                                 WriteText.Write(match.Value, e, _obserColl);
                                 text = text.Remove(0, match.Length + 1);
 
+                                GetDefiniens(ref text);
+                                
                                 //wykrycie sytatów
                                 GetCitation(ref text);
 
@@ -199,8 +199,7 @@ namespace RecognizePassword.Implement
                     _textToRecognize = _textToRecognize.Replace(listmatch[1], "");
                     
                 }
-
-                if (t1.Success)
+                else if (t1.Success)
                 {
                     listmatch.Add(_textToRecognize.Substring(match.Index, t1.Index - match.Index));
                     listmatch.Add(_textToRecognize.Substring(t1.Index));
@@ -208,6 +207,13 @@ namespace RecognizePassword.Implement
                     _textToRecognize = _textToRecognize.Replace(listmatch[1], "");
 
                 }
+                else
+                {
+                    listmatch.Add(_textToRecognize.Substring(match.Index));
+                    _textToRecognize = _textToRecognize.Replace(listmatch[0], "");
+                }
+
+
             }
             
 
@@ -222,7 +228,8 @@ namespace RecognizePassword.Implement
         private void GetCitation(ref string text)
         {
             //wykrycie cytatów bez ostatniej kropki
-            var regex = new Regex(@"\D+\d*(, s\. \d*|, \d*|,\d*, s. dod. \d*|,\d*)?");
+            //var regex = new Regex(@"\D+\d*(, s\. \d*|, \d*|,\d*, s. dod. \d*|,\d*)?");
+            var regex = new Regex(@"\D+\d*(, s\. \d*|, \d*|,\d*, s. dod. \d*|,\d*, s. \d*|,\d*)?");
             var match = regex.Match(text);
 
             while (match.Success && IsNumber(match.Value.Last())&&match.Value.Length>5)
@@ -256,7 +263,7 @@ namespace RecognizePassword.Implement
 
             if (match.Success)
             {
-                AnalizeText(match.Value);
+                AnalizeText.Get(match.Value, _dictionary, _obserColl);
                 _textToRecognize = _textToRecognize.Remove(0, match.Length - 1);
             }
 
@@ -274,21 +281,6 @@ namespace RecognizePassword.Implement
                 toSearch = toSearch.Replace(match.Value, "");
             }
             return toSearch;
-        }
-
-
-        //dzielenie słowa po spacjach i analiza poszczególnych elementów
-
-        private void AnalizeText(string text)
-        {
-            text = text.Replace('«', ' ').TrimEnd();
-
-            var splitText = text.Split(' ');
-            foreach (string s in splitText)
-            {
-                var e = RecognizeMeaningWord.Get(s.Replace(",",""),_dictionary);
-                WriteText.Write(s.Replace(",", ""), e,_obserColl);
-            }
         }
 
         
