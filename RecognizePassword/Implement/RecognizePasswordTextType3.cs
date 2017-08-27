@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Text.RegularExpressions;
 using RecognizePassword.Interface;
 using RecognizePassword.Model;
-using static System.Char;
-using static System.String;
 
 namespace RecognizePassword.Implement
 {
@@ -15,16 +12,6 @@ namespace RecognizePassword.Implement
         private readonly ObservableCollection<DictionaryPasswordElement> _obserColl = new ObservableCollection<DictionaryPasswordElement>();
         private Dictionary<string, string> _dictionary;
         private string _textToRecognize;
-        private readonly List<string> _regexCitationList = new List<string>
-        {
-            @":.*?[0-9]{3}.",
-            @":.*, s.*?[0-9]{3}.",
-            @":.*?[0-9]{4,4}.",
-            @":.*?[0-9]{3,4}.",
-            @".*?[0-9]{3,4}.",
-            @":.*s.?[0-9]{3,4}.",
-            @":.*?[0-9]{3,4}."
-        };
 
         public ObservableCollection<DictionaryPasswordElement> Recognize(string textToRecognize, Dictionary<string, string> dictionary)
         {
@@ -46,7 +33,7 @@ namespace RecognizePassword.Implement
                 var phraseologicalList =  GetPhraseologicalGroup();
 
                 //trzy próby znalezienia cytatu
-                GetCitation(ref _textToRecognize);
+                GetCitation.Get(ref _textToRecognize,_obserColl);
 
                 //rozpoznanie znaczen pomiedzy <>
                 GetEtymologicalExplanation(ref _textToRecognize);
@@ -102,7 +89,7 @@ namespace RecognizePassword.Implement
                                 GetDefiniens(ref text);
 
                                 //wykrycie sytatów
-                                GetCitation(ref text);
+                                GetCitation.Get(ref text,_obserColl);
 
                                 
                                 break;
@@ -117,7 +104,7 @@ namespace RecognizePassword.Implement
                                 GetDefiniens(ref text);
                                 
                                 //wykrycie sytatów
-                                GetCitation(ref text);
+                                GetCitation.Get(ref text,_obserColl);
 
 
                                 GetReferenceToDictionary.Get(ref text, _dictionary, _obserColl);
@@ -151,7 +138,7 @@ namespace RecognizePassword.Implement
                             text = text.Remove(0, match.Length - 1);
 
                             GetDefiniens(ref text);
-                            GetCitation(ref text);
+                            GetCitation.Get(ref text, _obserColl);
                             GetEtymologicalExplanation(ref text);
                         }
                     }
@@ -225,32 +212,7 @@ namespace RecognizePassword.Implement
             RegexRecognize(@"<.*>", "wyjaśnienie etymologiczne wyrazu",text);
         }
 
-        private void GetCitation(ref string text)
-        {
-            //wykrycie cytatów bez ostatniej kropki
-            //var regex = new Regex(@"\D+\d*(, s\. \d*|, \d*|,\d*, s. dod. \d*|,\d*)?");
-            var regex = new Regex(@"\D+\d*(, s\. \d*|, \d*|,\d*, s. dod. \d*|,\d*, s. \d*|,\d*)?");
-            var match = regex.Match(text);
-
-            while (match.Success && IsNumber(match.Value.Last())&&match.Value.Length>5)
-            {
-                WriteText.Write(match.Value + ".", "cytat", _obserColl);
-                var z = match.Length + 2 < text.Length ? match.Length + 2 : match.Length;
-
-                text = text.Remove(0,z);
-                
-                if (!IsNullOrEmpty(text) && text!="." && text.Length>4)
-                {
-                    match = regex.Match(text);
-                }
-                else
-                {
-                    break;
-                }
-                
-            }
-        }
-
+        
         private void GetDefiniens(ref string text)
         {
             text= RegexRecognize(@"«.*?»", "definiens",text);

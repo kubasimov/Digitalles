@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Text.RegularExpressions;
 using RecognizePassword.Interface;
 using RecognizePassword.Model;
-using static System.Char;
-using static System.String;
+
 
 namespace RecognizePassword.Implement
 {
@@ -106,7 +104,7 @@ namespace RecognizePassword.Implement
                 }
 
                 GetDefiniens(ref _textToRecognize);
-                GetCitation(ref _textToRecognize);
+                GetCitation.Get(ref _textToRecognize,_obserColl);
                 GetReferenceToDictionary.Get(ref _textToRecognize,_dictionary,_obserColl);
             }
             catch (Exception e)
@@ -146,30 +144,7 @@ namespace RecognizePassword.Implement
             RegexRecognize(@"<.*>", "wyjaśnienie etymologiczne wyrazu", text);
         }
 
-        private void GetCitation(ref string text)
-        {
-            //wykrycie cytatów bez ostatniej kropki
-            var regex = new Regex(@"\D+\d*(, s\. \d*|, \d*|,\d*, s. dod. \d*|,\d*, s. \d*|,\d*)?");
-            var match = regex.Match(text.TrimStart());
-
-            while (match.Success && IsNumber(match.Value.Last()) && match.Value.Length > 5||match.Success&&match.Value.Contains("cyt."))
-            {
-                WriteText.Write(match.Value.Last()=='.' ? match.Value :match.Value + ".", "cytat", _obserColl);
-                var z = match.Length + 2 < text.Length ? match.Length + 2 : match.Length;
-
-                text = text.Remove(0, z);
-
-                if (!IsNullOrEmpty(text) && text != "." && text.Length > 4)
-                {
-                    match = regex.Match(text);
-                }
-                else
-                {
-                    break;
-                }
-
-            }
-        }
+        
 
         private void GetDefiniens(ref string text)
         {
