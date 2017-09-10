@@ -70,10 +70,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataTestForRecognizePassword.cs" />
+    <Compile Include="Data\DataTestForRecognizePassword2.cs" />
+    <Compile Include="Data\DataTestForRecognizePassword1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestRecognizePassword2.cs" />
     <Compile Include="Tests_Core.cs" />
-    <Compile Include="Test_RecognizePassword.cs" />
+    <Compile Include="TestRecognizePassword1.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

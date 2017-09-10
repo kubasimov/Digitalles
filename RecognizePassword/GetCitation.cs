@@ -37,5 +37,13 @@ namespace RecognizePassword
 
             }
         }
+
+        public static bool Contains(string text)
+        {
+            var regex = new Regex(@"\D+\d*(, s\. \d*|, \d*|,\d*, s. dod. \d*|,\d*, s. \d*|,\d*)?");
+            var match = regex.Match(text.TrimStart());
+
+            return match.Success && IsNumber(match.Value.Last());
+        }
     }
 }

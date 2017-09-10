@@ -142,8 +142,8 @@ namespace WPF.ViewModel
         private void ExecuteRecognizeTextCommand()
         {
             
-            if(_documentAdv!=null)
-                RecognizeText.Recognize(_documentAdv);
+            //if(_documentAdv!=null)
+            //    RecognizeText.Recognize(_documentAdv);
             //TODO: za³adowanie i wys³anie tekstu has³a do rozpoznania
 
         }

@@ -6,15 +6,15 @@ namespace RecognizePassword
 {
     public static class WriteText
     {
-        public static void Write(string text1, string text2, ObservableCollection<DictionaryPasswordElement> obserColl)
+        public static void Write(string word, string description, ObservableCollection<DictionaryPasswordElement> obserColl)
         {
             obserColl.Add(new DictionaryPasswordElement
             {
-                Word = text1,
-                Description = text2
+                Word = word,
+                Description = description
             });
 
-            Debug.WriteLine("Hasło: {0,-90}\t\t\tObjaśnienie: {1}", text1, text2);
+            Debug.WriteLine("Hasło: {0,-90}\t\t\tObjaśnienie: {1}", word, description);
         }
     }
 }

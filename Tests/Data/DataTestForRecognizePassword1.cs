@@ -3,7 +3,7 @@ using RecognizePassword.Model;
 
 namespace Tests
 {
-    public class DataTestForRecognizePassword
+    public class DataTestForRecognizePassword1
     {
         public string Text1 = "ą" +
                               " «litera alfabetu łacińskiego z dodatkowym\r\nznakiem u dołu»" +
@@ -514,37 +514,8 @@ namespace Tests
                 new DictionaryPasswordElement{Word = "«pozbawiać możności działania, utrudniać, przeszkadzać; uniemożliwiać»", Description = "definiens"},
                 new DictionaryPasswordElement{Word = ": W pracy przeszkadzali, a nawet ją ubezwładniali bezustannym wtrącaniem się w jego twórcze zamiary. Przybysz. Współ. II, 106.", Description = "cytat"},
                 new DictionaryPasswordElement{Word = "Czyjeś oczy rzuciły nań urok ubezwładniający. Gomul. Miecz II, 138.", Description = "cytat"},
-};
-
-        public string Text20 = "babunin a. babuniny «należący do babuni, dotyczący babuni»: Miliony babunine spać nie dawały. Krasz. cyt. SW.";
-
-        public ObservableCollection<DictionaryPasswordElement> Result20 =
-            new ObservableCollection<DictionaryPasswordElement>
-            {
-                new DictionaryPasswordElement{Word = "babunin", Description = "definiendum"},
-                new DictionaryPasswordElement{Word = "a.", Description = "albo"},
-                new DictionaryPasswordElement{Word = "babuniny", Description = "definiendum"},
-                new DictionaryPasswordElement{Word = "«należący do babuni, dotyczący babuni»", Description = "definiens"},
-                new DictionaryPasswordElement{Word = ": Miliony babunine spać nie dawały. Krasz. cyt. SW.", Description = "cytat"},
             };
 
-
-        public string Text21 = "malignowy " +
-                               "rzad. " +
-                               "przym. " +
-                               "od maligna" +
-                               ": Siedział na łóżku i z krzyku, upojenia, ekstazy przeszedł w łzy i szept, i mamrot malignowy. ZEG. Zmory 401. " +
-                               "To marzenie jest awanturnictwem, jest, że tak powiem, malignową sił gorączką. TRENT. Demon. 120";
-
-        public ObservableCollection<DictionaryPasswordElement> Result21 =
-            new ObservableCollection<DictionaryPasswordElement>
-            {
-                new DictionaryPasswordElement{Word = "malignowy", Description = "definiendum"},
-                new DictionaryPasswordElement{Word = "rzad.", Description = "rzadko używany (kwalifikator)"},
-                new DictionaryPasswordElement{Word = "przym.", Description = "przymiotnik"},
-                new DictionaryPasswordElement{Word = "od maligna", Description = "definiens"},
-                new DictionaryPasswordElement{Word = ": Siedział na łóżku i z krzyku, upojenia, ekstazy przeszedł w łzy i szept, i mamrot malignowy. ZEG. Zmory 401.", Description = "cytat"},
-                new DictionaryPasswordElement{Word = "To marzenie jest awanturnictwem, jest, że tak powiem, malignową sił gorączką. TRENT. Demon. 120.", Description = "cytat"},
-            };
+        
     }
 }

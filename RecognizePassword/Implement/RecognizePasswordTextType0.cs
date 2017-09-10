@@ -9,7 +9,7 @@ using RecognizePassword.Model;
 
 namespace RecognizePassword.Implement
 {
-    public class RecognizePasswordTextType4 : IRecognizePasswordText
+    public class RecognizePasswordTextType0 : IRecognizePasswordText
     {
         private readonly ObservableCollection<DictionaryPasswordElement> _obserColl = new ObservableCollection<DictionaryPasswordElement>();
         private Dictionary<string, string> _dictionary;

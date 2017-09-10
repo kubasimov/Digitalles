@@ -1,7 +1,7 @@
 using System.Collections.ObjectModel;
 using System.Windows.Media;
+using RecognizePassword.Model;
 using Syncfusion.Windows.Tools.Controls;
-using WPF.Model;
 
 namespace WPF.Helpers
 {

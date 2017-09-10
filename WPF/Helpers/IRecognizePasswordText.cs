@@ -6,6 +6,6 @@ namespace WPF.Helpers
 {
     public interface IRecognizePasswordText
     {
-        ObservableCollection<DictionaryPasswordElement> Recognize(string textToRecognize, Dictionary<string, string> dictionary);
+        //ObservableCollection<DictionaryPasswordElement> Recognize(string textToRecognize, Dictionary<string, string> dictionary);
     }
 }

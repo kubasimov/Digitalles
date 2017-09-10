@@ -16,7 +16,7 @@ namespace RecognizePassword
 
             foreach (Match match in matches)
             {
-                if (!dictionary.ContainsKey(match.Value.TrimEnd(' ', ',')) && match.Value[0]!= '«')
+                if (!dictionary.ContainsKey(match.Value.TrimEnd(' ', ',')) && match.Value[0]!= '«' &&match.Value[0]!='~')
                 {
                     definiendum += match.Value;
                 }

@@ -10,7 +10,7 @@ namespace RecognizePassword
         public static void Get(ref string text, Dictionary<string, string> dictionary,ObservableCollection<DictionaryPasswordElement> obserColl)
         {
             //wykrycie odwołania i nadanie opisu
-            var regex = new Regex(@"\/+ \w+");
+            var regex = new Regex(@"\/+ \w+|\/+\w+");
             var match = regex.Match(text);
             if (match.Success)
             {

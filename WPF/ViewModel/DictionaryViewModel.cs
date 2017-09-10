@@ -5,11 +5,11 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using Newtonsoft.Json;
+using RecognizePassword.Model;
 using Syncfusion.Windows.Tools.Controls;
 using WPF.Enum;
 using WPF.Helpers;
 using WPF.Interface;
-using WPF.Model;
 
 namespace WPF.ViewModel
 {

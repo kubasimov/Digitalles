@@ -12,8 +12,10 @@ using Syncfusion.Windows.Tools.Controls;
 using WPF.Enum;
 using WPF.Helpers;
 using WPF.Interface;
-using WPF.Model;
 using WPF.View;
+using RecognizePassword.Model;
+using RecognizePassword.Implement;
+using RecognizePassword.Interface;
 
 namespace WPF.ViewModel
 {
@@ -22,7 +24,7 @@ namespace WPF.ViewModel
         private Dictionary<string, string> _dictionary;
         private readonly IDataExchangeViewModel _dataExchangeViewModel;
         private readonly TextImporting _textImporting = new TextImporting();
-        private IRecognizePasswordText _recognizePasswordText;
+        private readonly IRecognizePasswordText _recognizePasswordText;
 
         public RecognizeViewModel(IDataExchangeViewModel dataExchangeViewModel)
         {
@@ -79,7 +81,7 @@ namespace WPF.ViewModel
             }
             
             //TODO: Zmienić na fabryke
-            _recognizePasswordText = new RecognizePasswordText();
+            _recognizePasswordText = new RecognizePasswordTextType1();
 
         }
 
@@ -326,7 +328,7 @@ namespace WPF.ViewModel
                 /// </summary>
             public const string RecognizePasswordPropertyName = "RecognizePassword";
 
-            private ObservableCollection<DictionaryPasswordElement> _recognizePasswordObservableCollection  ;
+            private ObservableCollection<RecognizePassword.Model.DictionaryPasswordElement> _recognizePasswordObservableCollection  ;
 
             /// <summary>
             /// Sets and gets the RecognizePassword property.

@@ -177,8 +177,6 @@
     </ApplicationDefinition>
     <Compile Include="Converter\LangListToString.cs" />
     <Compile Include="Enum\EnumExchangeViewmodel.cs" />
-    <Compile Include="Helpers\IRecognizePasswordText.cs" />
-    <Compile Include="Helpers\RecognizeText.cs" />
     <Compile Include="Implement\DataService.cs" />
     <Compile Include="Implement\DataExchangeViewModel.cs" />
     <Compile Include="Interface\IDataExchangeViewModel.cs" />
@@ -193,7 +191,6 @@
     <Compile Include="ViewModel\OcrViewModel.cs" />
     <Compile Include="ViewModel\OcrSettingsViewModel.cs" />
     <Compile Include="ViewModel\PreviewViewModel.cs" />
-    <Compile Include="Helpers\RecognizePasswordText.cs" />
     <Compile Include="ViewModel\RecognizeViewModel.cs" />
     <Compile Include="ViewModel\TestsViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
@@ -291,6 +288,10 @@
     <ProjectReference Include="..\Core\Core.csproj">
       <Project>{FF1ABF63-25AF-475A-8ACF-AEC22F8D06AE}</Project>
       <Name>Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RecognizePassword\RecognizePassword.csproj">
+      <Project>{44ab4bb2-72d0-456e-8a7d-5fbb2fbc0002}</Project>
+      <Name>RecognizePassword</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
