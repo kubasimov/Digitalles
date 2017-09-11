@@ -14,8 +14,17 @@ namespace RecognizePassword
             var regex = new Regex(@"\D*? ");
             var matches = regex.Matches(text );
 
+
             foreach (Match match in matches)
             {
+                //add first word
+                if (match == matches[0])
+                {
+                    definiendum += match.Value;
+                    continue;
+                }
+
+
                 if (!dictionary.ContainsKey(match.Value.TrimEnd(' ', ',')) && match.Value[0]!= '«' &&match.Value[0]!='~')
                 {
                     definiendum += match.Value;

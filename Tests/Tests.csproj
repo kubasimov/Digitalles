@@ -70,6 +70,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\DataTestForRecognizePassword3.cs" />
     <Compile Include="Data\DataTestForRecognizePassword2.cs" />
     <Compile Include="Data\DataTestForRecognizePassword1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

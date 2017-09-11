@@ -30,7 +30,7 @@ namespace RecognizePassword.Implement
                 GetDefiniens(ref _textToRecognize);
 
                 //pobranie elementów po znaku ◊
-                var phraseologicalList =  GetPhraseologicalGroup();
+                var phraseologicalList = GetPhraseologicalGroup.Get(ref _textToRecognize);
 
                 //trzy próby znalezienia cytatu
                 GetCitation.Get(ref _textToRecognize,_obserColl);
@@ -157,56 +157,7 @@ namespace RecognizePassword.Implement
 
             return _obserColl;
         }
-
         
-        private List<string> GetPhraseologicalGroup()
-        {
-            var regex = new Regex("◊");
-            var match = regex.Match(_textToRecognize);
-            var listmatch = new List<string>();
-
-            regex = new Regex(@"⌂");
-
-            var t = regex.Match(_textToRecognize);
-
-            regex = new Regex(@"/+");
-
-            var t1 = regex.Match(_textToRecognize);
-
-            if (match.Success)
-            {
-                
-
-                if (t.Success)
-                {
-                    listmatch.Add(_textToRecognize.Substring(match.Index, t.Index-match.Index));
-                    listmatch.Add(_textToRecognize.Substring(t.Index));
-
-                    _textToRecognize = _textToRecognize.Replace(listmatch[0], "");
-                    _textToRecognize = _textToRecognize.Replace(listmatch[1], "");
-                    
-                }
-                else if (t1.Success)
-                {
-                    listmatch.Add(_textToRecognize.Substring(match.Index, t1.Index - match.Index));
-                    listmatch.Add(_textToRecognize.Substring(t1.Index));
-                    _textToRecognize = _textToRecognize.Replace(listmatch[0], "");
-                    _textToRecognize = _textToRecognize.Replace(listmatch[1], "");
-
-                }
-                else
-                {
-                    listmatch.Add(_textToRecognize.Substring(match.Index));
-                    _textToRecognize = _textToRecognize.Replace(listmatch[0], "");
-                }
-
-
-            }
-            
-
-            return listmatch;
-        }
-
         private void GetEtymologicalExplanation(ref string text)
         {
             RegexRecognize(@"<.*>", "wyjaśnienie etymologiczne wyrazu",text);

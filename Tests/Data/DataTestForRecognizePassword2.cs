@@ -98,7 +98,7 @@ namespace Tests
                 new DictionaryPasswordElement{Word = "Oj, zapachniałeś dymem jałowcowymi. Konopn. Balcer 297.", Description = "cytat"},
                 new DictionaryPasswordElement{Word = "Weźmiesz małą garstkę soli gorzkiej, trochę gencjany, tataraku, jagód jałowcowych, utrzesz to i w pysk jej [kobyłce] wpakujesz. Dygas. Pióro 59.", Description = "cytat"},
                 new DictionaryPasswordElement{Word = "⌂", Description = "znak oddzielający optycznie objaśniane związki wyrazowe"},
-                new DictionaryPasswordElement{Word = "Kiełbasa jałowcowa ", Description = "uszczegółowienie"},
+                new DictionaryPasswordElement{Word = "Kiełbasa jałowcowa", Description = "uszczegółowienie"},
                 new DictionaryPasswordElement{Word = "«gatunek kiełbasy wędzonej w dymie jałowcowym»", Description = "definiens"},
                 new DictionaryPasswordElement{Word = ": Wisiały (...) jałowcowe kiełbasy, oprószone salami i lśniące, sękate kabanosy. Rus. Ziemia 17.", Description = "cytat"},
                 new DictionaryPasswordElement{Word = "// L", Description = "odwołanie do Słownika Lindego"},
@@ -113,7 +113,8 @@ namespace Tests
             new ObservableCollection<DictionaryPasswordElement>
             {
                 new DictionaryPasswordElement{Word = "II celność", Description = "definiendum"},
-                new DictionaryPasswordElement{Word = "rzecz. od II celny", Description = "odsyłanie do haseł"},
+                new DictionaryPasswordElement{Word = "rzecz.", Description = "rzeczownik"},
+                new DictionaryPasswordElement{Word = "od II celny", Description = "odsyłanie do haseł"},
                 new DictionaryPasswordElement{Word = "«bycie celnym; to co jest celne, doskonałe»", Description = "definiens"},
                 new DictionaryPasswordElement{Word = ": W dziełach (...) rozbierają styl, myśli, wiersz, rym; wskazują wady, wskazują celność. Czart. Myśli 220.", Description = "cytat"},
             };
@@ -128,19 +129,19 @@ namespace Tests
                                "Popaliwszy budynki celne, ruszyły tłumy, aby rabować domy dzierżawców opłat miejskich. CHŁĘD.Neapol. 371. " +
                                "Prawodawstwo Rzpltej dość pilnie zajmowało się drogami, ale głównie ze względu na dochody celne, aby kupcy komor nie objeżdżali. KORZON Wewn. II, 60. " +
                                "Znane są przestare bawarskie przepisy celne dla handlu z Czechami. LEL. Polska IV, 520. " +
-                               "//L";
+                               "// L";
 
         public ObservableCollection<DictionaryPasswordElement> Result26 =
             new ObservableCollection<DictionaryPasswordElement>
             {
                 new DictionaryPasswordElement{Word = "III celny celni", Description = "definiendum"},
-                new DictionaryPasswordElement{Word = "przym. od cło", Description = "definiens"},
+                new DictionaryPasswordElement{Word = "przym.", Description = "przymiotnik"},
+                new DictionaryPasswordElement{Word = "od cło", Description = "definiens"},
                 new DictionaryPasswordElement{Word = ": Miasto objęte jest z trzech stron kordonem polskiej straży granicznej i urzędów celnych. Goj. Dzień 52.", Description = "cytat"},
                 new DictionaryPasswordElement{Word = "Rewizja celna! Wysiadać! Winaw. Znajom. 31.", Description = "cytat"},
                 new DictionaryPasswordElement{Word = "Na statku skończyła się odprawa celna i załoga schodziła już na ląd. Meis. Sams. 21.", Description = "cytat"},
                 new DictionaryPasswordElement{Word = "Zboże, wywożone [w XV w.] przez samego szlachcica, nie podlegało opłatom celnym. Baran. Hist. IX, 281.", Description = "cytat"},
                 new DictionaryPasswordElement{Word = "Popaliwszy budynki celne, ruszyły tłumy, aby rabować domy dzierżawców opłat miejskich. Chłęd.Neapol. 371.", Description = "cytat"},
-                new DictionaryPasswordElement{Word = "Zboże, wywożone [w XV w.] przez samego szlachcica, nie podlegało opłatom celnym. Baran. Hist. IX, 281.", Description = "cytat"},
                 new DictionaryPasswordElement{Word = "Prawodawstwo Rzpltej dość pilnie zajmowało się drogami, ale głównie ze względu na dochody celne, aby kupcy komor nie objeżdżali. Korzon Wewn. II, 60.", Description = "cytat"},
                 new DictionaryPasswordElement{Word = "Znane są przestare bawarskie przepisy celne dla handlu z Czechami. Lel. Polska IV, 520.", Description = "cytat"},
                 new DictionaryPasswordElement{Word = "// L", Description = "odwołanie do Słownika Lindego"},
@@ -155,7 +156,7 @@ namespace Tests
                                "Najlepszą sławę zyskała sobie artyleria znakomitą celnością strzałów. KORZON Wewn. V, 93. " +
                                "W ciągnieniu kuszy nie miał sobie równego, a gdy raz wobec Batorego przy pośle tatarskim zdumiał obecnych celnością strzałów z łuku, król podarował mu dzielnego wierzchowca. SRG 443. " +
                                "Kto (...) tyle razy spudłował, sam nie ma wiary w celność swego strzału. DYGAS. Zając 72. " +
-                               "? " +
+                               "◊ " +
                                "przen. " +
                                "Silną stroną utworów Tuwima jest (...) wyjątkowa celność poetyckiego wyrazu. KÓRZ. E. Lit. XI/2, 31. " +
                                "Z ogromną (...) celnością stosuje poeta rytmy o zmiennej i nieregularnej liczbie akcentów. MATUSZ. R. Lit. 56. " +
@@ -169,12 +170,13 @@ namespace Tests
                 new DictionaryPasswordElement{Word = "ż", Description = "żeński (rodzaj)"},
                 new DictionaryPasswordElement{Word = "I", Description = "koniugacja/deklinacja"},
                 new DictionaryPasswordElement{Word = "blm", Description = "bez liczby mnogiej"},
-                new DictionaryPasswordElement{Word = "rzecz. od I celny", Description = "definiens"},
+                new DictionaryPasswordElement{Word = "rzecz.", Description = "rzeczownik"},
+                new DictionaryPasswordElement{Word = "od I celny", Description = "definiens"},
                 new DictionaryPasswordElement{Word = ": Był to starszy już człowiek, cieszący się w szerokiej okolicy sławą Strzelca nad strzelcami. Dziwy opowiadano o pewności jego ręki, o celności oka. Pigoń Komb. 64.", Description = "cytat"},
                 new DictionaryPasswordElement{Word = "Najlepszą sławę zyskała sobie artyleria znakomitą celnością strzałów. Korzon Wewn. V, 93.", Description = "cytat"},
                 new DictionaryPasswordElement{Word = "W ciągnieniu kuszy nie miał sobie równego, a gdy raz wobec Batorego przy pośle tatarskim zdumiał obecnych celnością strzałów z łuku, król podarował mu dzielnego wierzchowca. SRG 443.", Description = "cytat"},
                 new DictionaryPasswordElement{Word = "Kto (...) tyle razy spudłował, sam nie ma wiary w celność swego strzału. Dygas. Zając 72.", Description = "cytat"},
-                new DictionaryPasswordElement{Word = "?", Description = "znak używany dla wyróżnienia grup frazeologicznych, znaczeń przenośnych wyrazu i przysłów"},
+                new DictionaryPasswordElement{Word = "◊", Description = "znak używany dla wyróżnienia grup frazeologicznych, znaczeń przenośnych wyrazu i przysłów"},
                 new DictionaryPasswordElement{Word = "przen.", Description = "przenośnie, przenośnia (kwalifikator)"},
                 new DictionaryPasswordElement{Word = "Silną stroną utworów Tuwima jest (...) wyjątkowa celność poetyckiego wyrazu. KÓRZ. E. Lit. XI/2, 31.", Description = "cytat"},
                 new DictionaryPasswordElement{Word = "Z ogromną (...) celnością stosuje poeta rytmy o zmiennej i nieregularnej liczbie akcentów. Matusz. R. Lit. 56.", Description = "cytat"},

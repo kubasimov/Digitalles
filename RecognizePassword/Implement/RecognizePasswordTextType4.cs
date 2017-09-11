@@ -35,6 +35,9 @@ namespace RecognizePassword.Implement
                     _textToRecognize = _textToRecognize.Replace(triangleText, "");
                 }
 
+                //pobranie elementów po znaku ◊
+                var phraseologicalList = RecognizePassword.GetPhraseologicalGroup.Get(ref _textToRecognize);
+
                 var splitText = _textToRecognize.Split(' ');
 
                 foreach (string s in splitText)
@@ -82,16 +85,41 @@ namespace RecognizePassword.Implement
                            
 
                         }
-                        if (s=="przym.")
+                        if (s=="przym."||s=="rzecz.")
                         {
                             var e = RecognizeMeaningWord.Get(s.Replace(",", ""), _dictionary);
                             WriteText.Write(s.Replace(",", ""), e, _obserColl);
                             _textToRecognize = _textToRecognize.Remove(0, s.Length + 1);
 
+                            //czy jest «definiens
+                            regex3 = new Regex(@"\D*?«");
+                            var match3 = regex3.Match(_textToRecognize);
+
                             var regex1 = new Regex(@"\D*:");
                             var match1 = regex1.Match(_textToRecognize);
 
-                            if (match1.Success)
+                            if (match3.Success)
+                            {
+                                WriteText.Write(match3.Value.Replace("«", "").TrimEnd(), "odsyłanie do haseł", _obserColl);
+                                _textToRecognize  = _textToRecognize.Remove(0, match3.Value.Length - 1);
+                                GetDefiniens(ref _textToRecognize);
+                                if (!GetCitation.Contains(_textToRecognize))
+                                {
+                                    var regex2 = new Regex(@"\D* \/");
+                                    var match2 = regex2.Match(_textToRecognize);
+                                    WriteText.Write(match2.Value.TrimEnd('/', ' '), "przykład/połączenie wyrazowe (kolokacja)/związek frazeologiczny", _obserColl);
+                                    _textToRecognize = _textToRecognize.Replace(match2.Value.TrimEnd('/'), "");
+                                }
+                                else
+                                {
+                                    GetCitation.Get(ref _textToRecognize, _obserColl);
+                                }
+
+                                break;
+
+
+                            }
+                            else if (match1.Success)
                             {
                                 var text = _textToRecognize.Substring(0, match1.Length-1);
                                 WriteText.Write(text.Trim(), "definiens", _obserColl);
@@ -167,9 +195,19 @@ namespace RecognizePassword.Implement
                     triangleText = triangleText.Remove(0, 2);
 
                     regex3 = new Regex(@"\D*?«");
-                    t = regex3.Match(triangleText);
-                    WriteText.Write(t.Value.Replace("«", ""), "uszczegółowienie", _obserColl);
-                    triangleText = triangleText.Remove(0, t.Length - 1);
+                    var t1 = regex3.Match(triangleText).Value;
+
+                    //sprawdzenie czy jest skrót w tekscie, jak jest to wypisanie i skasowanie z tekstu
+                    var t2 = t1.Split(' ');
+                    e = RecognizeMeaningWord.Get(t2[0], _dictionary);
+                    if (e!=String.Empty)
+                    {
+                        WriteText.Write(t2[0], e, _obserColl);
+                        t1 = t1.Remove(0,t2[0].Length+1);
+                    }
+
+                    WriteText.Write(t1.Replace("«", "").TrimEnd(), "uszczegółowienie", _obserColl);
+                    triangleText = triangleText.Remove(0, t1.Length - 1);
 
                     GetDefiniens(ref triangleText);
                     GetCitation.Get(ref triangleText, _obserColl);

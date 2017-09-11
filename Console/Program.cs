@@ -14,7 +14,7 @@ namespace Console
 {
     class Program
     {
-        public static Dictionary<string, string> dic;
+        
         public static  Dictionary<string, string> _dictionary;
 
         static void Main(string[] args)

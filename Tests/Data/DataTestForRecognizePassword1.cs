@@ -6,11 +6,11 @@ namespace Tests
     public class DataTestForRecognizePassword1
     {
         public string Text1 = "ą" +
-                              " «litera alfabetu łacińskiego z dodatkowym\r\nznakiem u dołu»" +
+                              " «litera alfabetu łacińskiego z dodatkowym znakiem u dołu»" +
                               ": a)" +
-                              " «odpowiada ogólnopolskiej wymawianej nosowo samogłosce o lub samo-głosce o w połączeniu ze spółgłoską nosową m albo n»" +
-                              ": Trzeba stwierdzić, że nosowość końcowego ą utrzymuje się nawet potocznie nie tylko w Krakowie i Poznaniu, ale też w wiel-kopolskich, a nawet nieraz w małopolskich i mazowieckich częściach b[yłej] Kongresów¬ki\r\nki, przeważnie i w Warszawie, Jęz. Pol. 1928, s. 120." +
-                              "\r\nb) " +
+                              " «odpowiada ogólnopolskiej wymawianej nosowo samogłosce o lub samogłosce o w połączeniu ze spółgłoską nosową m albo n»" +
+                              ": Trzeba stwierdzić, że nosowość końcowego ą utrzymuje się nawet potocznie nie tylko w Krakowie i Poznaniu, ale też w wielkopolskich, a nawet nieraz w małopolskich i mazowieckich częściach b[yłej] Kongresówki, przeważnie i w Warszawie, Jęz. Pol. 1928, s. 120." +
+                              "b) " +
                               "«w naukowej transkrypcji fonetycznej ozna¬cza samogłoskę a z rezonansem nosowym»" +
                               ": W gwarach małopolskich zamiast literackiego i wielkopolskiego ę występuje, a zwłaszcza wy-stępowało w przeszłości, przeważnie ą (tj. a no-sowe, jak w wyrazach obcych kwadrans, awan-sować). Wiedza 276, s. 13.";
 
