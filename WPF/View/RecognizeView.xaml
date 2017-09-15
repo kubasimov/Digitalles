@@ -54,7 +54,7 @@
         <syncfusion:SfDataGrid ItemsSource="{Binding RecognizePassword}" AllowEditing="True" AllowSelectionOnPointerPressed="True"  AllowDeleting="True" AllowFiltering="True" AddNewRowPosition="Bottom" Grid.Row="2" Grid.Column="0" Margin="6,3" AllowResizingColumns="True" ColumnSizer="Star" ShowRowHeader="True" AutoGenerateColumns="False" NavigationMode="Row" RowHeight="42" >
             <syncfusion:SfDataGrid.Columns>
                 <syncfusion:GridTextColumn MappingName="Word" TextWrapping="Wrap" HeaderText="Element" AllowResizing="True"/>
-                <syncfusion:GridTextColumn MappingName="Description" TextWrapping="Wrap" HeaderText="Opis"/>
+                <syncfusion:GridTextColumn MappingName="Description" TextWrapping="Wrap" HeaderText="Cześci funkcyjne"/>
             </syncfusion:SfDataGrid.Columns>
         </syncfusion:SfDataGrid>
         <syncfusion:SfDataGrid ItemsSource="{Binding MyDigDictionary}" AllowEditing="True" AllowSelectionOnPointerPressed="True"  AllowDeleting="True" AllowFiltering="True" AddNewRowPosition="Bottom" Grid.Row="2"  Grid.Column="1" Margin="6,3" AllowResizingColumns="True" ColumnSizer="Star"/>

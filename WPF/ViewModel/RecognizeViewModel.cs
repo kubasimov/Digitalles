@@ -75,7 +75,8 @@ namespace WPF.ViewModel
                     _textToRecognize = new DocumentAdv();
                 }
 
-                _recognizePasswordObservableCollection = new ObservableCollection<DictionaryPasswordElement>();
+                _recognizePasswordObservableCollection = 
+                    new ObservableCollection<DictionaryPasswordElement>();
 
                 LoadDictionaryPassword();
             }
@@ -101,10 +102,10 @@ namespace WPF.ViewModel
 
             if (result==true)
             {
-
-
+                
                 File.WriteAllText(saveFileDialog.FileName, 
-                    JsonConvert.SerializeObject(_recognizePasswordObservableCollection, Formatting.Indented));
+                    JsonConvert.SerializeObject(_recognizePasswordObservableCollection,
+                    Formatting.Indented));
 
             }
         }
@@ -160,16 +161,16 @@ namespace WPF.ViewModel
             if (File.Exists(@"\slownik.json"))
             {
                 dictionaryFromFile =
-                    JsonConvert.DeserializeObject<List<List<DictionaryPasswordElement>>>(
-                        File.ReadAllText(@"\slownik.json"));
+                    JsonConvert.DeserializeObject<List<List<DictionaryPasswordElement>>>
+                    (File.ReadAllText(@"\slownik.json"));
             }
             else
             {
                 dictionaryFromFile = new List<List<DictionaryPasswordElement>>();
             }
-            
             dictionaryFromFile.Add(_recognizePasswordObservableCollection.ToList());
-            File.WriteAllText(@"\slownik.json",JsonConvert.SerializeObject(dictionaryFromFile,Formatting.Indented));
+            File.WriteAllText(@"\slownik.json",JsonConvert.SerializeObject(
+                dictionaryFromFile,Formatting.Indented));
             
         }
 

@@ -86,13 +86,13 @@ namespace Tests
         public void ReadImageToPix()
         {
             Mock<IReadPicture> mock = new Mock<IReadPicture>();
-            mock.Setup(m => m.ReadImageFromFile("Test")).Returns(Pix.Create(200, 200, 32));
+            mock.Setup(m => m.ReadImageFromFile("Test"))
+                .Returns(Pix.Create(200, 200, 32));
 
             Ocr ocr = new Ocr(mock.Object);
             var test = ocr.ReadFile("Test");
 
             Assert.True(test);
-            
         }
 
 

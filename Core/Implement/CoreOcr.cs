@@ -24,12 +24,9 @@ namespace Core.Implement
 
         public async Task<string> OcrPages(string language, int pages)
         {
-            using (var engine = new TesseractEngine(@"./tessdata", language.ToString()))
+            using (var engine = new TesseractEngine(@"./tessdata",language))
             {
-                //testowe ustawienie własnego słownika znaków
-                //engine.SetVariable("tessedit_char_whitelist", "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ•~óÓżŻźŹćĆłŁśŚ|{}[]+-=_;:,.<>/?!@#$%^&*()|\\\"'");
                 var page = engine.Process(_imagePix);
-
                 return await Task.Run(() => page.GetHOCRText(pages));
             }
         }

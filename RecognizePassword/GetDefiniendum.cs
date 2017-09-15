@@ -5,35 +5,31 @@ using RecognizePassword.Model;
 
 namespace RecognizePassword
 {
-    public static class GetDefiniendum
+    internal static class GetDefiniendum
     {
-        public static void Get(ref string text,Dictionary<string,string> dictionary, ObservableCollection<DictionaryPasswordElement> obserColl)
+        internal static void Get(ref string text,
+            Dictionary<string,string> dictionary, 
+            ObservableCollection<DictionaryPasswordElement> obserColl)
         {
             var definiendum = "";
-
             var regex = new Regex(@"\D*? ");
             var matches = regex.Matches(text );
-
-
             foreach (Match match in matches)
             {
-                //add first word
                 if (match == matches[0])
-                {
-                    definiendum += match.Value;
+                {definiendum += match.Value;
                     continue;
                 }
-
-
-                if (!dictionary.ContainsKey(match.Value.TrimEnd(' ', ',')) && match.Value[0]!= '«' &&match.Value[0]!='~')
-                {
-                    definiendum += match.Value;
-                }
+                
+                if (!dictionary.ContainsKey(match.Value.TrimEnd(' ', ',')) 
+                    && match.Value[0]!= '«' &&match.Value[0]!='~')
+                {definiendum += match.Value;}
                 else
-                {
-                    WriteText.Write(definiendum.TrimEnd(' '), "definiendum", obserColl);
+                {WriteText.Write(definiendum.TrimEnd(' '), "definiendum",
+                    obserColl);
                     text  = text.Remove(0, definiendum.Length);
                     break;
+                    
                 }
             }
         }

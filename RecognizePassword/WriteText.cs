@@ -4,9 +4,9 @@ using RecognizePassword.Model;
 
 namespace RecognizePassword
 {
-    public static class WriteText
+    internal static class WriteText
     {
-        public static void Write(string word, string description, ObservableCollection<DictionaryPasswordElement> obserColl)
+        internal static void Write(string word, string description, ObservableCollection<DictionaryPasswordElement> obserColl)
         {
             obserColl.Add(new DictionaryPasswordElement
             {

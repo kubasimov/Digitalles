@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="RecognizePassword.AnalizeText">
+    <Position X="8.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AnalizeText.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RecognizePassword.GetCitation">
+    <Position X="6.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAQAAA=</HashCode>
+      <FileName>GetCitation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RecognizePassword.GetDefiniendum">
+    <Position X="6.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>GetDefiniendum.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RecognizePassword.GetPhraseologicalGroup">
+    <Position X="4.5" Y="1.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAAAAAAgAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>GetPhraseologicalGroup.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RecognizePassword.GetReferenceToDictionary">
+    <Position X="4.5" Y="3.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>GetReferenceToDictionary.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RecognizePassword.RecognizeMeaningWord">
+    <Position X="4.5" Y="4.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>RecognizeMeaningWord.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RecognizePassword.WriteText">
+    <Position X="6.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>WriteText.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

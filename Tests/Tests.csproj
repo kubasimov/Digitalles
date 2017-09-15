@@ -74,6 +74,7 @@
     <Compile Include="Data\DataTestForRecognizePassword2.cs" />
     <Compile Include="Data\DataTestForRecognizePassword1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestRecognizePassword3.cs" />
     <Compile Include="TestRecognizePassword2.cs" />
     <Compile Include="Tests_Core.cs" />
     <Compile Include="TestRecognizePassword1.cs" />

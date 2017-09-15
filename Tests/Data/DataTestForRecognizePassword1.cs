@@ -334,15 +334,21 @@ namespace Tests
                 new DictionaryPasswordElement{Word = "<łc. maligna (febris) = złośliwa (gorączka)>", Description = "wyjaśnienie etymologiczne wyrazu"},
             };
 
-        public string Text10 = "gachować się daw. «stroić się, robić z siebie eleganta» // L ";
+        public string Text10 = "gachować się daw. «stroić się," +
+                               " robić z siebie eleganta» // L ";
 
         public ObservableCollection<DictionaryPasswordElement> Result10 =
             new ObservableCollection<DictionaryPasswordElement>
             {
-                new DictionaryPasswordElement{Word = "gachować się", Description = "definiendum"},
-                new DictionaryPasswordElement{Word = "daw.", Description = "dawny, dawniej (kwalifikator)"},
-                new DictionaryPasswordElement{Word = "«stroić się, robić z siebie eleganta»", Description = "definiens"},
-                new DictionaryPasswordElement{Word = "// L", Description = "odwołanie do Słownika Lindego"},
+                new DictionaryPasswordElement{Word = "gachować się",
+                    Description = "definiendum"},
+                new DictionaryPasswordElement{Word = "daw.",
+                    Description = "dawny, dawniej (kwalifikator)"},
+                new DictionaryPasswordElement{Word = "«stroić się, robić " +
+                                                     "z siebie eleganta»",
+                    Description = "definiens"},
+                new DictionaryPasswordElement{Word = "// L",
+                    Description = "odwołanie do Słownika Lindego"},
             };
 
         public string Text11 = "jałowieć " +
@@ -376,11 +382,16 @@ namespace Tests
         public ObservableCollection<DictionaryPasswordElement> Result12 =
             new ObservableCollection<DictionaryPasswordElement>
             {
-                new DictionaryPasswordElement{Word = "gacenie", Description = "definiendum"},
-                new DictionaryPasswordElement{Word = "n", Description = "nijaki (rodzaj)"},
-                new DictionaryPasswordElement{Word = "I", Description = "koniugacja/deklinacja"},
-                new DictionaryPasswordElement{Word = "forma rzeczownikowa czas. gacić", Description = "definiens"},
-                new DictionaryPasswordElement{Word = "(p.)", Description = "patrz"},
+                new DictionaryPasswordElement{Word = "gacenie"
+                    , Description = "definiendum"},
+                new DictionaryPasswordElement{Word = "n"
+                    , Description = "nijaki (rodzaj)"},
+                new DictionaryPasswordElement{Word = "I"
+                    , Description = "koniugacja/deklinacja"},
+                new DictionaryPasswordElement{Word = "forma rzeczownikowa czas. gacić"
+                    , Description = "definiens"},
+                new DictionaryPasswordElement{Word = "(p.)"
+                    , Description = "patrz"},
             };
 
         public string Text13 = "kapnięcie n I forma rzeczownikowa czas. kapnąć (p. kapać).";

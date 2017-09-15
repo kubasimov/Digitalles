@@ -42,5 +42,9 @@ namespace Tests.Data
                 new DictionaryPasswordElement{Word = ": W czwartej oficynie, tej najbliższej od pałacu (...) same [samo] babstwo, Panie odpuść ciężkie grzechy, faworyty imościne; Chodź. Pisma I, 376.", Description = "cytat"},
             };
 
+        public string Text31 = "";
+
+        
+
     }
 }

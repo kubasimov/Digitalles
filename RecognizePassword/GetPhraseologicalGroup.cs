@@ -1,32 +1,32 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Text.RegularExpressions;
 
 namespace RecognizePassword
 {
-    public static class GetPhraseologicalGroup
+    [SuppressMessage("ReSharper", "InvertIf")]
+
+    internal static class GetPhraseologicalGroup
     {
-        public static List<string> Get(ref string  textToRecognize)
+        internal static List<string> Get(ref string  textToRecognize)
         {
+            var listmatch = new List<string>();
             var regex = new Regex("◊");
             var match = regex.Match(textToRecognize);
-            var listmatch = new List<string>();
-
             var match2 = match.NextMatch();
 
             regex = new Regex(@"⌂");
-
             var t = regex.Match(textToRecognize);
 
             regex = new Regex(@"/+");
-
             var t1 = regex.Match(textToRecognize);
-
             
             if (match.Success)
             {
                 if (match2.Success)
                 {
-                    listmatch.Add(textToRecognize.Substring(match.Index, match2.Index - match.Index));
+                    listmatch.Add(textToRecognize.Substring(match.Index,
+                        match2.Index - match.Index));
                     listmatch.Add(textToRecognize.Substring(match2.Index));
 
                     textToRecognize = textToRecognize.Replace(listmatch[0], "");

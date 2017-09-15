@@ -192,7 +192,6 @@
     <Compile Include="ViewModel\OcrSettingsViewModel.cs" />
     <Compile Include="ViewModel\PreviewViewModel.cs" />
     <Compile Include="ViewModel\RecognizeViewModel.cs" />
-    <Compile Include="ViewModel\TestsViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="View\DictionaryView.xaml.cs">
       <DependentUpon>DictionaryView.xaml</DependentUpon>
@@ -215,9 +214,6 @@
     </Compile>
     <Compile Include="View\RecognizeView.xaml.cs">
       <DependentUpon>RecognizeView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\TestsView.xaml.cs">
-      <DependentUpon>TestsView.xaml</DependentUpon>
     </Compile>
     <Page Include="Simple Styles.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -244,10 +240,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\RecognizeView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\TestsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

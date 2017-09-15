@@ -5,9 +5,9 @@ using RecognizePassword.Model;
 
 namespace RecognizePassword
 {
-    public static class GetReferenceToDictionary
+    internal static class GetReferenceToDictionary
     {
-        public static void Get(ref string text, Dictionary<string, string> dictionary,ObservableCollection<DictionaryPasswordElement> obserColl)
+        internal static void Get(ref string text, Dictionary<string, string> dictionary,ObservableCollection<DictionaryPasswordElement> obserColl)
         {
             //wykrycie odwołania i nadanie opisu
             var regex = new Regex(@"\/+ \w+|\/+\w+");

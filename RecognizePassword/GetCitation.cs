@@ -11,12 +11,16 @@ using static System.String;
 
 namespace RecognizePassword
 {
-    public static class GetCitation
+    internal static class GetCitation
     {
-        public static void Get(ref string text, ObservableCollection<DictionaryPasswordElement> obserColl)
+        internal static void Get(ref string text, ObservableCollection<DictionaryPasswordElement> obserColl)
         {
             //wykrycie cytatów bez ostatniej kropki
+
+
             var regex = new Regex(@"\D+\d*(, s\. \d*|, \d*|,\d*, s. dod. \d*|,\d*, s. \d*|,\d*)?");
+
+
             var match = regex.Match(text.TrimStart());
 
             while (match.Success && IsNumber(match.Value.Last()) && match.Value.Length > 5 || match.Success && match.Value.Contains("cyt."))
@@ -38,9 +42,10 @@ namespace RecognizePassword
             }
         }
 
-        public static bool Contains(string text)
+        internal static bool Contains(string text)
         {
-            var regex = new Regex(@"\D+\d*(, s\. \d*|, \d*|,\d*, s. dod. \d*|,\d*, s. \d*|,\d*)?");
+            var regex = new Regex(@"\D+\d*(, s\. \d*|, \d*|
+,\d*, s. dod. \d*|,\d*, s. \d*|,\d*)?");
             var match = regex.Match(text.TrimStart());
 
             return match.Success && IsNumber(match.Value.Last());

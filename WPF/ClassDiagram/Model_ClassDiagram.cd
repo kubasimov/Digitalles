@@ -24,5 +24,26 @@
       <FileName>Model\SettingsModel.cs</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="WPF.Helpers.DocumentAdvCrud">
+    <Position X="3.25" Y="2.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Helpers\DocumentAdvCrud.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WPF.Helpers.HtmlParsing">
+    <Position X="1.25" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>Helpers\HtmlParsing.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WPF.Converter.LangListToString">
+    <Position X="3.25" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Converter\LangListToString.cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

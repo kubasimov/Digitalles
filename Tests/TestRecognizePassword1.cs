@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using Newtonsoft.Json;
 using RecognizePassword.Implement;
 using RecognizePassword.Interface;
+using RecognizePassword.Model;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -258,25 +260,34 @@ namespace Tests
             Assert.Equal(result.Count, test.Count);
         }
 
+
+        public string Text12 = "gacenie n I forma rzeczownikowa czas. gacić (p.)";
+        public ObservableCollection<DictionaryPasswordElement> Result12 =
+            new ObservableCollection<DictionaryPasswordElement>
+            {
+                new DictionaryPasswordElement{Word = "gacenie"
+                    , Description = "definiendum"},
+                new DictionaryPasswordElement{Word = "n"
+                    , Description = "nijaki (rodzaj)"},
+                new DictionaryPasswordElement{Word = "I"
+                    , Description = "koniugacja/deklinacja"},
+                new DictionaryPasswordElement{Word = "forma rzeczownikowa czas. gacić"
+                    , Description = "definiens"},
+                new DictionaryPasswordElement{Word = "(p.)"
+                    , Description = "patrz"},
+            };
         [Fact]
         public void AnalizeRecognizePasswordText12()
         {
             _recognize = new RecognizePasswordTextType4();
-            var text = _dataTest.Text12;
-            var result = _dataTest.Result12;
-
-            var test = _recognize.Recognize(text, _dictionary);
-
+            var test = _recognize.Recognize(Text12, _dictionary);
             for (var i = 0; i < test.Count; i++)
             {
-                _output.WriteLine(result[i].Word + "\t" + result[i].Description);
-                _output.WriteLine(test[i].Word + "\t" + test[i].Description);
-                Assert.Equal(result[i].Word.ToLower(), test[i].Word.ToLower());
-                Assert.Equal(result[i].Description.ToLower(), test[i].Description.ToLower());
-
+                Assert.Equal(Result12[i].Word.ToLower(), test[i].Word.ToLower());
+                Assert.Equal(Result12[i].Description.ToLower()
+                    , test[i].Description.ToLower());
             }
-
-            Assert.Equal(result.Count, test.Count);
+            Assert.Equal(Result12.Count, test.Count);
         }
 
         [Fact]

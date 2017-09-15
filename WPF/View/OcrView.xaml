@@ -7,7 +7,7 @@
         xmlns:command="http://www.galasoft.ch/mvvmlight"
         xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
         mc:Ignorable="d"
-        Title="Digitalles - Rozpoznawanie strony" Icon="/WPF;component/Icons/D2 ikona.png" Unloaded="Window_Unloaded" >
+        Title="Digitalles - Rozpoznanie obrazu" Icon="/WPF;component/Icons/D2 ikona.png" Unloaded="Window_Unloaded" >
     <Window.Resources>
         <DataTemplate x:Key="BitmapImageTemplate">
             <WrapPanel>
