@@ -11,7 +11,7 @@ namespace RecognizePassword
         internal static List<string> Get(ref string  textToRecognize)
         {
             var listmatch = new List<string>();
-            var regex = new Regex("◊");
+            var regex = new Regex(@"◊");
             var match = regex.Match(textToRecognize);
             var match2 = match.NextMatch();
 

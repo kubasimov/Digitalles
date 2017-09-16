@@ -24,7 +24,7 @@ namespace WPF.ViewModel
         private Dictionary<string, string> _dictionary;
         private readonly IDataExchangeViewModel _dataExchangeViewModel;
         private readonly TextImporting _textImporting = new TextImporting();
-        private readonly IRecognizePasswordText _recognizePasswordText;
+        private readonly IFactoryRecognizePassword _recognizePasswordText;
 
         public RecognizeViewModel(IDataExchangeViewModel dataExchangeViewModel)
         {
@@ -81,8 +81,8 @@ namespace WPF.ViewModel
                 LoadDictionaryPassword();
             }
             
-            //TODO: Zmienić na fabryke
-            _recognizePasswordText = new RecognizePasswordTextType1();
+            
+            _recognizePasswordText = new FactoryRecognizePassword();
 
         }
 

@@ -10,7 +10,7 @@ namespace RecognizePassword.Model
         /// </summary>
         [Display(Name = "Skrót", Description = "Pojedynczy element")]
         public string Word { get; set; }
-        [Display(Name = "Opis", Description = "Pojedyńczy opis hasła")]
+        [Display(Name = "Opis", Description = "Pojedynczy opis hasła")]
         public string Description { get; set; }
 
         public override string ToString()

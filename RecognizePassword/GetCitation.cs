@@ -16,10 +16,7 @@ namespace RecognizePassword
         internal static void Get(ref string text, ObservableCollection<DictionaryPasswordElement> obserColl)
         {
             //wykrycie cytatów bez ostatniej kropki
-
-
             var regex = new Regex(@"\D+\d*(, s\. \d*|, \d*|,\d*, s. dod. \d*|,\d*, s. \d*|,\d*)?");
-
 
             var match = regex.Match(text.TrimStart());
 

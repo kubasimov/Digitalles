@@ -14,7 +14,8 @@ namespace RecognizePassword.Implement
         private readonly ObservableCollection<DictionaryPasswordElement> _obserColl = new ObservableCollection<DictionaryPasswordElement>();
         private Dictionary<string, string> _dictionary;
         private string _textToRecognize;
-        
+       
+       
         public ObservableCollection<DictionaryPasswordElement> Recognize(string textToRecognize, Dictionary<string, string> dictionary)
         {
             _textToRecognize = textToRecognize;
@@ -25,7 +26,11 @@ namespace RecognizePassword.Implement
                 //znalezienie i wycięcie pierwszego słowa
                 GetDefiniendum.Get(ref _textToRecognize,_dictionary,_obserColl );
 
-                
+                var definitionsList = GetDefinitions.GetList(ref _textToRecognize);
+
+                AnalizeText.Get(_textToRecognize,_dictionary,_obserColl);
+
+
             }
             catch (Exception e)
             {
@@ -36,7 +41,7 @@ namespace RecognizePassword.Implement
             return _obserColl;
         }
 
-        
+
         private List<string> GetPhraseologicalGroup()
         {
             var regex = new Regex("◊");

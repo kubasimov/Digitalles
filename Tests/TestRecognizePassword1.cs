@@ -16,6 +16,7 @@ namespace Tests
         private Dictionary<string, string> _dictionary;
         private readonly ITestOutputHelper _output;
         private readonly DataTestForRecognizePassword1 _dataTest;
+        readonly IFactoryRecognizePassword _factoryRecognize = new FactoryRecognizePassword();
 
         private IRecognizePasswordText _recognize;
         private void LoadDictionaryPassword()
@@ -74,12 +75,10 @@ namespace Tests
         [Fact]
         public void AnalizeRecognizePasswordText3()
         {
-            _recognize = new RecognizePasswordTextType1();
-
             var text = _dataTest.Text3;
             var result = _dataTest.Result3;
 
-            var test = _recognize.Recognize(text, _dictionary);
+            var test = _factoryRecognize.Recognize(text, _dictionary);
 
             for (var i = 0; i < test.Count; i++)
             {
@@ -95,12 +94,10 @@ namespace Tests
         [Fact]
         public void AnalizeRecognizePasswordText4()
         {
-            _recognize = new RecognizePasswordTextType1();
-
             var text = _dataTest.Text4;
             var result = _dataTest.Result4;
 
-            var test = _recognize.Recognize(text, _dictionary);
+            var test = _factoryRecognize.Recognize(text, _dictionary);
 
             for (var i = 0; i < test.Count; i++)
             {
@@ -116,12 +113,10 @@ namespace Tests
         [Fact]
         public void AnalizeRecognizePasswordText5()
         {
-            _recognize = new RecognizePasswordTextType2();
             var text = _dataTest.Text5;
             var result = _dataTest.Result5;
 
-            var test = _recognize.Recognize(text, _dictionary);
-
+            var test = _factoryRecognize.Recognize(text, _dictionary);
             for (var i = 0; i < test.Count; i++)
             {
                 _output.WriteLine(result[i].Word+"\t"+ result[i].Description);
@@ -141,7 +136,7 @@ namespace Tests
             var text = _dataTest.Text6;
             var result = _dataTest.Result6;
 
-            var test = _recognize.Recognize(text, _dictionary);
+            var test = _factoryRecognize.Recognize(text, _dictionary);
 
             for (var i = 0; i < test.Count; i++)
             {
@@ -162,7 +157,7 @@ namespace Tests
             var text = _dataTest.Text7;
             var result = _dataTest.Result7;
 
-            var test = _recognize.Recognize(text, _dictionary);
+            var test = _factoryRecognize.Recognize(text, _dictionary);
 
             for (var i = 0; i < test.Count; i++)
             {
@@ -183,7 +178,7 @@ namespace Tests
             var text = _dataTest.Text8;
             var result = _dataTest.Result8;
 
-            var test = _recognize.Recognize(text, _dictionary);
+            var test = _factoryRecognize.Recognize(text, _dictionary);
 
             for (var i = 0; i < test.Count; i++)
             {
@@ -204,7 +199,7 @@ namespace Tests
             var text = _dataTest.Text9;
             var result = _dataTest.Result9;
 
-            var test = _recognize.Recognize(text, _dictionary);
+            var test = _factoryRecognize.Recognize(text, _dictionary);
 
             for (var i = 0; i < test.Count; i++)
             {
@@ -225,7 +220,7 @@ namespace Tests
             var text = _dataTest.Text10;
             var result = _dataTest.Result10;
 
-            var test = _recognize.Recognize(text, _dictionary);
+            var test = _factoryRecognize.Recognize(text, _dictionary);
 
             for (var i = 0; i < test.Count; i++)
             {
@@ -246,7 +241,7 @@ namespace Tests
             var text = _dataTest.Text11;
             var result = _dataTest.Result11;
 
-            var test = _recognize.Recognize(text, _dictionary);
+            var test = _factoryRecognize.Recognize(text, _dictionary);
 
             for (var i = 0; i < test.Count; i++)
             {
@@ -261,33 +256,37 @@ namespace Tests
         }
 
 
-        public string Text12 = "gacenie n I forma rzeczownikowa czas. gacić (p.)";
-        public ObservableCollection<DictionaryPasswordElement> Result12 =
-            new ObservableCollection<DictionaryPasswordElement>
-            {
-                new DictionaryPasswordElement{Word = "gacenie"
-                    , Description = "definiendum"},
-                new DictionaryPasswordElement{Word = "n"
-                    , Description = "nijaki (rodzaj)"},
-                new DictionaryPasswordElement{Word = "I"
-                    , Description = "koniugacja/deklinacja"},
-                new DictionaryPasswordElement{Word = "forma rzeczownikowa czas. gacić"
-                    , Description = "definiens"},
-                new DictionaryPasswordElement{Word = "(p.)"
-                    , Description = "patrz"},
-            };
+        //public string Text12 = "gacenie n I forma rzeczownikowa czas. gacić (p.)";
+        //public ObservableCollection<DictionaryPasswordElement> Result12 =
+        //    new ObservableCollection<DictionaryPasswordElement>
+        //    {
+        //        new DictionaryPasswordElement{Word = "gacenie"
+        //            , Description = "definiendum"},
+        //        new DictionaryPasswordElement{Word = "n"
+        //            , Description = "nijaki (rodzaj)"},
+        //        new DictionaryPasswordElement{Word = "I"
+        //            , Description = "koniugacja/deklinacja"},
+        //        new DictionaryPasswordElement{Word = "forma rzeczownikowa czas. gacić"
+        //            , Description = "definiens"},
+        //        new DictionaryPasswordElement{Word = "(p.)"
+        //            , Description = "patrz"},
+        //    };
         [Fact]
         public void AnalizeRecognizePasswordText12()
         {
             _recognize = new RecognizePasswordTextType4();
-            var test = _recognize.Recognize(Text12, _dictionary);
+            var text = _dataTest.Text12;
+            var result = _dataTest.Result12;
+
+            var test = _factoryRecognize.Recognize(text, _dictionary);
             for (var i = 0; i < test.Count; i++)
             {
-                Assert.Equal(Result12[i].Word.ToLower(), test[i].Word.ToLower());
-                Assert.Equal(Result12[i].Description.ToLower()
-                    , test[i].Description.ToLower());
+                _output.WriteLine(result[i].Word + "\t" + result[i].Description);
+                _output.WriteLine(test[i].Word + "\t" + test[i].Description);
+                Assert.Equal(result[i].Word.ToLower(), test[i].Word.ToLower());
+                Assert.Equal(result[i].Description.ToLower(), test[i].Description.ToLower());
             }
-            Assert.Equal(Result12.Count, test.Count);
+            Assert.Equal(result.Count, test.Count);
         }
 
         [Fact]
@@ -297,7 +296,7 @@ namespace Tests
             var text = _dataTest.Text13;
             var result = _dataTest.Result13;
 
-            var test = _recognize.Recognize(text, _dictionary);
+            var test = _factoryRecognize.Recognize(text, _dictionary);
 
             for (var i = 0; i < test.Count; i++)
             {
@@ -318,7 +317,7 @@ namespace Tests
             var text = _dataTest.Text14;
             var result = _dataTest.Result14;
 
-            var test = _recognize.Recognize(text, _dictionary);
+            var test = _factoryRecognize.Recognize(text, _dictionary);
 
             for (var i = 0; i < test.Count; i++)
             {
@@ -339,7 +338,7 @@ namespace Tests
             var text = _dataTest.Text15;
             var result = _dataTest.Result15;
 
-            var test = _recognize.Recognize(text, _dictionary);
+            var test = _factoryRecognize.Recognize(text, _dictionary);
 
             for (var i = 0; i < test.Count; i++)
             {
@@ -360,7 +359,7 @@ namespace Tests
             var text = _dataTest.Text16;
             var result = _dataTest.Result16;
 
-            var test = _recognize.Recognize(text, _dictionary);
+            var test = _factoryRecognize.Recognize(text, _dictionary);
 
             for (var i = 0; i < test.Count; i++)
             {
@@ -381,7 +380,7 @@ namespace Tests
             var text = _dataTest.Text17;
             var result = _dataTest.Result17;
 
-            var test = _recognize.Recognize(text, _dictionary);
+            var test = _factoryRecognize.Recognize(text, _dictionary);
 
             for (var i = 0; i < test.Count; i++)
             {
@@ -402,7 +401,7 @@ namespace Tests
             var text = _dataTest.Text18;
             var result = _dataTest.Result18;
 
-            var test = _recognize.Recognize(text, _dictionary);
+            var test = _factoryRecognize.Recognize(text, _dictionary);
 
             for (var i = 0; i < test.Count; i++)
             {
@@ -423,7 +422,7 @@ namespace Tests
             var text = _dataTest.Text19;
             var result = _dataTest.Result19;
 
-            var test = _recognize.Recognize(text, _dictionary);
+            var test = _factoryRecognize.Recognize(text, _dictionary);
 
             for (var i = 0; i < test.Count; i++)
             {
