@@ -178,7 +178,7 @@ namespace WPF.ViewModel
 
         
 
-        #region RecognizePassword
+        #region RecognizePasswordList
 
 
 

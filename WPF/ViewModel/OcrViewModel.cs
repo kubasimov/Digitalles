@@ -5,17 +5,21 @@ using Syncfusion.Windows.Tools.Controls;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Core.Interface;
 using GalaSoft.MvvmLight.Messaging;
+using Newtonsoft.Json;
 using WPF.Interface;
 using WPF.Converter;
 using WPF.Enum;
 using WPF.Helpers;
 using WPF.Model;
 using WPF.View;
+using SaveFileDialog = Microsoft.Win32.SaveFileDialog;
 
 namespace WPF.ViewModel
 {
@@ -110,72 +114,68 @@ namespace WPF.ViewModel
         {
             _showBusy = true;
             RaisePropertyChanged(ShowBusyPropertyName);
-            await _coreOcr.LoadImage(_bitmapImage.UriSource.AbsolutePath);
 
+            await _coreOcr.LoadImage(Path.GetFullPath(_bitmapImage.UriSource.AbsolutePath).Replace("%20"," "));
             var text = await _coreOcr.OcrPages(LangListToString.Convert(_languages), _settingsModel.Pages);
-
             var page = await _coreOcr.DecodeHocr(text);
 
             _documentsAdv.Add(DocumentAdvCrud.LoadDocumentAdv(page));
+
             _showBusy = false;
             RaisePropertyChanged(ShowBusyPropertyName);
             
             _documentAdv = _documentsAdv[_pageCounter];
-
             RaisePropertyChanged(DocumentADVPropertyName);
 
             _buttonAnalyzeEnabled = true;
+            _buttonSaveEnabled = true;
             RaisePropertyChanged(ButtonAnalyzePropertyName);
-        }
-        //TODO: dodac pinformacje o trwaj¹cym rozpoznawaniu
-        //ocr many pages
-        private async void ExecuteOcrPages()
-        {
-            foreach (var bitmapImage in _bitmapImages)
-            {
-                _showBusy = true;
-                RaisePropertyChanged(ShowBusyPropertyName);
-                await _coreOcr.LoadImage(bitmapImage.UriSource.AbsolutePath);
-
-                var text = await _coreOcr.OcrPages(LangListToString.Convert(_languages), _settingsModel.Pages);
-
-                var page = await _coreOcr.DecodeHocr(text);
-                _showBusy = false;
-                RaisePropertyChanged(ShowBusyPropertyName);
-
-                _documentsAdv.Add(DocumentAdvCrud.LoadDocumentAdv(page));
-            }
-
-            _documentAdv = _documentsAdv[_pageCounter];
-
-            RaisePropertyChanged(DocumentADVPropertyName);
+            RaisePropertyChanged(ButtonSavePropertyName);
         }
 
+        //przes³anie tekstu do analizy has³a
         private void ExecuteRecognizeTextCommand()
         {
-            
-            //if(_documentAdv!=null)
-            //    RecognizeText.Recognize(_documentAdv);
-            //TODO: za³adowanie i wys³anie tekstu has³a do rozpoznania
+            if (_documentAdv!=null)
+                _dataExchangeViewModel.Add(EnumExchangeViewmodel.TextToRecognize,_documentAdv);
 
+            new RecognizeView().Show();
         }
 
-        //show paragraph
-        private void ExecuteShowParagraphCommand()
+        //save page text to dictionary
+        private void ExecuteSavePageCommand()
         {
-            foreach (var sectionAdv in _documentAdv.Sections)
-            {
-                foreach (var blockAdv in sectionAdv.Blocks)
-                {
-                    foreach (var inline1 in blockAdv.Inlines)
-                    {
-                        var inline = (SpanAdv) inline1;
-                        inline.Foreground = Colors.Red;
-                    }
-                }
-            }
+            var dictionaryParagraph = GenerateDictionaryParagrapsFromDocumentAdv(_documentAdv);
 
-            RaisePropertyChanged(DocumentADVPropertyName);
+            var saveFileDialog = new SaveFileDialog
+            {
+                DefaultExt = ".txt",
+                Filter =
+                   "JSON (*.json)|*.json|" +
+                    "html (*.html)|*.html|"+
+                    "Plain text (*.txt)|*.txt",
+
+               Title = "Zapis tekstu"
+            };
+            
+            var result = saveFileDialog.ShowDialog();
+
+            if (result != true) return;
+            switch (saveFileDialog.FilterIndex)
+            {
+                case 1:
+                    File.WriteAllText(saveFileDialog.FileName,JsonConvert.SerializeObject(dictionaryParagraph,Formatting.Indented));
+                    break;
+
+                case 2:
+                    HTMLExporting.ConvertToHtml(_documentAdv, File.Create(saveFileDialog.FileName));
+                    break;
+                
+                default:
+                    File.WriteAllText(saveFileDialog.FileName,dictionaryParagraph);
+                    break;
+            }
+            
         }
 
         //change ocr language
@@ -196,18 +196,7 @@ namespace WPF.ViewModel
             Messenger.Default.Send(new NotificationMessage(this, "CloseOcr"));
         }
 
-        //save page text to dictionary
-        private void ExecuteSavePageCommand()
-        {
-            var dictionaryParagraph = GenerateDictionaryParagrapsFromDocumentAdv(_documentAdv);
-
-           
-            foreach (var item in dictionaryParagraph)
-            {
-                //_dictionaryModel.Add(item.Split(' ').First(), item.Substring(item.IndexOf(" ")+1));
-            }
-
-        }
+        
 
         //save pages text to dictionary
         private void ExecuteSavePagesCommand()
@@ -255,11 +244,6 @@ namespace WPF.ViewModel
         public RelayCommand OpenImageCommand => _openImageCommand
                                          ?? (_openImageCommand = new RelayCommand(ExecuteOpenImage));
 
-        private RelayCommand _ocrPagesCommand;
-
-        public RelayCommand OcrPagesCommand => _ocrPagesCommand
-                                       ?? (_ocrPagesCommand = new RelayCommand(ExecuteOcrPages));
-
         private RelayCommand<object> _showImageCommand;
         
         public RelayCommand<object> ShowImageCommand => _showImageCommand
@@ -288,11 +272,6 @@ namespace WPF.ViewModel
 
         public RelayCommand SavePagesCommand => _savePagesCommand
                                                ?? (_savePagesCommand = new RelayCommand(ExecuteSavePagesCommand));
-
-        private RelayCommand _showParagraphCommand;
-
-        public RelayCommand ShowParagraphCommand => _showParagraphCommand
-                                                    ?? (_showParagraphCommand = new RelayCommand(ExecuteShowParagraphCommand));
 
         private RelayCommand _newCommand;
 
@@ -503,10 +482,7 @@ namespace WPF.ViewModel
         /// </summary>
         public bool ButtonOcrEnabled
         {
-            get
-            {
-                return _buttonOcrEnabled;
-            }
+            get => _buttonOcrEnabled;
 
             set
             {
@@ -525,7 +501,7 @@ namespace WPF.ViewModel
         //widocznoœæ klawisza analizy has³a
         #region ButtonAnalyzeEnabled
 
-        public const string ButtonAnalyzePropertyName = "ButtonOcrEnabled";
+        public const string ButtonAnalyzePropertyName = "ButtonAnalyzeEnabled";
 
         private bool _buttonAnalyzeEnabled = false;
 
@@ -535,10 +511,7 @@ namespace WPF.ViewModel
         /// </summary>
         public bool ButtonAnalyzeEnabled
         {
-            get
-            {
-                return _buttonAnalyzeEnabled;
-            }
+            get => _buttonAnalyzeEnabled;
 
             set
             {
@@ -557,7 +530,7 @@ namespace WPF.ViewModel
         //widocznoœc klawiasza zapisu
         #region ButtonSaveEnabled
 
-        public const string ButtonSavePropertyName = "ButtonOcrEnabled";
+        public const string ButtonSavePropertyName = "ButtonSaveEnabled";
 
         private bool _buttonSaveEnabled = false;
 
@@ -594,9 +567,9 @@ namespace WPF.ViewModel
                 _bitmapImage = _bitmapImages[_pageCounter];
         }
 
-        private IEnumerable<string> GenerateDictionaryParagrapsFromDocumentAdv(DocumentAdv documentAdv)
+        private string GenerateDictionaryParagrapsFromDocumentAdv(DocumentAdv documentAdv)
         {
-            var dictionaryParagraph = new List<string>();
+            var dictionaryParagraph = "";
 
             foreach (var sectionAdv in documentAdv.Sections)
             {
@@ -608,7 +581,7 @@ namespace WPF.ViewModel
                         var inline2 = (SpanAdv)inline;
                         t = t + inline2.Text;
                     }
-                    dictionaryParagraph.Add(t);
+                    dictionaryParagraph = dictionaryParagraph+t;
                 }
             }
             return dictionaryParagraph;

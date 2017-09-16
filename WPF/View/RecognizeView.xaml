@@ -29,14 +29,14 @@
                     <syncfusion:RibbonButton Label="Otworz" SizeForm="Large" Command="{Binding OpenCommand, Mode=OneWay}" LargeIcon="/WPF;component/Icons/otworz.png"/>
                     <syncfusion:RibbonButton Label="Zapisz" SizeForm="Large" Command="{Binding SaveCommand, Mode=OneWay}" LargeIcon="/WPF;component/Icons/zapisz.png"></syncfusion:RibbonButton>
                     <syncfusion:RibbonButton Label="Zapisz jako" SizeForm="Large" Command="{Binding SaveAsCommand, Mode=OneWay}" LargeIcon="/WPF;component/Icons/zapisz jako.png"></syncfusion:RibbonButton>
-                    <syncfusion:RibbonButton Label="Export" SizeForm="Large" LargeIcon="/WPF;component/Icons/eksport2.png" Command="{Binding ExportToHtml, Mode=OneWay}"></syncfusion:RibbonButton>
+                    <syncfusion:RibbonButton Label="Export do słownika" SizeForm="Large" LargeIcon="/WPF;component/Icons/eksport2.png" Command="{Binding ExportToDictionary, Mode=OneWay}"></syncfusion:RibbonButton>
                     <syncfusion:RibbonButton Label="Wyjscie" SizeForm="Large" Command="{Binding ExitCommand, Mode=OneWay}" LargeIcon="/WPF;component/Icons/wyjscie.png"></syncfusion:RibbonButton>
 
                 </syncfusion:RibbonBar>
 
                 <syncfusion:RibbonBar Header="Edycja">
-                    <syncfusion:RibbonButton Label="Rozpoznaj" SizeForm="Large" Command="{Binding RecognizeCommand, Mode=OneWay}" LargeIcon="/WPF;component/Icons/rozpoznaj haslo.png"></syncfusion:RibbonButton>
-                    <syncfusion:RibbonButton Label="Sprawdź" SizeForm="Large" LargeIcon="/WPF;component/Icons/sprawdz.png" Command="{Binding SettingsCommand, Mode=OneWay}"></syncfusion:RibbonButton>
+                    <syncfusion:RibbonButton Label="Analiza" SizeForm="Large" Command="{Binding RecognizeCommand, Mode=OneWay}" LargeIcon="/WPF;component/Icons/rozpoznaj haslo.png"></syncfusion:RibbonButton>
+                    <syncfusion:RibbonButton Label="Korekta" SizeForm="Large" LargeIcon="/WPF;component/Icons/sprawdz.png" Command="{Binding SettingsCommand, Mode=OneWay}"></syncfusion:RibbonButton>
                 </syncfusion:RibbonBar>
 
                 <syncfusion:RibbonBar Header="Tekst">
@@ -51,7 +51,7 @@
         </syncfusion:Ribbon>
         <syncfusion:RichTextBoxAdv Document="{Binding TextToRecognize}" BorderBrush="Black" Grid.Row="1" Grid.ColumnSpan="2"
                                    Grid.Column="0" Margin="11,5" />
-        <syncfusion:SfDataGrid ItemsSource="{Binding RecognizePassword}" AllowEditing="True" AllowSelectionOnPointerPressed="True"  AllowDeleting="True" AllowFiltering="True" AddNewRowPosition="Bottom" Grid.Row="2" Grid.Column="0" Margin="6,3" AllowResizingColumns="True" ColumnSizer="Star" ShowRowHeader="True" AutoGenerateColumns="False" NavigationMode="Row" RowHeight="42" >
+        <syncfusion:SfDataGrid ItemsSource="{Binding RecognizePasswordList}" AllowEditing="True" AllowSelectionOnPointerPressed="True"  AllowDeleting="True" AllowFiltering="True" AddNewRowPosition="Bottom" Grid.Row="2" Grid.Column="0" Margin="6,3" AllowResizingColumns="True" ColumnSizer="Star" ShowRowHeader="True" AutoGenerateColumns="False" NavigationMode="Row" RowHeight="42" >
             <syncfusion:SfDataGrid.Columns>
                 <syncfusion:GridTextColumn MappingName="Word" TextWrapping="Wrap" HeaderText="Element" AllowResizing="True"/>
                 <syncfusion:GridTextColumn MappingName="Description" TextWrapping="Wrap" HeaderText="Cześci funkcyjne"/>

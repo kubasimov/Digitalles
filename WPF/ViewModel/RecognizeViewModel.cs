@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
+using System.Text;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
@@ -19,10 +21,10 @@ using RecognizePassword.Interface;
 
 namespace WPF.ViewModel
 {
+    [SuppressMessage("ReSharper", "ExplicitCallerInfoArgument")]
     public class RecognizeViewModel:ViewModelBase
     {
         private Dictionary<string, string> _dictionary;
-        private readonly IDataExchangeViewModel _dataExchangeViewModel;
         private readonly TextImporting _textImporting = new TextImporting();
         private readonly IFactoryRecognizePassword _recognizePasswordText;
 
@@ -51,7 +53,7 @@ namespace WPF.ViewModel
                     new DictionaryPasswordElement {Word = "BBB1", Description = "bbb1"}
                 };
 
-                _recognizePasswordObservableCollection = new ObservableCollection<DictionaryPasswordElement>
+                _recognizePasswordListObservableCollection = new ObservableCollection<DictionaryPasswordElement>
                 {
                     new DictionaryPasswordElement {Word = "AAd1", Description = "aa1"},
                     new DictionaryPasswordElement {Word = "AA2", Description = "aa2"},
@@ -62,128 +64,175 @@ namespace WPF.ViewModel
             }
             else
             {
-
-
-                _dataExchangeViewModel = dataExchangeViewModel;
-
-                if (_dataExchangeViewModel.ContainsKey(EnumExchangeViewmodel.TextToRecognize))
+                if (dataExchangeViewModel.ContainsKey(EnumExchangeViewmodel.TextToRecognize))
                 {
-                    _textToRecognize = (DocumentAdv)_dataExchangeViewModel.Item(EnumExchangeViewmodel.TextToRecognize);
+                    _textToRecognize = (DocumentAdv)dataExchangeViewModel.Item(EnumExchangeViewmodel.TextToRecognize);
                 }
                 else
                 {
                     _textToRecognize = new DocumentAdv();
                 }
-
-                _recognizePasswordObservableCollection = 
-                    new ObservableCollection<DictionaryPasswordElement>();
+                _recognizePasswordListObservableCollection = new ObservableCollection<DictionaryPasswordElement>();
 
                 LoadDictionaryPassword();
             }
-            
-            
             _recognizePasswordText = new FactoryRecognizePassword();
-
         }
 
-        private void ExecuteNewCommand()
-        {
-            _textToRecognize=new DocumentAdv();
-            RaisePropertyChanged(TextToRecognizePropertyName);
-
-            _recognizePasswordObservableCollection = new ObservableCollection<DictionaryPasswordElement>();
-        }
-
-        private void ExecuteSaveAsCommand()
-        {
-            var saveFileDialog = new SaveFileDialog();
-
-            var result = saveFileDialog.ShowDialog();
-
-            if (result==true)
-            {
-                
-                File.WriteAllText(saveFileDialog.FileName, 
-                    JsonConvert.SerializeObject(_recognizePasswordObservableCollection,
-                    Formatting.Indented));
-
-            }
-        }
-
+        //wczytanie pliku z tekstem
         private void ExecuteOpenCommand()
         {
             var openFileDialog = new OpenFileDialog
             {
                 DefaultExt = ".txt",
                 Filter =
-                    "Plain text (*.txt)|*.txt;",
+                    "JSON (*.json)|*.json|" +
+                    "html (*.html)|*.html|" +
+                    "Plain text (*.txt)|*.txt",
+
                 Multiselect = false
             };
 
             var result = openFileDialog.ShowDialog();
 
-            if (result == true)
+            if (result != true) return;
+            switch (openFileDialog.FilterIndex)
             {
-                _textToRecognize = _textImporting.ConvertToDocumentAdv(File.Open(openFileDialog.FileName,FileMode.Open));
-                RaisePropertyChanged(TextToRecognizePropertyName);
+                case 1:
+                    _textToRecognize = _textImporting.ConvertToDocumentAdv(JsonConvert.DeserializeObject<string>(File.ReadAllText(openFileDialog.FileName)));
+                    break;
+                case 2:
+                    _textToRecognize =
+                        HTMLImporting.ConvertToDocumentAdv(File.OpenRead(openFileDialog.FileName));
+                    break;
+                default:
+                    _textToRecognize = _textImporting.ConvertToDocumentAdv(File.Open(openFileDialog.FileName, FileMode.Open));
+                    break;
             }
+
+                
+            RaisePropertyChanged(TextToRecognizePropertyName);
         }
-
-        private void ExecuteRecognizeCommand()
-        {
-
-            _recognizePasswordObservableCollection.Clear();
-            _recognizePasswordObservableCollection = _recognizePasswordText.Recognize(TextExporting.ConvertToText(_textToRecognize),_dictionary);
-
-            RaisePropertyChanged(RecognizePasswordPropertyName);
-        }
-
+        
+        //zapis zanalizowanego hasła do pliku
         private void ExecuteSaveCommand()
         {
-            File.WriteAllText(@"D:\dane\"+ _recognizePasswordObservableCollection[0].Word+".json", JsonConvert.SerializeObject(_recognizePasswordObservableCollection, Formatting.Indented));
-        }
+            if (_recognizePasswordListObservableCollection.Count <= 0) return;
 
-        private void ExecuteExportToHtml()
-        {
-            DocumentAdv textDocumentAdv = HtmlParsing.ParsowanieHtml(_recognizePasswordObservableCollection);
-
-            using (var t = File.Create(@"D:\dane\text.html"))
+            if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Digitalles"))
             {
-                HTMLExporting.ConvertToHtml(textDocumentAdv,t);
+                Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) +
+                                          @"\Digitalles");
             }
-            
+            var filename = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Digitalles\" + _recognizePasswordListObservableCollection[0].Word + ".json";
+
+            File.WriteAllText(filename, JsonConvert.SerializeObject(_recognizePasswordListObservableCollection, Formatting.Indented));
         }
 
-        private void ExecuteSettingsCommand()
+        //zapis jako... zanalizowanego hasła do pliku
+        private void ExecuteSaveAsCommand()
         {
-            List<List<DictionaryPasswordElement>> dictionaryFromFile ;
+            if (_recognizePasswordListObservableCollection.Count <= 0) return;
+
+            var saveFileDialog = new SaveFileDialog
+            {
+                DefaultExt = ".txt",
+                Filter =
+                    "JSON (*.json)|*.json|" +
+                    "html (*.html)|*.html|" +
+                    "Plain text (*.txt)|*.txt",
+
+                Title = "Zapis"
+            };
+
+            var result = saveFileDialog.ShowDialog();
+
+            if (result != true) return;
+            switch (saveFileDialog.FilterIndex)
+            {
+                case 1:
+                    File.WriteAllText(saveFileDialog.FileName,
+                        JsonConvert.SerializeObject(_recognizePasswordListObservableCollection,
+                            Formatting.Indented));
+                    break;
+
+                case 2:
+                    HTMLExporting.ConvertToHtml(HtmlParsing.ParsowanieHtml(_recognizePasswordListObservableCollection), File.Create(saveFileDialog.FileName));
+                    break;
+
+                default:
+                    File.WriteAllText(saveFileDialog.FileName, ConvertToTxt(_recognizePasswordListObservableCollection));
+                    break;
+            }
+        }
+
+        //eksport hasła do słownika
+        private void ExecuteExportToDictionary()
+        {
+            List<List<DictionaryPasswordElement>> dictionaryFromFile;
 
             if (File.Exists(@"\slownik.json"))
             {
                 dictionaryFromFile =
                     JsonConvert.DeserializeObject<List<List<DictionaryPasswordElement>>>
-                    (File.ReadAllText(@"\slownik.json"));
+                        (File.ReadAllText(@"\slownik.json"));
             }
             else
             {
                 dictionaryFromFile = new List<List<DictionaryPasswordElement>>();
             }
-            dictionaryFromFile.Add(_recognizePasswordObservableCollection.ToList());
-            File.WriteAllText(@"\slownik.json",JsonConvert.SerializeObject(
-                dictionaryFromFile,Formatting.Indented));
-            
+            dictionaryFromFile.Add(_recognizePasswordListObservableCollection.ToList());
+            File.WriteAllText(@"\slownik.json", JsonConvert.SerializeObject(
+                dictionaryFromFile, Formatting.Indented));
+
+
         }
 
+        //analiza hasła
+        private void ExecuteRecognizeCommand()
+        {
+            _recognizePasswordListObservableCollection.Clear();
+            _recognizePasswordListObservableCollection = _recognizePasswordText.Recognize(TextExporting.ConvertToText(_textToRecognize), _dictionary);
+
+            RaisePropertyChanged(RecognizePasswordListPropertyName);
+        }
+
+        //koniec
         private void ExecuteExitCommand()
         {
             Messenger.Default.Send(new NotificationMessage(this, "CloseRecognizeView"));
         }
 
+        //zerowanie wartości
+        private void ExecuteNewCommand()
+        {
+            _textToRecognize=new DocumentAdv();
+            RaisePropertyChanged(TextToRecognizePropertyName);
+
+            _recognizePasswordListObservableCollection = new ObservableCollection<DictionaryPasswordElement>();
+        }
+
+        
+        
+
+        
+
+        
+
+        
+
+        private void ExecuteSettingsCommand()
+        {
+            
+        }
+
+        
+
         private void ExecutePreviewCommand()
         {
-            //_dataExchangeViewModel.Add(EnumExchangeViewmodel.Preview,ParsowanieHtml(_recognizePasswordObservableCollection));
+            //_dataExchangeViewModel.Add(EnumExchangeViewmodel.Preview,ParsowanieHtml(_recognizePasswordListObservableCollection));
             //_dataExchangeViewModel.Add(EnumExchangeViewmodel.Preview, _textToRecognize);
-            ExecuteExportToHtml();
+            ExecuteExportToDictionary();
 
             var view = new PreviewView();
             try
@@ -246,10 +295,10 @@ namespace WPF.ViewModel
         public RelayCommand PasteCommand => _pasteCommand
                                             ?? (_pasteCommand = new RelayCommand(ExecutePasteCommand));
 
-        private RelayCommand _exportToHtmlCommand;
+        private RelayCommand _exportToDictionaryCommand;
 
-        public RelayCommand ExportToHtml => _exportToHtmlCommand
-                                            ?? (_exportToHtmlCommand = new RelayCommand(ExecuteExportToHtml));
+        public RelayCommand ExportToDictionary => _exportToDictionaryCommand
+                                            ?? (_exportToDictionaryCommand = new RelayCommand(ExecuteExportToDictionary));
 
         private RelayCommand _previewCommand;
 
@@ -269,9 +318,6 @@ namespace WPF.ViewModel
         #region Mvvm members
 
             #region MyDigDictionary
-            /// <summary>
-            /// The <see cref="MyDigDictionary" /> property's name.
-            /// </summary>
             public const string MyDigDictionaryPropertyName = "MyDigDictionary";
 
             private ObservableCollection<DictionaryPasswordElement> _digDictionaries;
@@ -297,9 +343,6 @@ namespace WPF.ViewModel
 
             #region TextToRecognize
 
-            /// <summary>
-            /// The <see cref="TextToRecognize" /> property's name.
-            /// </summary>
             public const string TextToRecognizePropertyName = "TextToRecognize";
 
             private DocumentAdv _textToRecognize  ;
@@ -322,45 +365,37 @@ namespace WPF.ViewModel
 
         #endregion
 
-            #region RecognizePassword
+            #region RecognizePasswordList
 
-            /// <summary>
-                /// The <see cref="RecognizePassword" /> property's name.
-                /// </summary>
-            public const string RecognizePasswordPropertyName = "RecognizePassword";
+           public const string RecognizePasswordListPropertyName = "RecognizePasswordList";
 
-            private ObservableCollection<RecognizePassword.Model.DictionaryPasswordElement> _recognizePasswordObservableCollection  ;
+            private ObservableCollection<DictionaryPasswordElement> _recognizePasswordListObservableCollection  ;
 
-            /// <summary>
-            /// Sets and gets the RecognizePassword property.
-            /// Changes to that property's value raise the PropertyChanged event. 
-            /// </summary>
-            public ObservableCollection<DictionaryPasswordElement> RecognizePassword
+            public ObservableCollection<DictionaryPasswordElement> RecognizePasswordList
             {
                 get
                 {
-                    return _recognizePasswordObservableCollection;
+                    return _recognizePasswordListObservableCollection;
                 }
 
                 set
                 {
-                    if (_recognizePasswordObservableCollection == value)
+                    if (_recognizePasswordListObservableCollection == value)
                     {
                         return;
                     }
 
-                    _recognizePasswordObservableCollection = value;
-                    RaisePropertyChanged(RecognizePasswordPropertyName);
+                    _recognizePasswordListObservableCollection = value;
+                    RaisePropertyChanged(RecognizePasswordListPropertyName);
                 }
             }
 
             #endregion
 
         #endregion
-
-
+        
         #region Private_Method
-
+        //Ładowanie pliku zawierającego sktóty
         private void LoadDictionaryPassword()
         {
             if (File.Exists(@"D:\dane\skroty.json"))
@@ -376,6 +411,7 @@ namespace WPF.ViewModel
             }
         }
         
+        //konwersja danych z słownika na kolekcje
         private ObservableCollection<DictionaryPasswordElement> CopyFromDictionary(Dictionary<string, string> itemDictionary)
         {
             var temp = new ObservableCollection<DictionaryPasswordElement>();
@@ -388,18 +424,17 @@ namespace WPF.ViewModel
             return temp;
         }
 
-        private Dictionary<string, string> CopyFromObservableCollection(ObservableCollection<DictionaryPasswordElement> itemMyDictionaries)
+        //konwersja z kolekcji na tekst
+        private static string ConvertToTxt(IEnumerable<DictionaryPasswordElement> recognizePasswordListObservableCollection)
         {
-            var temp = new Dictionary<string, string>();
-            
-            foreach (DictionaryPasswordElement itemMyDictionary in itemMyDictionaries)
+            var str = new StringBuilder();
+            foreach (var passwordElement in recognizePasswordListObservableCollection)
             {
-                temp.Add(itemMyDictionary.Word, itemMyDictionary.Description);
+                str.AppendFormat("Hasło: {0,-90}\t\t\tObjaśnienie: {1}", passwordElement.Word, passwordElement.Description);
+                str.AppendLine();
             }
-            return temp;
+            return str.ToString();
         }
-
-       
         #endregion
     }
 }

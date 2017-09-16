@@ -38,15 +38,15 @@
                 <syncfusion:RibbonBar Header="">
                     <syncfusion:RibbonButton Label="Nowy" SizeForm="Large" Command="{Binding NewNewCommand, Mode=OneWay}" LargeIcon="/WPF;component/Icons/nowy.png"/>
                     <syncfusion:RibbonButton Label="Wczytaj obraz" SizeForm="Large" Command="{Binding  OpenImageCommand, Mode=OneWay}" LargeIcon="/WPF;component/Icons/otworz.png"/>
-                    <syncfusion:RibbonButton Label="Rozpoznaj stronę" SizeForm="Large" Command="{Binding OcrPage, Mode=OneWay}" LargeIcon="/WPF;component/Icons/rozpoznaj strone.png" IsEnabled="{Binding ButtonOcrEnabled}" />
-                    <syncfusion:RibbonButton Label="Rozpoznaj hasło" SizeForm="Large" Command="{Binding RecognizeTextCommand, Mode=OneWay}" LargeIcon="/WPF;component/Icons/rozpoznaj haslo.png" IsEnabled="{Binding ButtonAnalyzeEnabled}" />
+                    <syncfusion:RibbonButton Label="Rozpoznaj obraz" SizeForm="Large" Command="{Binding OcrPage, Mode=OneWay}" LargeIcon="/WPF;component/Icons/rozpoznaj strone.png" IsEnabled="{Binding ButtonOcrEnabled}" />
+                    <syncfusion:RibbonButton Label="Eksport>Analiza hasła" SizeForm="Large" Command="{Binding RecognizeTextCommand, Mode=OneWay}" LargeIcon="/WPF;component/Icons/rozpoznaj haslo.png" IsEnabled="{Binding ButtonAnalyzeEnabled}" />
                     <syncfusion:RibbonButton Label="Zapisz" SizeForm="Large" Command="{Binding SavePageCommand, Mode=OneWay}" LargeIcon="/WPF;component/Icons/zapisz strone do slownika.png" IsEnabled="{Binding ButtonSaveEnabled}" />
                     <syncfusion:RibbonButton Label="Język" SizeForm="Large" Command="{Binding SelectLanguageCommand, Mode=OneWay}" LargeIcon="/WPF;component/Icons/jezyk rozpoznawania.png" />
                     <syncfusion:RibbonButton Label="Wyjście" SizeForm="Large" Command="{Binding ExitCommand, Mode=OneWay}" LargeIcon="/WPF;component/Icons/wyjscie.png"/>
                 </syncfusion:RibbonBar>
             </syncfusion:RibbonTab>
         </syncfusion:Ribbon>
-        <Image x:Name="image" Grid.Column="1" Grid.Row="1" Source="{Binding BitmapImage,Mode=TwoWay}" Stretch="Fill" >
+        <Image x:Name="Image" Grid.Column="1" Grid.Row="1" Source="{Binding BitmapImage,Mode=TwoWay}" Stretch="Fill" >
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseWheel">
                     <command:EventToCommand Command="{Binding MouseWhellCommand, Mode=OneWay}" PassEventArgsToCommand="True"/>
