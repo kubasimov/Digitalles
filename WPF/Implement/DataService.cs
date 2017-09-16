@@ -18,8 +18,7 @@ namespace WPF.Implement
             {
                 DefaultExt = ".png",
                 Filter =
-                    "All Image (*.bmp, *.png, *.jpg, *.jpeg, *.tif, *.tiff)|*.bmp; *.png; *.jpg; *.jpeg; *.tif; *.tiff|" +
-                    "BMP (*.bmp)|*.bmp|" +
+                    "All Image (*.png, *.jpg, *.jpeg, *.tif, *.tiff)|*.png; *.jpg; *.jpeg; *.tif; *.tiff|" +
                     "PNG (*.png)|*.png|" +
                     "JPEG (*.jpg, *.jpeg)|*.jpg;*.jpeg|" +
                     "TIFF (*.tif, *.tiff)|*.tif;*.tiff",

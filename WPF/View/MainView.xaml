@@ -5,36 +5,36 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:Class="WPF.View.MainView"
         mc:Ignorable="d"
-        Title="Digitalles" Height="522.667" Width="300" DataContext="{Binding Main, Mode=OneWay, Source={StaticResource Locator}}" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Icon="/WPF;component/Icons/D2 ikona.png"
-    >
+        Title="Digitalles" Height="522.667" Width="300" DataContext="{Binding Main, Mode=OneWay, Source={StaticResource Locator}}" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Icon="/WPF;component/Icons/D2 ikona.png">
     
     <Grid>
         <StackPanel Margin="10,146.329,10,116.671">
             <Button Command="{Binding OcrCommand, Mode=OneWay}" Height="60" Padding="1" Margin="0,4" BorderBrush="{x:Null}">
-                <Button.Background>
-                    <ImageBrush ImageSource="/WPF;component/Icons/przycisk rozpoznanie strony.png"/>
-                </Button.Background>
+                <StackPanel>
+                    <Image Source="/WPF;component/Icons/przycisk rozpoznanie strony.png" />
+                </StackPanel>
             </Button>
             <Button Command="{Binding RecognizeCommand, Mode=OneWay}" BorderBrush="{x:Null}" Height="60" Margin="0,4">
-                <Button.Background>
-                    <ImageBrush ImageSource="/WPF;component/Icons/przycisk rozpoznanie hasla.png"/>
-                </Button.Background>
+                <StackPanel>
+                    <Image Source="/WPF;component/Icons/przycisk rozpoznanie hasla.png" />
+                </StackPanel>
             </Button>
             <Button Command="{Binding DictionaryCommand, Mode=OneWay}" BorderBrush="{x:Null}" Height="60" Margin="0,4">
-                <Button.Background>
-                    <ImageBrush ImageSource="/WPF;component/Icons/przycisk slownik.png"/>
-                </Button.Background>
+                <StackPanel>
+                    <Image Source="/WPF;component/Icons/przycisk slownik.png" />
+                </StackPanel>
             </Button>
 
         </StackPanel>
         <StackPanel Margin="10,391,10,10" Orientation="Vertical">
             <Button Command="{Binding ExitCommand, Mode=OneWay}" Height="60" BorderBrush="{x:Null}">
-                <Button.Background>
-                    <ImageBrush ImageSource="/WPF;component/Icons/przycisk wyjscie.png"/>
-                </Button.Background>
+                <StackPanel>
+                    <Image Source="/WPF;component/Icons/przycisk wyjscie.png" />
+                </StackPanel>
             </Button>
         </StackPanel>
         <Image HorizontalAlignment="Left" Margin="10,32.329,0,0" VerticalAlignment="Top" Source="/WPF;component/Icons/D2.png" Width="256"/>
 
     </Grid>
 </Window>
+

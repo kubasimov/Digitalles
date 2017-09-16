@@ -4,8 +4,7 @@ using GalaSoft.MvvmLight.Command;
 using Syncfusion.Windows.Tools.Controls;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Drawing;
-using System.Linq;
+using System.Diagnostics.CodeAnalysis;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -20,6 +19,7 @@ using WPF.View;
 
 namespace WPF.ViewModel
 {
+    [SuppressMessage("ReSharper", "ExplicitCallerInfoArgument")]
     public class OcrViewModel : ViewModelBase
     {
         #region Private Field
@@ -30,8 +30,7 @@ namespace WPF.ViewModel
         private readonly SettingsModel _settingsModel;
         private readonly List<LangModel> _languages;
         private ObservableCollection<DocumentAdv> _documentsAdv;
-        //private DictionaryModel _dictionaryModel;
-
+        
         #endregion
         
         //constructor
@@ -43,7 +42,6 @@ namespace WPF.ViewModel
             _settingsModel = _dataService.LoadSettings();
             _pageCounter = 0;
             _languages = _settingsModel.Language;
-            //_dictionaryModel=new DictionaryModel();
             _selectionAdvtext = new SelectionAdv();
            
 
@@ -70,33 +68,44 @@ namespace WPF.ViewModel
             _documentsAdv = new ObservableCollection<DocumentAdv>();
         }
 
-        //restart all 
+        //Zerowanie zmiennych
         private void ExecuteNewCommand()
         {
             _bitmapImage = null;
             _bitmapImages = new ObservableCollection<BitmapImage>();
             _pageCounter = 0;
-            //_dictionaryModel = new DictionaryModel() ;
             _documentsAdv = new ObservableCollection<DocumentAdv>();
             _documentAdv = null;
+            _buttonOcrEnabled = false;
+            _buttonAnalyzeEnabled = false;
+            _buttonSaveEnabled = false;
+
             RaisePropertyChanged(BitmapImagePropertyName);
             RaisePropertyChanged(BitmapImagesPropertyName);
             RaisePropertyChanged(DocumentADVPropertyName);
-            
+
+            RaisePropertyChanged(ButtonOcrEnabledPropertyName);
+            RaisePropertyChanged(ButtonAnalyzePropertyName);
+            RaisePropertyChanged(ButtonSavePropertyName);
             ExecuteShowImage(0);
         }
 
-        //open image
+        //Wczytanie obrazu
         private void ExecuteOpenImage()
         {
             _bitmapImages = _dataService.LoadImages();
-            _bitmapImage = _bitmapImages[_pageCounter];
-
+            if (_bitmapImages.Count > 0)
+            {
+                _bitmapImage = _bitmapImages[_pageCounter];
+                _buttonOcrEnabled = true;
+            }
+               
             RaisePropertyChanged(BitmapImagePropertyName);
             RaisePropertyChanged(BitmapImagesPropertyName);
+            RaisePropertyChanged(ButtonOcrEnabledPropertyName);
         }
 
-        //ocr one page
+        //Rozpoznanie strony
         private async void ExecuteOcrPage()
         {
             _showBusy = true;
@@ -114,6 +123,9 @@ namespace WPF.ViewModel
             _documentAdv = _documentsAdv[_pageCounter];
 
             RaisePropertyChanged(DocumentADVPropertyName);
+
+            _buttonAnalyzeEnabled = true;
+            RaisePropertyChanged(ButtonAnalyzePropertyName);
         }
         //TODO: dodac pinformacje o trwaj¹cym rozpoznawaniu
         //ocr many pages
@@ -236,6 +248,7 @@ namespace WPF.ViewModel
             RaisePropertyChanged(BitmapImagePropertyName);
         }
 
+        //Metody podpiete do przycisków View
         #region Command
         private RelayCommand _openImageCommand;
         
@@ -301,6 +314,7 @@ namespace WPF.ViewModel
 
         #endregion
 
+        //wybrany dokument
         #region SelectionADV
         /// <summary>
         /// The <see cref="SelectionText" /> property's name.
@@ -333,6 +347,7 @@ namespace WPF.ViewModel
         }
         #endregion
 
+        //wybrany dokument
         #region DocumentAdv
         /// <summary>
         /// The <see cref="DocumentAdv" /> property's name.
@@ -362,6 +377,7 @@ namespace WPF.ViewModel
         }
         #endregion
         
+        //aktualny obraz
         #region BitmapImage
         /// <summary>
         /// The <see cref="BitmapImage" /> property's name.
@@ -391,6 +407,7 @@ namespace WPF.ViewModel
         }
         #endregion
 
+        //wczytaneobrazy
         #region BitmapImages
         /// <summary>
         /// The <see cref="BitmapImages" /> property's name.
@@ -420,6 +437,7 @@ namespace WPF.ViewModel
         }
         #endregion
 
+        //licznik strony
         #region PageCount
         /// <summary>
         /// The <see cref="PageCounter" /> property's name.
@@ -449,6 +467,7 @@ namespace WPF.ViewModel
         }
         #endregion
 
+        //wiatrak dzi³ania tesseract
         #region ShowBusy
         public const string ShowBusyPropertyName = "ShowBusy";
 
@@ -469,6 +488,102 @@ namespace WPF.ViewModel
                 RaisePropertyChanged(ShowBusyPropertyName);
             }
         }
+        #endregion
+
+        //widocznoœc klawisza rozpoznania obrazu
+        #region ButtonOcrEnabled
+
+        public const string ButtonOcrEnabledPropertyName = "ButtonOcrEnabled";
+
+        private bool _buttonOcrEnabled = false;
+
+        /// <summary>
+        /// Sets and gets the ButtonOcrEnabled property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
+        public bool ButtonOcrEnabled
+        {
+            get
+            {
+                return _buttonOcrEnabled;
+            }
+
+            set
+            {
+                if (_buttonOcrEnabled == value)
+                {
+                    return;
+                }
+
+                _buttonOcrEnabled = value;
+                RaisePropertyChanged(ButtonOcrEnabledPropertyName);
+            }
+        }
+
+        #endregion
+
+        //widocznoœæ klawisza analizy has³a
+        #region ButtonAnalyzeEnabled
+
+        public const string ButtonAnalyzePropertyName = "ButtonOcrEnabled";
+
+        private bool _buttonAnalyzeEnabled = false;
+
+        /// <summary>
+        /// Sets and gets the ButtonOcrEnabled property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
+        public bool ButtonAnalyzeEnabled
+        {
+            get
+            {
+                return _buttonAnalyzeEnabled;
+            }
+
+            set
+            {
+                if (_buttonAnalyzeEnabled == value)
+                {
+                    return;
+                }
+
+                _buttonAnalyzeEnabled = value;
+                RaisePropertyChanged(ButtonAnalyzePropertyName);
+            }
+        }
+
+        #endregion
+
+        //widocznoœc klawiasza zapisu
+        #region ButtonSaveEnabled
+
+        public const string ButtonSavePropertyName = "ButtonOcrEnabled";
+
+        private bool _buttonSaveEnabled = false;
+
+        /// <summary>
+        /// Sets and gets the ButtonOcrEnabled property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
+        public bool ButtonSaveEnabled
+        {
+            get
+            {
+                return _buttonSaveEnabled;
+            }
+
+            set
+            {
+                if (_buttonSaveEnabled == value)
+                {
+                    return;
+                }
+
+                _buttonSaveEnabled = value;
+                RaisePropertyChanged(ButtonSavePropertyName);
+            }
+        }
+
         #endregion
 
         #region Private Method

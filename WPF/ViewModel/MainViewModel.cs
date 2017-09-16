@@ -1,7 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
-using WPF.Interface;
 using WPF.View;
 
 
@@ -9,16 +8,6 @@ namespace WPF.ViewModel
 {
     public class MainViewModel:ViewModelBase
     {
-        private IDataService _dataService;
-        private IDataExchangeViewModel _dataExchangeViewModel;
-
-        public MainViewModel(IDataExchangeViewModel dataExchangeViewModel,IDataService dataService)
-        {
-            _dataExchangeViewModel = dataExchangeViewModel;
-            _dataService = dataService;
-        }
-
-
         private void ExecuteExitCommand()
         {
             Messenger.Default.Send(new NotificationMessage(this, "CloseMain"));
@@ -39,8 +28,7 @@ namespace WPF.ViewModel
             new RecognizeView().Show();
         }
 
-
-
+        
         private RelayCommand _ocrCommand;
         
         public RelayCommand OcrCommand => _ocrCommand
