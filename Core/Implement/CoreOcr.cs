@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Xml.Linq;
 using Core.Decode;
 using Core.Helpers;
@@ -18,8 +20,19 @@ namespace Core.Implement
 
         public async Task<bool> LoadImage(string filename)
         {
-            _imagePix = await Task.Run(() => Pix.LoadFromFile(filename));
-            return _imagePix!=null;
+            try
+            {
+               _imagePix = await Task.Run(() => Pix.LoadFromFile(filename));
+
+                return _imagePix != null;
+            }
+            catch (Exception e)
+            {
+
+                MessageBox.Show("Error: "+e, "Info", MessageBoxButtons.OK);
+                return false;
+
+            }
         }
 
         public async Task<string> OcrPages(string language, int pages)

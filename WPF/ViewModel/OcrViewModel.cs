@@ -112,15 +112,16 @@ namespace WPF.ViewModel
         //Rozpoznanie strony
         private async void ExecuteOcrPage()
         {
-            //_showBusy = true;
-            //RaisePropertyChanged(ShowBusyPropertyName);
+            _showBusy = true;
+            RaisePropertyChanged(ShowBusyPropertyName);
+            
+            //MessageBox.Show(Path.GetFullPath(_bitmapImage.UriSource.AbsolutePath).Replace("%20", " "), "Info", MessageBoxButtons.OK);
 
-            //await _coreOcr.LoadImage(Path.GetFullPath(_bitmapImage.UriSource.AbsolutePath).Replace("%20"," "));
+            await _coreOcr.LoadImage(Path.GetFullPath(_bitmapImage.UriSource.AbsolutePath).Replace("%20"," "));
+
             try
             {
-                MessageBox.Show("Poczatek", "Info", MessageBoxButtons.OK);
                 var text = await _coreOcr.OcrPages(LangListToString.Convert(_languages), _settingsModel.Pages);
-                MessageBox.Show("Dekodowanie HOCR", "Info", MessageBoxButtons.OK);
                 var page = await _coreOcr.DecodeHocr(text);
 
                 _documentsAdv.Add(DocumentAdvCrud.LoadDocumentAdv(page));
@@ -234,6 +235,9 @@ namespace WPF.ViewModel
         }
 
         
+
+
+
         //Metody podpiete do przycisków View
         #region Command
         private RelayCommand _openImageCommand;

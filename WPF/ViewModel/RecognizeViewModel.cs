@@ -76,6 +76,9 @@ namespace WPF.ViewModel
                 if (_dataExchangeViewModel.ContainsKey(EnumExchangeViewmodel.TextToRecognize))
                 {
                     _textToRecognize = (DocumentAdv)_dataExchangeViewModel.Item(EnumExchangeViewmodel.TextToRecognize);
+                    _enableAfterOpen = true;
+                    RaisePropertyChanged(EnableAfterOpenPropertyName);
+                    RaisePropertyChanged(TextToRecognizePropertyName);
                 }
                 else
                 {
