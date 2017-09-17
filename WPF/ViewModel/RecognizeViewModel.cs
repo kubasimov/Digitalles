@@ -227,7 +227,7 @@ namespace WPF.ViewModel
         }
 
         
-
+        //Wywołanie okna podglądu
         private void ExecutePreviewCommand()
         {
             //_dataExchangeViewModel.Add(EnumExchangeViewmodel.Preview,ParsowanieHtml(_recognizePasswordListObservableCollection));
