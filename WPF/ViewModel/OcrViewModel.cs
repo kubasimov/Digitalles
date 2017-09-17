@@ -8,8 +8,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Core.Interface;
 using GalaSoft.MvvmLight.Messaging;
@@ -46,7 +44,8 @@ namespace WPF.ViewModel
             _dataExchangeViewModel = dataExchangeViewModel;
             _settingsModel = _dataService.LoadSettings();
             _pageCounter = 0;
-            _languages.Add(_settingsModel.Language.First(c => c.Name=="Polski")); 
+            _languages = new List<LangModel> {_settingsModel.Language.First(c => c.Name == "Polski")};
+
             _selectionAdvtext = new SelectionAdv();
            
 
@@ -113,14 +112,24 @@ namespace WPF.ViewModel
         //Rozpoznanie strony
         private async void ExecuteOcrPage()
         {
-            _showBusy = true;
-            RaisePropertyChanged(ShowBusyPropertyName);
+            //_showBusy = true;
+            //RaisePropertyChanged(ShowBusyPropertyName);
 
-            await _coreOcr.LoadImage(Path.GetFullPath(_bitmapImage.UriSource.AbsolutePath).Replace("%20"," "));
-            var text = await _coreOcr.OcrPages(LangListToString.Convert(_languages), _settingsModel.Pages);
-            var page = await _coreOcr.DecodeHocr(text);
+            //await _coreOcr.LoadImage(Path.GetFullPath(_bitmapImage.UriSource.AbsolutePath).Replace("%20"," "));
+            try
+            {
+                MessageBox.Show("Poczatek", "Info", MessageBoxButtons.OK);
+                var text = await _coreOcr.OcrPages(LangListToString.Convert(_languages), _settingsModel.Pages);
+                MessageBox.Show("Dekodowanie HOCR", "Info", MessageBoxButtons.OK);
+                var page = await _coreOcr.DecodeHocr(text);
 
-            _documentsAdv.Add(DocumentAdvCrud.LoadDocumentAdv(page));
+                _documentsAdv.Add(DocumentAdvCrud.LoadDocumentAdv(page));
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString(), "B³ad rozpoznawania",MessageBoxButtons.OK);
+            }
+            
 
             _showBusy = false;
             RaisePropertyChanged(ShowBusyPropertyName);

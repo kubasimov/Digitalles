@@ -1,8 +1,7 @@
 ﻿using Core.Interface;
-using Core.Model;
 using Tesseract;
 
-namespace Core
+namespace Core.Implement
 {
     public class ReadPicture : IReadPicture
     {

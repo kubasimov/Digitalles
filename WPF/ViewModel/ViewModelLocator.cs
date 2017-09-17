@@ -35,17 +35,6 @@ namespace WPF.ViewModel
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
-            ////if (ViewModelBase.IsInDesignModeStatic)
-            ////{
-            ////    // Create design time view services and models
-            ////    SimpleIoc.Default.Register<IDataService, DesignDataService>();
-            ////}
-            ////else
-            ////{
-            ////    // Create run time view services and models
-            ////    SimpleIoc.Default.Register<IDataService, DataService>();
-            ////}
-
             SimpleIoc.Default.Register<IDataService,DataService>(true);
             SimpleIoc.Default.Register<ICoreOcr,CoreOcr>(true);
             SimpleIoc.Default.Register<IDataExchangeViewModel, DataExchangeViewModel>(true);
@@ -101,7 +90,7 @@ namespace WPF.ViewModel
 
         public static void Cleanup()
         {
-            SimpleIoc.Default.Unregister<DictionaryViewModel>();
+            //SimpleIoc.Default.Unregister<DictionaryViewModel>();
         }
 
         public static void UnregisterRecognizeViewModel()

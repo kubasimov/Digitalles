@@ -7,5 +7,7 @@ namespace WPF.Model
         public List<LangModel> Language;
 
         public int Pages;
+
+        //public string Directory;
     }
 }

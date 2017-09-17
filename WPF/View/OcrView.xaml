@@ -8,6 +8,7 @@
         xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
         mc:Ignorable="d"
         Title="Digitalles - Rozpoznanie obrazu" Icon="/WPF;component/Icons/D2 ikona.png" Unloaded="Window_Unloaded" >
+
     <Window.Resources>
         <DataTemplate x:Key="BitmapImageTemplate">
             <WrapPanel>
@@ -15,11 +16,9 @@
             </WrapPanel>
         </DataTemplate>
     </Window.Resources>
-
     <Window.DataContext>
         <Binding Mode="OneWay" Path="Ocr" Source="{StaticResource Locator}"/>
     </Window.DataContext>
-
 
     <Grid x:Name="Grid">
         <Grid.ColumnDefinitions>
@@ -47,11 +46,7 @@
             </syncfusion:RibbonTab>
         </syncfusion:Ribbon>
         <Image x:Name="Image" Grid.Column="1" Grid.Row="1" Source="{Binding BitmapImage,Mode=TwoWay}" Stretch="Fill" >
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="MouseWheel">
-                    <command:EventToCommand Command="{Binding MouseWhellCommand, Mode=OneWay}" PassEventArgsToCommand="True"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
+
         </Image>
         <syncfusion:RichTextBoxAdv x:Name="RichTextBoxAdv" Grid.Column="3" Margin="10,10,10,10" Grid.Row="1" Document="{Binding DocumentAdv, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsManipulationEnabled="True" SelectionChanged="RichTextBoxAdv_SelectionChanged"/>
         <GridSplitter Grid.Column="2" HorizontalAlignment="Right"  Grid.Row="1" Background="#FFBCBCBC" VerticalAlignment="Stretch" ResizeBehavior="PreviousAndNext" Width="5" Margin="0,0,0,0"/>

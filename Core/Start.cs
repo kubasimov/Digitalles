@@ -1,16 +1,11 @@
-﻿using System;
-using System.ComponentModel;
-using Autofac;
+﻿using Autofac;
+using Core.Implement;
 using Core.Interface;
-using Core.Model;
-using IContainer = System.ComponentModel.IContainer;
 
 namespace Core
 {
     public class Start
     {
-        private static Autofac.IContainer _container;
-
         private readonly Ocr _ocr;
 
         public Start()
@@ -18,9 +13,9 @@ namespace Core
             var builder = new ContainerBuilder();
             builder.RegisterType<ReadPicture>().As<IReadPicture>();
             
-            _container=builder.Build();
+            var container = builder.Build();
             
-            _ocr = new Ocr(_container.Resolve<IReadPicture>());
+            _ocr = new Ocr(container.Resolve<IReadPicture>());
         }
 
         public bool ReadFile(string image)
