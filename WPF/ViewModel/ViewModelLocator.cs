@@ -56,6 +56,7 @@ namespace WPF.ViewModel
             SimpleIoc.Default.Register<RecognizeViewModel>();
             SimpleIoc.Default.Register<PreviewViewModel>();
             SimpleIoc.Default.Register<DictionaryViewModel>();
+            SimpleIoc.Default.Register<SpellerViewModel>();
         }
 
 
@@ -92,6 +93,12 @@ namespace WPF.ViewModel
         {
             get { return ServiceLocator.Current.GetInstance<DictionaryViewModel>(); }
         }
+
+        public SpellerViewModel Speller
+        {
+            get { return ServiceLocator.Current.GetInstance<SpellerViewModel>(); }
+        }
+
         public static void Cleanup()
         {
             SimpleIoc.Default.Unregister<DictionaryViewModel>();
@@ -119,6 +126,12 @@ namespace WPF.ViewModel
         {
             SimpleIoc.Default.Unregister<PreviewViewModel>();
             SimpleIoc.Default.Register<PreviewViewModel>();
+        }
+
+        public static void UnregisterSpellerViewModel()
+        {
+            SimpleIoc.Default.Unregister<SpellerViewModel>();
+            SimpleIoc.Default.Register<SpellerViewModel>();
         }
     }
 }

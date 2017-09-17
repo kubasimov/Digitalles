@@ -1,96 +1,112 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Linq;
+using System.Windows.Forms;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
+using morfologik.stemming;
+using morfologik.stemming.polish;
 using Newtonsoft.Json;
 using RecognizePassword.Model;
 using Syncfusion.Windows.Tools.Controls;
-using WPF.Enum;
 using WPF.Helpers;
-using WPF.Interface;
+using WPF.Properties;
+using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 
 namespace WPF.ViewModel
 {
 
+    [SuppressMessage("ReSharper", "ExplicitCallerInfoArgument")]
+    [SuppressMessage("ReSharper", "PossibleUnintendedReferenceComparison")]
     public class DictionaryViewModel:ViewModelBase
     {
-        private readonly IDataExchangeViewModel _dataExchangeViewModel;
         private readonly ObservableCollection<DictionaryPasswordElement> _dictionaryPassword;
         private List<List<DictionaryPasswordElement>> _dictionary;
 
-        public DictionaryViewModel(IDataExchangeViewModel dataExchangeViewModel)
+        public DictionaryViewModel()
         {
-            _dataExchangeViewModel = dataExchangeViewModel;
             _dictionaryPassword = new ObservableCollection<DictionaryPasswordElement>();
-            _passwordList=new List<string>();
-            _searcText = "Search text";
-
-
-            if (_dataExchangeViewModel.ContainsKey(EnumExchangeViewmodel.RecognizeView))
-            {
-                _documentAdv = (DocumentAdv) _dataExchangeViewModel.Item(EnumExchangeViewmodel.Dictionary);
-            }
-            else
-            {
-                _documentAdv=new DocumentAdv();
-            }
-
-            LoadDictionary();
-
-            GetListPasswordFromCollectio();
+            
+            _documentAdv = new DocumentAdv();
+            _searcText = "Wyszukiwany text";
+            
         }
 
-        private void LoadDictionary()
+        //wczytanie pliku słownika
+        private void ExecuteOpenCommand()
         {
-            if (File.Exists(@"D:\dane\slownik.json"))
+            try
             {
-                _dictionary =
-                    JsonConvert.DeserializeObject<List<List<DictionaryPasswordElement>>>(
-                        File.ReadAllText(@"D:\dane\slownik.json"));
-            }
-            else
-            {
-                _dictionary = new List<List<DictionaryPasswordElement>>();
-            }
+                var openFileDialog = new OpenFileDialog
+                {
+                    Filter =
+                        "JSON (*.json)|*.json",
+                    Multiselect = false
+                };
 
-            foreach (List<DictionaryPasswordElement> elements in _dictionary)
-            {
-                _dictionaryPassword.Add(elements[0]);
-            }
+                var result = openFileDialog.ShowDialog();
 
+                if (result != true) return;
+
+                LoadDictionary(openFileDialog.FileName);
+                _enableAfterOpenDictionary = true;
+                RaisePropertyChanged(EnableAfterOpenDictionaryPropertyName);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(Resources.ErrorLoadDictionary, Resources.ErrorLoad, MessageBoxButtons.OK,MessageBoxIcon.Error);
+            }
+            
         }
-
-        private void GetListPasswordFromCollectio()
-        {
-            foreach (var dictionaryPasswordElement in _dictionaryPassword)
-            {
-                _passwordList.Add(dictionaryPasswordElement.Word);
-            }
-            RaisePropertyChanged(PasswordListPropertyName);
-        }
-       
+        
+        //Wyjście
         private void ExecuteExitCommand()
         {
             Messenger.Default.Send(new NotificationMessage(this, "CloseDictionaryView"));
         }
-        private void ExecuteOpenCommand()
-        {
 
+        //komenda wyszukanie hasła
+        private void ExecuteSearchCommand(object obj)
+        {
+            var text = (string)obj;
+            
+            if (text!="")
+            {
+                var speller = new PolishStemmer();
+                var textWordData = (speller.lookup(text).toArray().FirstOrDefault() as WordData);
+
+                if (textWordData != null)
+                {
+                    text = textWordData.getStem().toString();
+                }
+                
+                Search(text.Trim().ToLower());
+            }
         }
 
+        //wyszukanie wybranego hasła z listy
         private void ExecuteSelectWordCommand(object obj)
         {
             var text = (string)obj;
 
-            foreach (List<DictionaryPasswordElement> elements in _dictionary)
+            Search(text);
+        }
+
+        //metoda wyszukująca hasło w słowniku
+        private void Search(string text)
+        {
+            foreach (var elements in _dictionary)
             {
-                if (elements[0].Word==text)
+                if (elements[0].Word.Trim().ToLower() == text.Trim().ToLower())
                 {
                     ExecuteExportToHtml(elements);
+                    var filename = Path.GetTempPath() + @"\temp.html";
 
-                    using (var t = File.OpenRead(@"D:\dane\text.html"))
+                    using (var t = File.OpenRead(filename))
                     {
                         _documentAdv = HTMLImporting.ConvertToDocumentAdv(t);
                         RaisePropertyChanged(DocumentPropertyName);
@@ -99,18 +115,18 @@ namespace WPF.ViewModel
             }
         }
 
-        private void ExecuteExportToHtml(List<DictionaryPasswordElement> elements)
+        //export hasła do tymczasowego pliku Html
+        private static void ExecuteExportToHtml(List<DictionaryPasswordElement> elements)
         {
-            ObservableCollection<DictionaryPasswordElement> dictionaryPasswordElements = new ObservableCollection<DictionaryPasswordElement>(elements);
+            var dictionaryPasswordElements = new ObservableCollection<DictionaryPasswordElement>(elements);
 
-            DocumentAdv textDocumentAdv = HtmlParsing.ParsowanieHtml(dictionaryPasswordElements);
+            var textDocumentAdv = HtmlParsing.ParsowanieHtml(dictionaryPasswordElements);
 
-            using (var t = File.Create(@"D:\dane\text.html"))
+            using (var t = File.Create(Path.GetTempPath() + @"\temp.html"))
             {
                 HTMLExporting.ConvertToHtml(textDocumentAdv, t);
             }
-
-
+            
         }
 
        
@@ -175,14 +191,27 @@ namespace WPF.ViewModel
                 RaisePropertyChanged(PasswordListPropertyName);
             }
         }
-
         
+        public const string EnableAfterOpenDictionaryPropertyName = "EnableAfterOpenDictionary";
 
-        #region RecognizePasswordList
+        private bool _enableAfterOpenDictionary = false;
 
+        public bool EnableAfterOpenDictionary
+        {
+            get => _enableAfterOpenDictionary;
 
+            set
+            {
+                if (_enableAfterOpenDictionary == value)
+                {
+                    return;
+                }
 
-        #endregion
+                _enableAfterOpenDictionary = value;
+                RaisePropertyChanged(EnableAfterOpenDictionaryPropertyName);
+            }
+        }
+        
         #endregion
 
         #region RelayMethod
@@ -193,19 +222,52 @@ namespace WPF.ViewModel
                                            ?? (_exitCommand = new RelayCommand(ExecuteExitCommand));
 
         private RelayCommand _openCommand;
-
-       
+        
         public RelayCommand OpenCommand => _openCommand
                                           ?? (_openCommand = new RelayCommand(ExecuteOpenCommand));
 
         private RelayCommand<object> _selectWordCommand;
-
-       
+        
         public RelayCommand<object> SelectWordCommand => _selectWordCommand
                                                  ?? (_selectWordCommand = new RelayCommand<object>(ExecuteSelectWordCommand));
 
+        private RelayCommand<object> _searchCommand;
+
+        public RelayCommand<object> SearchCommand => _searchCommand
+                                                         ?? (_searchCommand = new RelayCommand<object>(ExecuteSearchCommand));
+
         
 
+        #endregion
+
+        #region PrivateMethod
+
+        //wczytanie pliku słownika
+        //dodanie haseł słownika do listy haseł i prywatnej listy haseł z opisem
+        private void LoadDictionary(string filename)
+        {
+            if (File.Exists(filename))
+            {
+                _dictionary =
+                    JsonConvert.DeserializeObject<List<List<DictionaryPasswordElement>>>(
+                        File.ReadAllText(filename));
+
+                _passwordList = new List<string>();
+
+                foreach (var elements in _dictionary)
+                {
+                    _dictionaryPassword.Add(elements[0]);
+                    _passwordList.Add(elements[0].Word);
+                }
+
+                RaisePropertyChanged(PasswordListPropertyName);
+            }
+            else
+            {
+                _dictionary = new List<List<DictionaryPasswordElement>>();
+            }
+        }
+        
         #endregion
     }
 

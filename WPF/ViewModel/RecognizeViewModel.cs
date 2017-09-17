@@ -5,19 +5,25 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
-using Microsoft.Win32;
+using java.nio.file;
+using morfologik.speller;
 using Newtonsoft.Json;
 using Syncfusion.Windows.Tools.Controls;
 using WPF.Enum;
 using WPF.Helpers;
 using WPF.Interface;
 using WPF.View;
-using RecognizePassword.Model;
 using RecognizePassword.Implement;
 using RecognizePassword.Interface;
+using WPF.Model;
+using WPF.Properties;
+using DictionaryPasswordElement = RecognizePassword.Model.DictionaryPasswordElement;
+using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
+using SaveFileDialog = Microsoft.Win32.SaveFileDialog;
 
 namespace WPF.ViewModel
 {
@@ -27,9 +33,12 @@ namespace WPF.ViewModel
         private Dictionary<string, string> _dictionary;
         private readonly TextImporting _textImporting = new TextImporting();
         private readonly IFactoryRecognizePassword _recognizePasswordText;
+        private readonly IDataExchangeViewModel _dataExchangeViewModel;
 
         public RecognizeViewModel(IDataExchangeViewModel dataExchangeViewModel)
         {
+            _dataExchangeViewModel = dataExchangeViewModel;
+
             if (IsInDesignMode)
             {
                 var _text =
@@ -64,9 +73,9 @@ namespace WPF.ViewModel
             }
             else
             {
-                if (dataExchangeViewModel.ContainsKey(EnumExchangeViewmodel.TextToRecognize))
+                if (_dataExchangeViewModel.ContainsKey(EnumExchangeViewmodel.TextToRecognize))
                 {
-                    _textToRecognize = (DocumentAdv)dataExchangeViewModel.Item(EnumExchangeViewmodel.TextToRecognize);
+                    _textToRecognize = (DocumentAdv)_dataExchangeViewModel.Item(EnumExchangeViewmodel.TextToRecognize);
                 }
                 else
                 {
@@ -82,36 +91,44 @@ namespace WPF.ViewModel
         //wczytanie pliku z tekstem
         private void ExecuteOpenCommand()
         {
-            var openFileDialog = new OpenFileDialog
+            try
             {
-                DefaultExt = ".txt",
-                Filter =
-                    "JSON (*.json)|*.json|" +
-                    "html (*.html)|*.html|" +
-                    "Plain text (*.txt)|*.txt",
+                var openFileDialog = new OpenFileDialog
+                {
+                    Filter =
+                        "Plain text (*.txt)|*.txt|"+
+                         "JSON (*.json)|*.json|" +
+                        "html (*.html)|*.html" ,
+                        
 
-                Multiselect = false
-            };
+                    Multiselect = false
+                };
 
-            var result = openFileDialog.ShowDialog();
+                var result = openFileDialog.ShowDialog();
 
-            if (result != true) return;
-            switch (openFileDialog.FilterIndex)
-            {
-                case 1:
-                    _textToRecognize = _textImporting.ConvertToDocumentAdv(JsonConvert.DeserializeObject<string>(File.ReadAllText(openFileDialog.FileName)));
-                    break;
-                case 2:
-                    _textToRecognize =
-                        HTMLImporting.ConvertToDocumentAdv(File.OpenRead(openFileDialog.FileName));
-                    break;
-                default:
-                    _textToRecognize = _textImporting.ConvertToDocumentAdv(File.Open(openFileDialog.FileName, FileMode.Open));
-                    break;
+                if (result != true) return;
+                switch (openFileDialog.FilterIndex)
+                {
+                    case 1:
+                        _textToRecognize = _textImporting.ConvertToDocumentAdv(File.Open(openFileDialog.FileName, FileMode.Open));
+                        break;
+                    case 2:
+                        _textToRecognize = _textImporting.ConvertToDocumentAdv(JsonConvert.DeserializeObject<string>(File.ReadAllText(openFileDialog.FileName)));
+                        break;
+                    default:
+                        _textToRecognize =
+                            HTMLImporting.ConvertToDocumentAdv(File.OpenRead(openFileDialog.FileName));
+                        break;
+                }
+                _enableAfterOpen = true;
+                RaisePropertyChanged(EnableAfterOpenPropertyName);
+
+                RaisePropertyChanged(TextToRecognizePropertyName);
             }
-
-                
-            RaisePropertyChanged(TextToRecognizePropertyName);
+            catch (Exception)
+            {
+                MessageBox.Show(Resources.ErrorLoadDictionary, Resources.ErrorLoad, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
         
         //zapis zanalizowanego hasła do pliku
@@ -169,34 +186,60 @@ namespace WPF.ViewModel
         //eksport hasła do słownika
         private void ExecuteExportToDictionary()
         {
+            if (_recognizePasswordListObservableCollection.Count <= 0) return;
+            var saveFileDialog = new SaveFileDialog
+            {
+                Filter =
+                    "JSON (*.json)|*.json",
+                Title = "Zapis"
+            };
+
+            var result = saveFileDialog.ShowDialog();
+
+            if (result != true) return;
+            
             List<List<DictionaryPasswordElement>> dictionaryFromFile;
 
-            if (File.Exists(@"\slownik.json"))
+            if (File.Exists(saveFileDialog.FileName))
             {
                 dictionaryFromFile =
                     JsonConvert.DeserializeObject<List<List<DictionaryPasswordElement>>>
-                        (File.ReadAllText(@"\slownik.json"));
+                        (File.ReadAllText(saveFileDialog.FileName));
             }
             else
             {
                 dictionaryFromFile = new List<List<DictionaryPasswordElement>>();
             }
+
             dictionaryFromFile.Add(_recognizePasswordListObservableCollection.ToList());
-            File.WriteAllText(@"\slownik.json", JsonConvert.SerializeObject(
+            dictionaryFromFile.Sort(SortDictionary);
+            File.WriteAllText(saveFileDialog.FileName, JsonConvert.SerializeObject(
                 dictionaryFromFile, Formatting.Indented));
-
-
         }
 
         //analiza hasła
-        private void ExecuteRecognizeCommand()
+        private void ExecuteAnalizeCommand()
         {
             _recognizePasswordListObservableCollection.Clear();
             _recognizePasswordListObservableCollection = _recognizePasswordText.Recognize(TextExporting.ConvertToText(_textToRecognize), _dictionary);
 
             RaisePropertyChanged(RecognizePasswordListPropertyName);
+            _enableAfterAnalize = true;
+            RaisePropertyChanged(EnableAfterAnalizePropertyName);
         }
 
+        //Sprawdzanie pisowni
+        private void ExecuteSpellCommand()
+        {
+            var text = TextExporting.ConvertToText(_textToRecognize);
+
+            var spellList = Spell(text);
+
+            if (spellList.Count <= 0) return;
+            _dataExchangeViewModel.Add(EnumExchangeViewmodel.SpellDictionary, spellList);
+            new SpellerView().Show();
+        }
+        
         //koniec
         private void ExecuteExitCommand()
         {
@@ -210,14 +253,13 @@ namespace WPF.ViewModel
             RaisePropertyChanged(TextToRecognizePropertyName);
 
             _recognizePasswordListObservableCollection = new ObservableCollection<DictionaryPasswordElement>();
+            RaisePropertyChanged(RecognizePasswordListPropertyName);
+
+            _enableAfterAnalize = false;
+            _enableAfterOpen = false;
+            RaisePropertyChanged(EnableAfterAnalizePropertyName);
+            RaisePropertyChanged(EnableAfterOpenPropertyName);
         }
-
-        
-        
-
-        
-
-        
 
         
 
@@ -252,58 +294,68 @@ namespace WPF.ViewModel
             }
 
         }
-        
+
         #region RelayMethod
 
-        private RelayCommand _exitCommand;
+        private RelayCommand _openCommand;
 
-        public RelayCommand ExitCommand => _exitCommand
-                                           ?? (_exitCommand = new RelayCommand(ExecuteExitCommand));
-
-        private RelayCommand _recognizeCommand;
-
-        public RelayCommand RecognizeCommand => _recognizeCommand
-                                           ?? (_recognizeCommand = new RelayCommand(ExecuteRecognizeCommand));
-
+        public RelayCommand OpenCommand => _openCommand
+                                           ?? (_openCommand = new RelayCommand(ExecuteOpenCommand));
         private RelayCommand _saveCommand;
 
         public RelayCommand SaveCommand => _saveCommand
                                            ?? (_saveCommand = new RelayCommand(ExecuteSaveCommand));
+        private RelayCommand _saveAsCommand;
+
+        public RelayCommand SaveAsCommand => _saveAsCommand
+                                             ?? (_saveAsCommand = new RelayCommand(ExecuteSaveAsCommand));
+        private RelayCommand _exportToDictionaryCommand;
+
+        public RelayCommand ExportToDictionary => _exportToDictionaryCommand
+                                                  ?? (_exportToDictionaryCommand = new RelayCommand(ExecuteExportToDictionary));
+        private RelayCommand _exitCommand;
+
+        public RelayCommand ExitCommand => _exitCommand
+                                           ?? (_exitCommand = new RelayCommand(ExecuteExitCommand));
+        private RelayCommand _analizeCommand;
+
+        public RelayCommand AnalizeCommand => _analizeCommand
+                                                ?? (_analizeCommand = new RelayCommand(ExecuteAnalizeCommand));
+        private RelayCommand _spellCommand;
+
+        public RelayCommand SpellCommand => _spellCommand
+                                            ?? (_spellCommand = new RelayCommand(ExecuteSpellCommand));
+
+       
+        private RelayCommand _newCommand;
+
+        public RelayCommand NewCommand => _newCommand
+                                          ?? (_newCommand = new RelayCommand(ExecuteNewCommand));
+        private RelayCommand _pasteCommand;
+
+        public RelayCommand PasteCommand => _pasteCommand
+                                            ?? (_pasteCommand = new RelayCommand(ExecutePasteCommand));
+        private RelayCommand _previewCommand;
+
+        public RelayCommand PreviewCommand => _previewCommand
+                                              ?? (_previewCommand = new RelayCommand(ExecutePreviewCommand));
+
+
 
         private RelayCommand _settingsCommand;
         
         public RelayCommand SettingsCommand => _settingsCommand
                                                ?? (_settingsCommand = new RelayCommand(ExecuteSettingsCommand));
 
-        private RelayCommand _openCommand;
+       
 
-        public RelayCommand OpenCommand => _openCommand
-                                           ?? (_openCommand = new RelayCommand(ExecuteOpenCommand));
+        
 
-        private RelayCommand _saveAsCommand;
+        
 
-        public RelayCommand SaveAsCommand => _saveAsCommand
-                                             ?? (_saveAsCommand = new RelayCommand(ExecuteSaveAsCommand));
+        
 
-        private RelayCommand _newCommand;
-
-        public RelayCommand NewCommand => _newCommand
-                                          ?? (_newCommand = new RelayCommand(ExecuteNewCommand));
-
-        private RelayCommand _pasteCommand;
-
-        public RelayCommand PasteCommand => _pasteCommand
-                                            ?? (_pasteCommand = new RelayCommand(ExecutePasteCommand));
-
-        private RelayCommand _exportToDictionaryCommand;
-
-        public RelayCommand ExportToDictionary => _exportToDictionaryCommand
-                                            ?? (_exportToDictionaryCommand = new RelayCommand(ExecuteExportToDictionary));
-
-        private RelayCommand _previewCommand;
-
-        public RelayCommand PreviewCommand => _previewCommand
-                                              ?? (_previewCommand = new RelayCommand(ExecutePreviewCommand));
+        
 
         
 
@@ -390,10 +442,59 @@ namespace WPF.ViewModel
                 }
             }
 
-            #endregion
+        #endregion
+
+            #region EnableAfterOpen
+
+        public const string EnableAfterOpenPropertyName = "EnableAfterOpen";
+
+        private bool _enableAfterOpen = false;
+
+       
+        public bool EnableAfterOpen
+        {
+            get => _enableAfterOpen;
+
+            set
+            {
+                if (_enableAfterOpen == value)
+                {
+                    return;
+                }
+
+                _enableAfterOpen = value;
+                RaisePropertyChanged(EnableAfterOpenPropertyName);
+            }
+        }
 
         #endregion
+
+            #region EnableAfterAnalize
         
+        public const string EnableAfterAnalizePropertyName = "EnableAfterAnalize";
+
+        private bool _enableAfterAnalize = false;
+
+        public bool EnableAfterAnalize
+        {
+            get => _enableAfterAnalize;
+
+            set
+            {
+                if (_enableAfterAnalize == value)
+                {
+                    return;
+                }
+
+                _enableAfterAnalize = value;
+                RaisePropertyChanged(EnableAfterAnalizePropertyName);
+            }
+        }
+
+        #endregion
+
+        #endregion
+
         #region Private_Method
         //Ładowanie pliku zawierającego sktóty
         private void LoadDictionaryPassword()
@@ -435,6 +536,38 @@ namespace WPF.ViewModel
             }
             return str.ToString();
         }
+
+        //pomocnicza metoda sortująca
+        private int SortDictionary(List<DictionaryPasswordElement> x, List<DictionaryPasswordElement> y)
+        {
+            return string.CompareOrdinal(x[0].Word, y[0].Word);
+        }
+
+        //metoda sprawdzająca pisownie
+        private ObservableCollection<SpellModel> Spell(string text)
+        {
+            var path = FileSystems.getDefault().getPath(@"D:\polish.dict");
+            var spell = new Speller(morfologik.stemming.Dictionary.read(path));
+
+            var collection = new ObservableCollection<SpellModel>();
+
+            foreach (var s in text.Split(' '))
+            {
+                
+                var words = spell.findReplacements(s);
+                
+                if (words.isEmpty()) continue;
+                var str = new StringBuilder();
+                for (var i = 0; i < words.size(); i++)
+                {
+                    str.AppendFormat("{0}   ", words.get(i));
+                }
+                
+                collection.Add(new SpellModel{Word=s,ListSpell=str.ToString()});
+            }
+            return collection;
+        }
+
         #endregion
     }
 }

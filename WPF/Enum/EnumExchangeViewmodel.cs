@@ -7,6 +7,7 @@
         Dictionary,
         TextToRecognize,
         Preview,
-        RecognizeView
+        RecognizeView,
+        SpellDictionary
     }
 }

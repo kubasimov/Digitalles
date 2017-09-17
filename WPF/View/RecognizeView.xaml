@@ -27,22 +27,22 @@
             <syncfusion:RibbonTab Caption="Home" IsChecked="true">
                 <syncfusion:RibbonBar Header="Plik">
                     <syncfusion:RibbonButton Label="Otworz" SizeForm="Large" Command="{Binding OpenCommand, Mode=OneWay}" LargeIcon="/WPF;component/Icons/otworz.png"/>
-                    <syncfusion:RibbonButton Label="Zapisz" SizeForm="Large" Command="{Binding SaveCommand, Mode=OneWay}" LargeIcon="/WPF;component/Icons/zapisz.png"></syncfusion:RibbonButton>
-                    <syncfusion:RibbonButton Label="Zapisz jako" SizeForm="Large" Command="{Binding SaveAsCommand, Mode=OneWay}" LargeIcon="/WPF;component/Icons/zapisz jako.png"></syncfusion:RibbonButton>
-                    <syncfusion:RibbonButton Label="Export do słownika" SizeForm="Large" LargeIcon="/WPF;component/Icons/eksport2.png" Command="{Binding ExportToDictionary, Mode=OneWay}"></syncfusion:RibbonButton>
+                    <syncfusion:RibbonButton Label="Zapisz" SizeForm="Large" Command="{Binding SaveCommand, Mode=OneWay}" LargeIcon="/WPF;component/Icons/zapisz.png" IsEnabled="{Binding EnableAfterAnalize}"></syncfusion:RibbonButton>
+                    <syncfusion:RibbonButton Label="Zapisz jako" SizeForm="Large" Command="{Binding SaveAsCommand, Mode=OneWay}" LargeIcon="/WPF;component/Icons/zapisz jako.png" IsEnabled="{Binding EnableAfterAnalize}"></syncfusion:RibbonButton>
+                    <syncfusion:RibbonButton Label="Export do słownika" SizeForm="Large" LargeIcon="/WPF;component/Icons/eksport2.png" Command="{Binding ExportToDictionary, Mode=OneWay}" IsEnabled="{Binding EnableAfterAnalize}"></syncfusion:RibbonButton>
                     <syncfusion:RibbonButton Label="Wyjscie" SizeForm="Large" Command="{Binding ExitCommand, Mode=OneWay}" LargeIcon="/WPF;component/Icons/wyjscie.png"></syncfusion:RibbonButton>
 
                 </syncfusion:RibbonBar>
 
                 <syncfusion:RibbonBar Header="Edycja">
-                    <syncfusion:RibbonButton Label="Analiza" SizeForm="Large" Command="{Binding RecognizeCommand, Mode=OneWay}" LargeIcon="/WPF;component/Icons/rozpoznaj haslo.png"></syncfusion:RibbonButton>
-                    <syncfusion:RibbonButton Label="Korekta" SizeForm="Large" LargeIcon="/WPF;component/Icons/sprawdz.png" Command="{Binding SettingsCommand, Mode=OneWay}"></syncfusion:RibbonButton>
+                    <syncfusion:RibbonButton Label="Analiza" SizeForm="Large" Command="{Binding AnalizeCommand, Mode=OneWay}" LargeIcon="/WPF;component/Icons/rozpoznaj haslo.png" IsEnabled="{Binding EnableAfterOpen}"></syncfusion:RibbonButton>
+                    <syncfusion:RibbonButton Label="Korekta" SizeForm="Large" LargeIcon="/WPF;component/Icons/sprawdz.png" Command="{Binding SpellCommand, Mode=OneWay}" IsEnabled="{Binding EnableAfterOpen}"></syncfusion:RibbonButton>
                 </syncfusion:RibbonBar>
 
                 <syncfusion:RibbonBar Header="Tekst">
                     <syncfusion:RibbonButton Label="Nowy" SizeForm="Large" Command="{Binding NewCommand, Mode=OneWay}" LargeIcon="/WPF;component/Icons/nowy.png"></syncfusion:RibbonButton>
                     <syncfusion:RibbonButton Label="Wklej" SizeForm="Large" LargeIcon="/WPF;component/Icons/wklej.png"></syncfusion:RibbonButton>
-                    <syncfusion:RibbonButton Label="Podglad" SizeForm="Large" LargeIcon="/WPF;component/Icons/podglad.png" Command="{Binding PreviewCommand, Mode=OneWay}"></syncfusion:RibbonButton>
+                    <syncfusion:RibbonButton Label="Podglad" SizeForm="Large" LargeIcon="/WPF;component/Icons/podglad.png" Command="{Binding PreviewCommand, Mode=OneWay}" IsEnabled="{Binding EnableAfterAnalize}"></syncfusion:RibbonButton>
                 </syncfusion:RibbonBar>
             </syncfusion:RibbonTab>
 

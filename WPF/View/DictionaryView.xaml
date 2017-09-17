@@ -44,14 +44,14 @@
                     <syncfusion:RibbonButton Label="Wyjście" SizeForm="Large" Command="{Binding ExitCommand, Mode=OneWay}" LargeIcon="/WPF;component/Icons/wyjscie.png"/>
                 </syncfusion:RibbonBar>
                 <syncfusion:RibbonBar Header="">
-                    <syncfusion:RibbonTextBox Text="{Binding SearchText}" Width="150" Margin="0,25,0,0" />
-                    <syncfusion:RibbonButton Label="" SizeForm="Large" Margin="0,18,0,0" LargeIcon="/WPF;component/Icons/szukaj.png" SmallIcon="/WPF;component/Icons/szukaj.png" HorizontalAlignment="Left" Width="40.91"/>
+                    <syncfusion:RibbonTextBox x:Name="ribbonTextBox" Text="{Binding SearchText}" Width="150" Margin="0,25,0,0" SpellCheck.IsEnabled="True" IsEnabled="{Binding EnableAfterOpenDictionary}" />
+                    <syncfusion:RibbonButton Label="" SizeForm="Large" Margin="0,18,0,0" LargeIcon="/WPF;component/Icons/szukaj.png" SmallIcon="/WPF;component/Icons/szukaj.png" HorizontalAlignment="Left" Width="40.91" Command="{Binding SearchCommand, Mode=OneWay}" CommandParameter="{Binding Text, ElementName=ribbonTextBox}" IsEnabled="{Binding EnableAfterOpenDictionary}"/>
 
                 </syncfusion:RibbonBar>
             </syncfusion:RibbonTab>
 
         </syncfusion:Ribbon>
-        <ListView x:Name="listView" Grid.Column="0" Margin="0,0,0,0" Grid.Row="1" ItemTemplate="{DynamicResource StringTemplate}" ItemsSource="{Binding PasswordList}">
+        <ListView x:Name="listView" Grid.Column="0" Margin="0,0,0,0" Grid.Row="1" ItemTemplate="{DynamicResource StringTemplate}" ItemsSource="{Binding PasswordList, Mode=TwoWay, NotifyOnSourceUpdated=True}">
 
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
