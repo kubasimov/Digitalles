@@ -3,35 +3,42 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
-        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-        xmlns:command="http://www.galasoft.ch/mvvmlight"
-        x:Class="WPF.View.OcrSettings"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:Custom="http://www.galasoft.ch/mvvmlight"
+    x:Class="WPF.View.OcrSettings"
         mc:Ignorable="d"
-        Title="Ustawienia rozpoznawania" Height="197.895" Width="330.756" DataContext="{Binding OcrSettings, Mode=OneWay, Source={StaticResource Locator}}">
+        Title="Ustawienia" Height="233.721" Width="380.23" 
+    ResizeMode="NoResize" Icon="/WPF;component/Icons/D2 ikona.png" Unloaded="Window_Unloaded">
+    <Window.Resources>
+        <DataTemplate x:Key="LangModelTemplate">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding Name, Mode=OneWay}"/>
+                <TextBlock Text="   "/>
+                <TextBlock Text="{Binding Shortname, Mode=OneWay}"/>
+            </StackPanel>
+        </DataTemplate>
+    </Window.Resources>
+    <Window.DataContext>
+        <Binding Mode="OneWay" Path="OcrSettings" Source="{StaticResource Locator}"/>
+    </Window.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="37*"/>
-            <ColumnDefinition Width="83*"/>
+            <ColumnDefinition Width="142*"/>
+            <ColumnDefinition Width="183*"/>
         </Grid.ColumnDefinitions>
-        
-        <syncfusion:CheckListBox Name="CheckListBox" ItemsSource="{Binding Language, Mode=TwoWay}">
 
+
+        <Button Content="Zapisz" Grid.Column="1" HorizontalAlignment="Left" Margin="45.72,174.761,0,0" VerticalAlignment="Top" Width="75" Command="{Binding OkCommand, Mode=OneWay}" Height="19.96"/>
+        <Button Content="Anuluj" Grid.Column="1" HorizontalAlignment="Left" Margin="125.72,174.761,0,0" VerticalAlignment="Top" Width="75" Command="{Binding AbortCommand, Mode=OneWay}" Height="19.96"/>
+        <StackPanel Grid.Column="1" HorizontalAlignment="Left" Height="148.895" Margin="10,10,0,0" VerticalAlignment="Top" Width="190.72"/>
+
+        <ListBox Grid.Column="0" x:Name="ListBox" HorizontalAlignment="Left" Height="148.895" ItemTemplate="{DynamicResource LangModelTemplate}" ItemsSource="{Binding Language}" Margin="10,10,0,0" VerticalAlignment="Top" Width="143.51" IsSynchronizedWithCurrentItem="False" SelectionMode="Multiple">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
-                    <command:EventToCommand Command="{Binding ChcekedCommand, Mode=OneWay}" CommandParameter="{Binding SelectedItems, ElementName=CheckListBox}"/>
+                    <Custom:EventToCommand Command="{Binding ChcekedCommand, Mode=OneWay}" 
+                                           CommandParameter="{Binding SelectedItems, ElementName=ListBox}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
-
-        </syncfusion:CheckListBox>
-
-
-        <Button Content="Zapisz" Grid.Column="1" HorizontalAlignment="Left" Margin="58.24,134.935,0,0" VerticalAlignment="Top" Width="75" Command="{Binding OkCommand, Mode=OneWay}"/>
-        <Button Content="Anuluj" Grid.Column="1" HorizontalAlignment="Left" Margin="138.24,134.935,0,0" VerticalAlignment="Top" Width="75" Command="{Binding AbortCommand, Mode=OneWay}"/>
-        <StackPanel Grid.Column="1" HorizontalAlignment="Left" Height="119.935" Margin="10,10,0,0" VerticalAlignment="Top" Width="203.24">
-            <Label Content="Ilość stron na zdjęcie"/>
-            <TextBlock TextWrapping="Wrap" Text="2" Margin="43.15,0,95.65,0" Width="64.44" TextAlignment="Center"/>
-        </StackPanel>
+        </ListBox>
 
 
     </Grid>

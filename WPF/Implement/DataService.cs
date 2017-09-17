@@ -47,9 +47,10 @@ namespace WPF.Implement
                 Language=new List<LangModel>
                 {
                     new LangModel("Angielski","ang"),
-                    new LangModel("Polski","pol")
+                    new LangModel("Polski","pol"),
+                    new LangModel("Włoski","ita")
                 }, 
-                Pages = 2
+                Pages = 1
             };
         }
     }

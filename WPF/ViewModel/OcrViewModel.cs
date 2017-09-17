@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -31,8 +32,8 @@ namespace WPF.ViewModel
         private readonly IDataService _dataService;
         private readonly ICoreOcr _coreOcr;
         private readonly IDataExchangeViewModel _dataExchangeViewModel;
-        private readonly SettingsModel _settingsModel;
-        private readonly List<LangModel> _languages;
+        private SettingsModel _settingsModel;
+        private List<LangModel> _languages;
         private ObservableCollection<DocumentAdv> _documentsAdv;
         
         #endregion
@@ -45,7 +46,7 @@ namespace WPF.ViewModel
             _dataExchangeViewModel = dataExchangeViewModel;
             _settingsModel = _dataService.LoadSettings();
             _pageCounter = 0;
-            _languages = _settingsModel.Language;
+            _languages.Add(_settingsModel.Language.First(c => c.Name=="Polski")); 
             _selectionAdvtext = new SelectionAdv();
            
 
@@ -178,14 +179,16 @@ namespace WPF.ViewModel
             
         }
 
-        //change ocr language
+        //change ocr language and settings
         private void ExecuteSelectLanguage()
         {
             new OcrSettings().ShowDialog();
 
             if (_dataExchangeViewModel.ContainsKey(EnumExchangeViewmodel.Language))
             {
-                var t = _dataExchangeViewModel.Item(EnumExchangeViewmodel.Language);
+                _settingsModel = (SettingsModel)_dataExchangeViewModel.Item(EnumExchangeViewmodel.Language);
+
+                _languages = _settingsModel.Language;
             }
         }
 
@@ -195,9 +198,7 @@ namespace WPF.ViewModel
             //_dataExchangeViewModel.Add(EnumExchangeViewmodel.Dictionary,_dictionaryModel );
             Messenger.Default.Send(new NotificationMessage(this, "CloseOcr"));
         }
-
         
-
         //save pages text to dictionary
         private void ExecuteSavePagesCommand()
         {
@@ -223,20 +224,7 @@ namespace WPF.ViewModel
             RaisePropertyChanged(DocumentADVPropertyName);
         }
 
-        private void ExecuteMouseWhellCommand(object obj)
-        {
-            var e = (MouseWheelEventArgs) obj;
-
-           
-            //var st = (ScaleTransform)_bitmapImage.RenderTransform;
-            double zoom = e.Delta > 0 ? .2 : -.2;
-
-            _bitmapImage.Rotation = Rotation.Rotate180;
-            //st.ScaleX += zoom;
-            //st.ScaleY += zoom;
-            RaisePropertyChanged(BitmapImagePropertyName);
-        }
-
+        
         //Metody podpiete do przycisków View
         #region Command
         private RelayCommand _openImageCommand;
@@ -282,14 +270,6 @@ namespace WPF.ViewModel
 
         public RelayCommand RecognizeTextCommand => _recognizeTextCommand
                                                     ?? (_recognizeTextCommand = new RelayCommand(ExecuteRecognizeTextCommand));
-
-        private RelayCommand<object> _mouseWhellCommand;
-
-        public RelayCommand<object> MouseWhellCommand => _mouseWhellCommand
-                                                 ?? (_mouseWhellCommand = new RelayCommand<object>(ExecuteMouseWhellCommand));
-
-        
-
 
         #endregion
 

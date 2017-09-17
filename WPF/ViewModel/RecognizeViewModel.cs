@@ -243,6 +243,7 @@ namespace WPF.ViewModel
         //koniec
         private void ExecuteExitCommand()
         {
+            Messenger.Default.Send(new NotificationMessage(this, "CloseSpellerView"));
             Messenger.Default.Send(new NotificationMessage(this, "CloseRecognizeView"));
         }
 
@@ -265,7 +266,7 @@ namespace WPF.ViewModel
 
         private void ExecuteSettingsCommand()
         {
-            
+            new OcrSettings().ShowDialog();
         }
 
         

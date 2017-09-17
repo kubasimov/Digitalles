@@ -52,7 +52,7 @@ namespace WPF.ViewModel
 
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<OcrViewModel>();
-            //SimpleIoc.Default.Register<OcrSettingsViewModel>();
+            SimpleIoc.Default.Register<OcrSettingsViewModel>();
             SimpleIoc.Default.Register<RecognizeViewModel>();
             SimpleIoc.Default.Register<PreviewViewModel>();
             SimpleIoc.Default.Register<DictionaryViewModel>();

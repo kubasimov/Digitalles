@@ -2,8 +2,8 @@
 {
     public class LangModel
     {
-        public string Name { get; }
-        public string Shortname { get; }
+        public string Name { get; set; }
+        public string Shortname { get; set; }
 
         public LangModel(string name, string shortname)
         {

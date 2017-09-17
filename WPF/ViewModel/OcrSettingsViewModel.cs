@@ -1,4 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
@@ -10,18 +12,21 @@ namespace WPF.ViewModel
 {
     public class OcrSettingsViewModel : ViewModelBase
     {
-        private string _language;
+        private SettingsModel settings;
 
         private readonly IDataExchangeViewModel _dataExchangeViewModel;
         
-        public OcrSettingsViewModel(IDataExchangeViewModel dataExchangeViewModel)
+        public OcrSettingsViewModel(IDataExchangeViewModel dataExchangeViewModel, IDataService dataService)
         {
-            _languages = new ObservableCollection<LangModel>
+            settings = dataService.LoadSettings();
+
+            _languages=new ObservableCollection<LangModel>();
+
+            foreach (var langModel in settings.Language)
             {
-                new LangModel("Angielski","ang"),
-                new LangModel("Polski","pol"),
-                new LangModel("Włoski","ita")
-            };
+                _languages.Add(langModel);
+            }
+            
 
             _dataExchangeViewModel = dataExchangeViewModel;
 
@@ -29,7 +34,7 @@ namespace WPF.ViewModel
         
         private void ExecuteOkCommand()
         {
-            _dataExchangeViewModel.Add(EnumExchangeViewmodel.Language,_language);
+            _dataExchangeViewModel.Add(EnumExchangeViewmodel.Language,settings);
             Messenger.Default.Send(new NotificationMessage(this, "CloseOcrSettings"));
         }
 
@@ -40,21 +45,23 @@ namespace WPF.ViewModel
 
         private void ExecuteChcekedCommand(object obj)
         {
-            var items = (System.Collections.IList) obj;
+            System.Collections.IList ita = (System.Collections.IList)obj;
 
-            _language = "";
-
-            foreach (LangModel item in items)
+            settings = new SettingsModel
             {
-                if (string.IsNullOrEmpty(_language))
-                {
-                    _language = item.Shortname;
-                }
-                else
-                {
-                    _language = _language + "+" + item.Shortname;
-                }
+                Pages = 1,
+                Language = new List<LangModel>()
+            };
+
+            foreach (var o in ita)
+            {
+                var t = (LangModel) o;
+                settings.Language.Add(t);
+
             }
+            
+
+            
         }
 
         #region RelayCommand
@@ -106,7 +113,6 @@ namespace WPF.ViewModel
             }
         }
 
-        
         #endregion
 
     }
