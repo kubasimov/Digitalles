@@ -32,7 +32,7 @@ namespace WPF.ViewModel
             _dictionaryPassword = new ObservableCollection<DictionaryPasswordElement>();
             
             _documentAdv = new DocumentAdv();
-            _searcText = "Wyszukiwany text";
+            _searcText = "Szukane słowo";
             
         }
 

@@ -23,6 +23,7 @@ using WPF.Model;
 using WPF.Properties;
 using DictionaryPasswordElement = RecognizePassword.Model.DictionaryPasswordElement;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
+using Path = System.IO.Path;
 using SaveFileDialog = Microsoft.Win32.SaveFileDialog;
 
 namespace WPF.ViewModel
@@ -276,9 +277,8 @@ namespace WPF.ViewModel
         //Wywołanie okna podglądu
         private void ExecutePreviewCommand()
         {
-            //_dataExchangeViewModel.Add(EnumExchangeViewmodel.Preview,ParsowanieHtml(_recognizePasswordListObservableCollection));
-            //_dataExchangeViewModel.Add(EnumExchangeViewmodel.Preview, _textToRecognize);
-            ExecuteExportToDictionary();
+            if (_recognizePasswordListObservableCollection.Count <= 0) return;
+            ExecuteExportToHtml(RecognizePasswordList);
 
             var view = new PreviewView();
             try
@@ -503,14 +503,16 @@ namespace WPF.ViewModel
         //Ładowanie pliku zawierającego sktóty
         private void LoadDictionaryPassword()
         {
-            if (File.Exists(@"D:\dane\skroty.json"))
+            var fileename = AppDomain.CurrentDomain.BaseDirectory;
+            if (File.Exists(@"./Data/skroty.json"))
             {
                 _dictionary =
-                    JsonConvert.DeserializeObject<Dictionary<string, string>>(File.ReadAllText(@"D:\dane\skroty.json"));
+                    JsonConvert.DeserializeObject<Dictionary<string, string>>(File.ReadAllText(@"./Data/skroty.json"));
                 _digDictionaries = CopyFromDictionary(_dictionary);
             }
             else
             {
+                
                 _dictionary = new Dictionary<string, string>();
                 _digDictionaries = new ObservableCollection<DictionaryPasswordElement>();
             }
@@ -550,7 +552,7 @@ namespace WPF.ViewModel
         //metoda sprawdzająca pisownie
         private ObservableCollection<SpellModel> Spell(string text)
         {
-            var path = FileSystems.getDefault().getPath(@"D:\polish.dict");
+            var path = FileSystems.getDefault().getPath(@"./polish.dict");
             var spell = new Speller(morfologik.stemming.Dictionary.read(path));
 
             var collection = new ObservableCollection<SpellModel>();
@@ -570,6 +572,18 @@ namespace WPF.ViewModel
                 collection.Add(new SpellModel{Word=s,ListSpell=str.ToString()});
             }
             return collection;
+        }
+
+        //export hasła do tymczasowego pliku Html
+        private static void ExecuteExportToHtml(ObservableCollection<DictionaryPasswordElement> elements)
+        {
+            var textDocumentAdv = HtmlParsing.ParsowanieHtml(elements);
+
+            using (var t = File.Create(Path.GetTempPath() + @"\temp.html"))
+            {
+                HTMLExporting.ConvertToHtml(textDocumentAdv, t);
+            }
+
         }
 
         #endregion

@@ -14,18 +14,11 @@ namespace WPF.ViewModel
         {
             if (dataExchangeViewModel.ContainsKey(EnumExchangeViewmodel.Preview))
             {
-                //_documentAdv=new DocumentAdv();
-                //_documentAdv = (DocumentAdv) dataExchangeViewModel.Item(EnumExchangeViewmodel.Preview);
-
-
                 
             }
-            else
-            {
-                //_documentAdv=new DocumentAdv();
-            }
+            
 
-            using (var t = File.OpenRead(@"D:\dane\text.html"))
+            using (var t = File.OpenRead(Path.GetTempPath() + @"\temp.html"))
             {
                 _documentAdv = HTMLImporting.ConvertToDocumentAdv(t);
 
