@@ -24,7 +24,7 @@ namespace RecognizePassword.Implement
                 //znalezienie i wycięcie pierwszego słowa
                 GetDefiniendum.Get(ref _textToRecognize,_dictionary,_obserColl );
 
-                var regex3 = new Regex(@"⌂");
+                var regex3 = new Regex(@"⌂|◊");
                 var t = regex3.Match(_textToRecognize);
                 var triangleText = "";
 
@@ -193,21 +193,33 @@ namespace RecognizePassword.Implement
                     regex3 = new Regex(@"\D*?«");
                     var t1 = regex3.Match(triangleText).Value;
 
-                    //sprawdzenie czy jest skrót w tekscie, jak jest to wypisanie i skasowanie z tekstu
-                    var t2 = t1.Split(' ');
-                    e = RecognizeMeaningWord.Get(t2[0], _dictionary);
-                    if (e!=String.Empty)
+                    if (t1.Length>0)
                     {
-                        WriteText.Write(t2[0], e, _obserColl);
-                        t1 = t1.Remove(0,t2[0].Length+1);
+                        //sprawdzenie czy jest skrót w tekscie, jak jest to wypisanie i skasowanie z tekstu
+                        var t2 = t1.Split(' ');
+                        e = RecognizeMeaningWord.Get(t2[0], _dictionary);
+                        if (e != "odmiana" && e != String.Empty)
+                        {
+                            WriteText.Write(t2[0], e, _obserColl);
+                            t1 = t1.Remove(0, t2[0].Length + 1);
+                        }
+
+                        WriteText.Write(t1.Replace("«", "").TrimEnd(), "uszczegółowienie", _obserColl);
+                        triangleText = triangleText.Remove(0, t1.Length - 1);
                     }
 
-                    WriteText.Write(t1.Replace("«", "").TrimEnd(), "uszczegółowienie", _obserColl);
-                    triangleText = triangleText.Remove(0, t1.Length - 1);
+                    regex3 = new Regex(@"przen\.");
+                    if (regex3.Match(triangleText).Success)
+                    {
+                        t1 = regex3.Match(triangleText).Value;
+                        AnalizeText.Get(t1, _dictionary, _obserColl);
+                        triangleText = triangleText.Replace(t1, "");
+                    }
+                    
 
                     GetDefiniens.Get(ref triangleText, _obserColl);
                     GetCitation.Get(ref triangleText, _obserColl);
-                    GetReferenceToDictionary.Get(ref triangleText,_dictionary,_obserColl);
+                    GetReferenceToDictionary.Get(ref triangleText ,_dictionary,_obserColl);
 
                 }
             }

@@ -25,8 +25,9 @@ namespace RecognizePassword.Implement
                 @"/+",
                 @"~",
                 @"<.*>",
-                @"przym.",
-                @"rzecz.",
+                @"przym\.",
+                @"rzecz\.",
+                @"fraz.",
                 @" a. ",
                 @"\(p\.| p\.",
                 @"\/+ \w+|\/+\w+", //odwołanie do słownika
@@ -57,6 +58,12 @@ namespace RecognizePassword.Implement
                 recognizePasswordText=new RecognizePasswordTextType2();
                 Logger.Log(LogLevel.Trace, "Typ - 2");
             }
+            else if (elementDictionary[@"\(p\.| p\."]  > 0 || elementDictionary[@"przym\."]>0 ||
+                elementDictionary[@"rzecz\."] > 0 ) 
+            {
+                recognizePasswordText = new RecognizePasswordTextType4();
+                Logger.Log(LogLevel.Trace, "Typ - 4");
+            }
             else if (elementDictionary[@"◊"]==1&&elementDictionary[@"⌂"]>0 || 
                 elementDictionary[@"◊"] == 1 && elementDictionary[@"\/+ \w+|\/+\w+"] > 0 ||
                      elementDictionary[@"◊"] == 1 && elementDictionary[@"przen\."] > 0)
@@ -64,12 +71,7 @@ namespace RecognizePassword.Implement
                 recognizePasswordText=new RecognizePasswordTextType3();
                 Logger.Log(LogLevel.Trace, "Typ - 3");
             }
-            else if (elementDictionary[@"\(p\.| p\."]  > 0 || elementDictionary[@"przym."]>0 ||
-                elementDictionary[@"rzecz."] > 0 ) 
-            {
-                recognizePasswordText = new RecognizePasswordTextType4();
-                Logger.Log(LogLevel.Trace, "Typ - 4");
-            }
+            
             else
             {
                 recognizePasswordText = new RecognizePasswordTextType1();
