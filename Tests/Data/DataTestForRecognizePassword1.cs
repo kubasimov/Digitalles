@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using RecognizePassword.Model;
 
-namespace Tests
+namespace Tests.Data
 {
     public class DataTestForRecognizePassword1
     {
@@ -11,8 +11,8 @@ namespace Tests
                               " «odpowiada ogólnopolskiej wymawianej nosowo samogłosce o lub samogłosce o w połączeniu ze spółgłoską nosową m albo n»" +
                               ": Trzeba stwierdzić, że nosowość końcowego ą utrzymuje się nawet potocznie nie tylko w Krakowie i Poznaniu, ale też w wielkopolskich, a nawet nieraz w małopolskich i mazowieckich częściach b[yłej] Kongresówki, przeważnie i w Warszawie, Jęz. Pol. 1928, s. 120." +
                               "b) " +
-                              "«w naukowej transkrypcji fonetycznej ozna¬cza samogłoskę a z rezonansem nosowym»" +
-                              ": W gwarach małopolskich zamiast literackiego i wielkopolskiego ę występuje, a zwłaszcza wy-stępowało w przeszłości, przeważnie ą (tj. a no-sowe, jak w wyrazach obcych kwadrans, awan-sować). Wiedza 276, s. 13.";
+                              "«w naukowej transkrypcji fonetycznej oznacza samogłoskę a z rezonansem nosowym»" +
+                              ": W gwarach małopolskich zamiast literackiego i wielkopolskiego ę występuje, a zwłaszcza występowało w przeszłości, przeważnie ą (tj. a nosowe, jak w wyrazach obcych kwadrans, awansować). Wiedza 276, s. 13.";
 
         public ObservableCollection<DictionaryPasswordElement> Result1 =
             new ObservableCollection<DictionaryPasswordElement>
@@ -33,7 +33,7 @@ namespace Tests
         public string Text2 = "aut " +
                               "m " +
                               "IV, " +
-                              "D, " +
+                              "D. " +
                               "-u, " +
                               "Ms. " +
                               "aucie " +

@@ -14,8 +14,8 @@ namespace Tests
         private Dictionary<string, string> _dictionary;
         private readonly ITestOutputHelper _output;
         private readonly DataTestForRecognizePassword2 _dataTest;
+        private readonly IFactoryRecognizePassword _factoryRecognize = new FactoryRecognizePassword();
 
-        private IRecognizePasswordText _recognize;
         private void LoadDictionaryPassword()
         {
             _dictionary = File.Exists(@"D:\dane\skroty.json") ? JsonConvert.DeserializeObject<Dictionary<string, string>>(File.ReadAllText(@"D:\dane\skroty.json")) : new Dictionary<string, string>();
@@ -27,17 +27,15 @@ namespace Tests
             LoadDictionaryPassword();
             _dataTest = new DataTestForRecognizePassword2();
         }
-
         
-
         [Fact]
         public void AnalizeRecognizePasswordText20()
         {
-            _recognize = new RecognizePasswordTextType4();
+            //RecognizePasswordTextType4();
             var text = _dataTest.Text20;
             var result = _dataTest.Result20;
 
-            var test = _recognize.Recognize(text, _dictionary);
+            var test = _factoryRecognize.Recognize(text, _dictionary);
 
             for (var i = 0; i < test.Count; i++)
             {
@@ -54,11 +52,11 @@ namespace Tests
         [Fact]
         public void AnalizeRecognizePasswordText21()
         {
-            _recognize = new RecognizePasswordTextType4();
+            //RecognizePasswordTextType4();
             var text = _dataTest.Text21;
             var result = _dataTest.Result21;
 
-            var test = _recognize.Recognize(text, _dictionary);
+            var test = _factoryRecognize.Recognize(text, _dictionary);
 
             for (var i = 0; i < test.Count; i++)
             {
@@ -75,11 +73,11 @@ namespace Tests
         [Fact]
         public void AnalizeRecognizePasswordText22()
         {
-            _recognize = new RecognizePasswordTextType4();
+            //RecognizePasswordTextType4();
             var text = _dataTest.Text22;
             var result = _dataTest.Result22;
 
-            var test = _recognize.Recognize(text, _dictionary);
+            var test = _factoryRecognize.Recognize(text, _dictionary);
 
             for (var i = 0; i < test.Count; i++)
             {
@@ -96,11 +94,11 @@ namespace Tests
         [Fact]
         public void AnalizeRecognizePasswordText23()
         {
-            _recognize = new RecognizePasswordTextType4();
+            //RecognizePasswordTextType4();
             var text = _dataTest.Text23;
             var result = _dataTest.Result23;
 
-            var test = _recognize.Recognize(text, _dictionary);
+            var test = _factoryRecognize.Recognize(text, _dictionary);
 
             for (var i = 0; i < test.Count; i++)
             {
@@ -117,11 +115,11 @@ namespace Tests
         [Fact]
         public void AnalizeRecognizePasswordText24()
         {
-            _recognize = new RecognizePasswordTextType4();
+            //RecognizePasswordTextType4();
             var text = _dataTest.Text24;
             var result = _dataTest.Result24;
 
-            var test = _recognize.Recognize(text, _dictionary);
+            var test = _factoryRecognize.Recognize(text, _dictionary);
 
             for (var i = 0; i < test.Count; i++)
             {
@@ -138,11 +136,11 @@ namespace Tests
         [Fact]
         public void AnalizeRecognizePasswordText25()
         {
-            _recognize = new RecognizePasswordTextType4();
+            //RecognizePasswordTextType4();
             var text = _dataTest.Text25;
             var result = _dataTest.Result25;
 
-            var test = _recognize.Recognize(text, _dictionary);
+            var test = _factoryRecognize.Recognize(text, _dictionary);
 
             for (var i = 0; i < test.Count; i++)
             {
@@ -159,11 +157,11 @@ namespace Tests
         [Fact]
         public void AnalizeRecognizePasswordText26()
         {
-            _recognize = new RecognizePasswordTextType4();
+            //RecognizePasswordTextType4();
             var text = _dataTest.Text26;
             var result = _dataTest.Result26;
 
-            var test = _recognize.Recognize(text, _dictionary);
+            var test = _factoryRecognize.Recognize(text, _dictionary);
 
             for (var i = 0; i < test.Count; i++)
             {
@@ -180,11 +178,11 @@ namespace Tests
         [Fact]
         public void AnalizeRecognizePasswordText27()
         {
-            _recognize = new RecognizePasswordTextType4();
+            //RecognizePasswordTextType4();
             var text = _dataTest.Text27;
             var result = _dataTest.Result27;
 
-            var test = _recognize.Recognize(text, _dictionary);
+            var test = _factoryRecognize.Recognize(text, _dictionary);
 
             for (var i = 0; i < test.Count; i++)
             {

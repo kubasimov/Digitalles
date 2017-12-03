@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Text.RegularExpressions;
 using RecognizePassword.Interface;
 using RecognizePassword.Model;
@@ -34,10 +33,7 @@ namespace RecognizePassword.Implement
                     triangleText = _textToRecognize.Substring(t.Index);
                     _textToRecognize = _textToRecognize.Replace(triangleText, "");
                 }
-
-                //pobranie elementów po znaku ◊
-                var phraseologicalList = RecognizePassword.GetPhraseologicalGroup.Get(ref _textToRecognize);
-
+                
                 var splitText = _textToRecognize.Split(' ');
 
                 foreach (string s in splitText)
@@ -66,25 +62,25 @@ namespace RecognizePassword.Implement
                             }
                             
                         }
-                        if (s == "a.")
-                        {
-                            var e = RecognizeMeaningWord.Get(s.Replace(",", ""), _dictionary);
-                            WriteText.Write(s.Replace(",", ""), e, _obserColl);
-                            _textToRecognize = _textToRecognize.Remove(0, s.Length + 1);
+                        //if (s == "a.")
+                        //{
+                        //    var e = RecognizeMeaningWord.Get(s.Replace(",", ""), _dictionary);
+                        //    WriteText.Write(s.Replace(",", ""), e, _obserColl);
+                        //    _textToRecognize = _textToRecognize.Remove(0, s.Length + 1);
 
-                            var regex1 = new Regex(@"\w+");
-                            var match1 = regex1.Match(_textToRecognize);
+                        //    var regex1 = new Regex(@"\w+");
+                        //    var match1 = regex1.Match(_textToRecognize);
 
-                            if (match1.Success)
-                            {
-                                var text = _textToRecognize.Substring(0, match1.Length);
-                                WriteText.Write(text.Trim(), "definiendum", _obserColl);
-                                _textToRecognize = _textToRecognize.Replace(text, "");
-                                break;
-                            }
+                        //    if (match1.Success)
+                        //    {
+                        //        var text = _textToRecognize.Substring(0, match1.Length);
+                        //        WriteText.Write(text.Trim(), "definiendum", _obserColl);
+                        //        _textToRecognize = _textToRecognize.Replace(text, "");
+                        //        break;
+                        //    }
                            
 
-                        }
+                        //}
                         if (s=="przym."||s=="rzecz.")
                         {
                             var e = RecognizeMeaningWord.Get(s.Replace(",", ""), _dictionary);
@@ -102,7 +98,7 @@ namespace RecognizePassword.Implement
                             {
                                 WriteText.Write(match3.Value.Replace("«", "").TrimEnd(), "odsyłanie do haseł", _obserColl);
                                 _textToRecognize  = _textToRecognize.Remove(0, match3.Value.Length - 1);
-                                GetDefiniens(ref _textToRecognize);
+                                GetDefiniens.Get(ref _textToRecognize, _obserColl);
                                 if (!GetCitation.Contains(_textToRecognize))
                                 {
                                     var regex2 = new Regex(@"\D* \/");
@@ -183,7 +179,7 @@ namespace RecognizePassword.Implement
                     }
                 }
 
-                GetDefiniens(ref _textToRecognize);
+                GetDefiniens.Get(ref _textToRecognize, _obserColl);
                 GetCitation.Get(ref _textToRecognize,_obserColl);
                 GetReferenceToDictionary.Get(ref _textToRecognize,_dictionary,_obserColl);
 
@@ -209,7 +205,7 @@ namespace RecognizePassword.Implement
                     WriteText.Write(t1.Replace("«", "").TrimEnd(), "uszczegółowienie", _obserColl);
                     triangleText = triangleText.Remove(0, t1.Length - 1);
 
-                    GetDefiniens(ref triangleText);
+                    GetDefiniens.Get(ref triangleText, _obserColl);
                     GetCitation.Get(ref triangleText, _obserColl);
                     GetReferenceToDictionary.Get(ref triangleText,_dictionary,_obserColl);
 
@@ -247,46 +243,6 @@ namespace RecognizePassword.Implement
             return listmatch;
         }
 
-        private void GetEtymologicalExplanation(ref string text)
-        {
-            RegexRecognize(@"<.*>", "wyjaśnienie etymologiczne wyrazu", text);
-        }
-
         
-
-        private void GetDefiniens(ref string text)
-        {
-            text = RegexRecognize(@"«.*?»", "definiens", text);
-        }
-
-        private void GetDescriptionList()
-        {
-            var regex = new Regex(@"\D*?«");
-            var match = regex.Match(_textToRecognize);
-
-            if (match.Success)
-            {
-                AnalizeText.Get(match.Value, _dictionary, _obserColl);
-                _textToRecognize = _textToRecognize.Remove(0, match.Length - 1);
-            }
-
-        }
-
-        //znajduje ciąg podany wzorem, zapisuje do słownika, i kasuje z tekstu
-        private string RegexRecognize(string regexText, string description, string toSearch)
-        {
-            var regex = new Regex(regexText);
-            var match = regex.Match(toSearch);
-            if (match.Success)
-            {
-                WriteText.Write(match.Value.TrimEnd(), description, _obserColl);
-                toSearch = toSearch.Replace(match.Value, "");
-            }
-            return toSearch;
-        }
-
-
-        
-
     }
 }

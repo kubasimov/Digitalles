@@ -25,10 +25,10 @@ namespace RecognizePassword.Implement
                 GetDefiniendum.Get(ref _textToRecognize,_dictionary,_obserColl );
 
                 //znalezienie i wycięcie tekstu do pierwszego znaku '«'
-                GetDescriptionList();
+                GetDescriptionList.Get(ref _textToRecognize,_dictionary,_obserColl);
 
                 //wyszukanie znaczenia słowa z podwojnych nawiasach skosnych
-                GetDefiniens(ref _textToRecognize);
+                GetDefiniens.Get(ref _textToRecognize,_obserColl);
 
                 //pobranie elementów po znaku ◊
                 var phraseologicalList = RecognizePassword.GetPhraseologicalGroup.Get(ref _textToRecognize);
@@ -39,7 +39,7 @@ namespace RecognizePassword.Implement
                 GetReferenceToDictionary.Get(ref _textToRecognize, _dictionary, _obserColl);
 
                 //rozpoznanie znaczen pomiedzy <>
-                GetEtymologicalExplanation(ref _textToRecognize);
+                GetEtymologicalExplanation.Get(ref _textToRecognize,_obserColl);
 
                 //rozpoznanie elemntów po znaku ◊
                 foreach (string s in phraseologicalList)
@@ -81,7 +81,7 @@ namespace RecognizePassword.Implement
                                     text = text.Remove(0, match.Length - 1);
                                 }
 
-                                GetDefiniens(ref text);
+                                GetDefiniens.Get(ref text,_obserColl);
 
                                 //wykrycie sytatów
                                 GetCitation.Get(ref text, _obserColl);
@@ -99,7 +99,7 @@ namespace RecognizePassword.Implement
 
                                 GetReferenceToDictionary.Get(ref text, _dictionary, _obserColl);
 
-                                GetEtymologicalExplanation(ref text);
+                                GetEtymologicalExplanation.Get(ref text,_obserColl);
                                 break;
                             }
                     }
@@ -118,71 +118,6 @@ namespace RecognizePassword.Implement
 
             return _obserColl;
         }
-
-        
-        private List<string> GetPhraseologicalGroup()
-        {
-            var regex = new Regex("◊");
-            var match = regex.Match(_textToRecognize);
-            var listmatch = new List<string>();
-            if (match.Success)
-            {
-                var t = match.NextMatch();
-
-                if (t.Success)
-                {
-                    listmatch.Add(_textToRecognize.Substring(match.Index, t.Index - match.Index));
-                    listmatch.Add(_textToRecognize.Substring(t.Index));
-
-                    _textToRecognize = _textToRecognize.Replace(listmatch[0], "");
-                    _textToRecognize = _textToRecognize.Replace(listmatch[1], "");
-                }
-            }
-
-            return listmatch;
-        }
-
-        private void GetEtymologicalExplanation(ref string text)
-        {
-            RegexRecognize(@"<.*>", "wyjaśnienie etymologiczne wyrazu", text);
-        }
-
-        
-
-        private void GetDefiniens(ref string text)
-        {
-            text = RegexRecognize(@"«.*?»", "definiens", text);
-        }
-
-        private void GetDescriptionList()
-        {
-            var regex = new Regex(@"\D*?«");
-            var match = regex.Match(_textToRecognize);
-
-            if (match.Success && match.Length>1)
-            {
-                AnalizeText.Get(match.Value,_dictionary,_obserColl);
-                _textToRecognize = _textToRecognize.Remove(0, match.Length - 1);
-            }
-
-        }
-
-        //znajduje ciąg podany wzorem, zapisuje do słownika, i kasuje z tekstu
-        private string RegexRecognize(string regexText, string description, string toSearch)
-        {
-            var regex = new Regex(regexText);
-            var match = regex.Match(toSearch);
-            if (match.Success)
-            {
-                WriteText.Write(match.Value.TrimEnd(), description, _obserColl);
-                toSearch = toSearch.Replace(match.Value, "");
-            }
-            return toSearch;
-        }
-
-
-        
     }
-
-        
+    
 }

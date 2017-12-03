@@ -155,7 +155,7 @@ namespace RecognizePassword.Implement
                     }
                 }
 
-                GetDefiniens(ref _textToRecognize);
+                GetDefiniens.Get(ref _textToRecognize, _obserColl);
                 GetCitation.Get(ref _textToRecognize,_obserColl);
                 GetReferenceToDictionary.Get(ref _textToRecognize,_dictionary,_obserColl);
 
@@ -171,7 +171,7 @@ namespace RecognizePassword.Implement
                     WriteText.Write(t.Value.Replace("«", ""), "uszczegółowienie", _obserColl);
                     triangleText = triangleText.Remove(0, t.Length - 1);
 
-                    GetDefiniens(ref triangleText);
+                    GetDefiniens.Get(ref triangleText, _obserColl);
                     GetCitation.Get(ref triangleText, _obserColl);
                     GetReferenceToDictionary.Get(ref triangleText,_dictionary,_obserColl);
 
@@ -208,47 +208,6 @@ namespace RecognizePassword.Implement
 
             return listmatch;
         }
-
-        private void GetEtymologicalExplanation(ref string text)
-        {
-            RegexRecognize(@"<.*>", "wyjaśnienie etymologiczne wyrazu", text);
-        }
-
         
-
-        private void GetDefiniens(ref string text)
-        {
-            text = RegexRecognize(@"«.*?»", "definiens", text);
-        }
-
-        private void GetDescriptionList()
-        {
-            var regex = new Regex(@"\D*?«");
-            var match = regex.Match(_textToRecognize);
-
-            if (match.Success)
-            {
-                AnalizeText.Get(match.Value, _dictionary, _obserColl);
-                _textToRecognize = _textToRecognize.Remove(0, match.Length - 1);
-            }
-
-        }
-
-        //znajduje ciąg podany wzorem, zapisuje do słownika, i kasuje z tekstu
-        private string RegexRecognize(string regexText, string description, string toSearch)
-        {
-            var regex = new Regex(regexText);
-            var match = regex.Match(toSearch);
-            if (match.Success)
-            {
-                WriteText.Write(match.Value.TrimEnd(), description, _obserColl);
-                toSearch = toSearch.Replace(match.Value, "");
-            }
-            return toSearch;
-        }
-
-
-        
-
     }
 }

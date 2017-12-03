@@ -8,8 +8,7 @@ namespace RecognizePassword
 
     internal static class RecognizeMeaningWord
     {
-        internal static string Get(string text,
-            Dictionary<string, string> dictionary)
+        internal static string Get(string text, Dictionary<string, string> dictionary)
         {
             if (dictionary.ContainsKey(text))
                 return dictionary[text];
@@ -25,8 +24,10 @@ namespace RecognizePassword
             if (int.TryParse(text[0].ToString(), out int result) 
                 && text.Length == 2 && text[1] == '.')
                 return result + " znaczenie hasła";
+
+
             
-            return string.Empty;
+            return "odmiana";
         }
     }
 }

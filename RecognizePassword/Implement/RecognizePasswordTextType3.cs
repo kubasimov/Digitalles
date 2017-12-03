@@ -24,10 +24,10 @@ namespace RecognizePassword.Implement
                 GetDefiniendum.Get(ref _textToRecognize, _dictionary, _obserColl);
 
                 //znalezienie i wycięcie tekstu do pierwszego znaku '«'
-                GetDescriptionList();
+                GetDescriptionList.Get(ref _textToRecognize,_dictionary, _obserColl);
 
                 //wyszukanie znaczenia słowa z podwojnych nawiasach skosnych
-                GetDefiniens(ref _textToRecognize);
+                GetDefiniens.Get(ref _textToRecognize, _obserColl);
 
                 //pobranie elementów po znaku ◊
                 var phraseologicalList = GetPhraseologicalGroup.Get(ref _textToRecognize);
@@ -36,7 +36,7 @@ namespace RecognizePassword.Implement
                 GetCitation.Get(ref _textToRecognize,_obserColl);
 
                 //rozpoznanie znaczen pomiedzy <>
-                GetEtymologicalExplanation(ref _textToRecognize);
+                GetEtymologicalExplanation.Get(ref _textToRecognize, _obserColl);
 
                 //rozpoznanie elemntów po znaku ◊
                 foreach (string s in phraseologicalList)
@@ -58,7 +58,7 @@ namespace RecognizePassword.Implement
                     if (match.Success)
                     {
                         GetReferenceToDictionary.Get(ref text,_dictionary ,_obserColl);
-                        GetEtymologicalExplanation(ref text);
+                        GetEtymologicalExplanation.Get(ref text, _obserColl);
                     }
                     
 
@@ -86,7 +86,7 @@ namespace RecognizePassword.Implement
                                     text  = text.Remove(0, match.Length - 1);
                                 }
 
-                                GetDefiniens(ref text);
+                                GetDefiniens.Get(ref text, _obserColl);
 
                                 //wykrycie sytatów
                                 GetCitation.Get(ref text,_obserColl);
@@ -101,7 +101,7 @@ namespace RecognizePassword.Implement
                                 WriteText.Write(match.Value, e, _obserColl);
                                 text = text.Remove(0, match.Length + 1);
 
-                                GetDefiniens(ref text);
+                                GetDefiniens.Get(ref text, _obserColl);
                                 
                                 //wykrycie sytatów
                                 GetCitation.Get(ref text,_obserColl);
@@ -110,7 +110,7 @@ namespace RecognizePassword.Implement
                                 GetReferenceToDictionary.Get(ref text, _dictionary, _obserColl);
 
 
-                                GetEtymologicalExplanation(ref text);
+                                GetEtymologicalExplanation.Get(ref text, _obserColl);
                                 break;
                         }
                     }
@@ -137,9 +137,9 @@ namespace RecognizePassword.Implement
                             WriteText.Write(match.Value.Replace(" «", ""), "przykład/połączenie wyrazowe (kolokacja)/związek frazeologiczny", _obserColl);
                             text = text.Remove(0, match.Length - 1);
 
-                            GetDefiniens(ref text);
+                            GetDefiniens.Get(ref text,_obserColl);
                             GetCitation.Get(ref text, _obserColl);
-                            GetEtymologicalExplanation(ref text);
+                            GetEtymologicalExplanation.Get(ref text, _obserColl);
                         }
                     }
 
@@ -157,45 +157,5 @@ namespace RecognizePassword.Implement
 
             return _obserColl;
         }
-        
-        private void GetEtymologicalExplanation(ref string text)
-        {
-            RegexRecognize(@"<.*>", "wyjaśnienie etymologiczne wyrazu",text);
-        }
-
-        
-        private void GetDefiniens(ref string text)
-        {
-            text= RegexRecognize(@"«.*?»", "definiens",text);
-        }
-
-        private void GetDescriptionList()
-        {
-            var regex = new Regex(@"\D*?«");
-            var match = regex.Match(_textToRecognize);
-
-            if (match.Success)
-            {
-                AnalizeText.Get(match.Value, _dictionary, _obserColl);
-                _textToRecognize = _textToRecognize.Remove(0, match.Length - 1);
-            }
-
-        }
-
-        
-        //znajduje ciąg podany wzorem, zapisuje do słownika, i kasuje z tekstu
-        private string  RegexRecognize(string regexText, string description,string toSearch)
-        {
-            var regex = new Regex(regexText);
-            var match = regex.Match(toSearch);
-            if (match.Success)
-            {
-                WriteText.Write(match.Value.TrimEnd(), description,_obserColl);
-                toSearch = toSearch.Replace(match.Value, "");
-            }
-            return toSearch;
-        }
-
-        
     }
 }

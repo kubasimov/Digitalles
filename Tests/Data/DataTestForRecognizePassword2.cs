@@ -13,7 +13,7 @@ namespace Tests
             {
                 new DictionaryPasswordElement{Word = "babunin", Description = "definiendum"},
                 new DictionaryPasswordElement{Word = "a.", Description = "albo"},
-                new DictionaryPasswordElement{Word = "babuniny", Description = "definiendum"},
+                new DictionaryPasswordElement{Word = "babuniny", Description = "odmiana"},
                 new DictionaryPasswordElement{Word = "«należący do babuni, dotyczący babuni»", Description = "definiens"},
                 new DictionaryPasswordElement{Word = ": Miliony babunine spać nie dawały. Krasz. cyt. SW.", Description = "cytat"},
             };

@@ -7,9 +7,7 @@ namespace RecognizePassword
 {
     internal static class AnalizeText
     {
-        internal static void Get(string text, 
-            Dictionary<string, string> dictionary, 
-            ObservableCollection<DictionaryPasswordElement> obserColl)
+        internal static void Get(string text, Dictionary<string, string> dictionary, ObservableCollection<DictionaryPasswordElement> obserColl)
         {
             text = text.Replace('«', ' ').TrimEnd();
 
@@ -21,6 +19,11 @@ namespace RecognizePassword
             {
                 switch (splitText[i])
                 {
+                    case "":
+                    case ":":
+                    case ".":
+                    case "'":
+                        break;
                     case "odm.":
                     {
                         i = +3;
