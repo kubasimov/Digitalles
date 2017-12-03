@@ -103,8 +103,6 @@ namespace WPF.ViewModel
                         "Plain text (*.txt)|*.txt|"+
                          "JSON (*.json)|*.json|" +
                         "html (*.html)|*.html" ,
-                        
-
                     Multiselect = false
                 };
 
@@ -145,9 +143,11 @@ namespace WPF.ViewModel
                 Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) +
                                           @"\Digitalles");
             }
-            var filename = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Digitalles\" + _recognizePasswordListObservableCollection[0].Word + ".json";
+            var filename = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Digitalles\" 
++ _recognizePasswordListObservableCollection[0].Word + ".json";
 
-            File.WriteAllText(filename, JsonConvert.SerializeObject(_recognizePasswordListObservableCollection, Formatting.Indented));
+            File.WriteAllText(filename, JsonConvert.SerializeObject(_recognizePasswordListObservableCollection,
+                Formatting.Indented));
         }
 
         //zapis jako... zanalizowanego hasła do pliku
@@ -197,11 +197,8 @@ namespace WPF.ViewModel
                     "JSON (*.json)|*.json",
                 Title = "Zapis"
             };
-
             var result = saveFileDialog.ShowDialog();
-
             if (result != true) return;
-            
             List<List<DictionaryPasswordElement>> dictionaryFromFile;
 
             if (File.Exists(saveFileDialog.FileName))
@@ -554,12 +551,10 @@ namespace WPF.ViewModel
         {
             var path = FileSystems.getDefault().getPath(@"./polish.dict");
             var spell = new Speller(morfologik.stemming.Dictionary.read(path));
-
             var collection = new ObservableCollection<SpellModel>();
 
             foreach (var s in text.Split(' '))
             {
-                
                 var words = spell.findReplacements(s);
                 
                 if (words.isEmpty()) continue;

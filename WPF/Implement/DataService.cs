@@ -13,7 +13,6 @@ namespace WPF.Implement
         public ObservableCollection<BitmapImage> LoadImages()
         {
             var bitmapImages = new ObservableCollection<BitmapImage>();
-
             var openFileDialog = new OpenFileDialog
             {
                 DefaultExt = ".png",
@@ -24,16 +23,11 @@ namespace WPF.Implement
                     "TIFF (*.tif, *.tiff)|*.tif;*.tiff",
                 Multiselect = true
             };
-
             var result = openFileDialog.ShowDialog();
-
-            if (result == true)
+            if (result != true) return bitmapImages;
+            foreach (var fileName in openFileDialog.FileNames)
             {
-                foreach (var fileName in openFileDialog.FileNames)
-                {
-                    bitmapImages.Add(new BitmapImage(new Uri(fileName)));
-                }
-                
+                bitmapImages.Add(new BitmapImage(new Uri(fileName)));
             }
 
             return bitmapImages;
