@@ -51,9 +51,8 @@ namespace RecognizePassword.Implement
                     var match = regex.Match(text);
                     if (match.Success)
                     {
-                        var e = RecognizeMeaningWord.Get(match.Value,_dictionary);
-                        WriteText.Write(match.Value, e, _obserColl);
-                        text = text.Remove(0, match.Length + 1);
+                        AddDescriptionToShortcutAndDelete.Get(ref text,match.Value,_dictionary,_obserColl);
+                        
                     }
 
 
@@ -67,9 +66,7 @@ namespace RecognizePassword.Implement
                         case "fraz.":
                             {
                                 //nadanie opisu skrótowi
-                                var e = RecognizeMeaningWord.Get(match.Value, _dictionary);
-                                WriteText.Write(match.Value, e, _obserColl);
-                                text = text.Remove(0, match.Length + 1);
+                                AddDescriptionToShortcutAndDelete.Get(ref text, match.Value, _dictionary, _obserColl);
 
                                 //wykrycie do znaku « i nadanie opisu
                                 regex = new Regex(@"\D*«");
@@ -90,10 +87,8 @@ namespace RecognizePassword.Implement
                         case "przen.":
                             {
                                 //nadanie opisu skrótowi
-                                var e = RecognizeMeaningWord.Get(match.Value, _dictionary);
-                                WriteText.Write(match.Value, e, _obserColl);
-                                text = text.Remove(0, match.Length + 1);
-
+                                AddDescriptionToShortcutAndDelete.Get(ref text, match.Value, _dictionary, _obserColl);
+                                
                                 //wykrycie sytatów
                                 GetCitation.Get(ref text, _obserColl);
 

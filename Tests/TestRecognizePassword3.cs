@@ -1,27 +1,20 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
 using Newtonsoft.Json;
 using RecognizePassword.Implement;
 using RecognizePassword.Interface;
-using RecognizePassword.Model;
 using Tests.Data;
 using Xunit;
 using Xunit.Abstractions;
-
 
 namespace Tests
 {
     public class TestRecognizePassword3
     {
-        private Dictionary<string, string> _dictionary;
-        private readonly ITestOutputHelper _output;
         private readonly DataTestForRecognizePassword3 _dataTest;
+        private readonly ITestOutputHelper _output;
+        private Dictionary<string, string> _dictionary;
         private IRecognizePasswordText _recognize;
-        private void LoadDictionaryPassword()
-        {
-            _dictionary = File.Exists(@"D:\dane\skroty.json") ? JsonConvert.DeserializeObject<Dictionary<string, string>>(File.ReadAllText(@"D:\dane\skroty.json")) : new Dictionary<string, string>();
-        }
 
         public TestRecognizePassword3(ITestOutputHelper output)
         {
@@ -70,6 +63,13 @@ namespace Tests
             }
 
             Assert.Equal(result.Count, test.Count);
+        }
+
+        private void LoadDictionaryPassword()
+        {
+            _dictionary = File.Exists(@"D:\dane\skroty.json")
+                ? JsonConvert.DeserializeObject<Dictionary<string, string>>(File.ReadAllText(@"D:\dane\skroty.json"))
+                : new Dictionary<string, string>();
         }
     }
 }

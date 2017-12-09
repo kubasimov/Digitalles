@@ -49,14 +49,13 @@ namespace RecognizePassword.Implement
                     var match = regex.Match(text);
                     if (match.Success)
                     {
-                        var e = RecognizeMeaningWord.Get(match.Value, _dictionary);
-                        WriteText.Write(match.Value, e, _obserColl);
-                        text = text.Remove(0, match.Length + 1);
+                        AddDescriptionToShortcutAndDelete.Get(ref text, match.Value, _dictionary, _obserColl);
+
                     }
 
 
                     //wykrycie pierwszego słowa z kropką - skrót
-                    regex=new Regex(@"\w+.");
+                    regex =new Regex(@"\w+.");
                     match = regex.Match(text);
 
                     //zależnie od wykrytego skrótu
@@ -65,10 +64,8 @@ namespace RecognizePassword.Implement
                         case "fraz.":
                         {
                                 //nadanie opisu skrótowi
-                                var e = RecognizeMeaningWord.Get(match.Value, _dictionary);
-                                WriteText.Write(match.Value, e, _obserColl);
-                                text = text.Remove(0, match.Length + 1);
-
+                                AddDescriptionToShortcutAndDelete.Get(ref text, match.Value, _dictionary, _obserColl);
+                                
                                 //wykrycie do znaku « i nadanie opisu
                                 regex = new Regex(@"\D*«");
                                 match = regex.Match(text);
@@ -88,9 +85,8 @@ namespace RecognizePassword.Implement
                         case "przen.":
                         {
                                 //nadanie opisu skrótowi
-                                var e = RecognizeMeaningWord.Get(match.Value, _dictionary);
-                                WriteText.Write(match.Value, e, _obserColl);
-                                text = text.Remove(0, match.Length + 1);
+                                AddDescriptionToShortcutAndDelete.Get(ref text, match.Value, _dictionary, _obserColl);
+
 
                                 //wykrycie sytatów
                                 GetCitation.Get(ref text, _obserColl);
@@ -114,28 +110,5 @@ namespace RecognizePassword.Implement
 
             return _obserColl;
         }
-
-        
-        private List<string> GetPhraseologicalGroup()
-        {
-            var regex = new Regex("◊");
-            var match = regex.Match(_textToRecognize);
-            var listmatch = new List<string>();
-            if (match.Success)
-            {
-                var t = match.NextMatch();
-
-                if (t.Success)
-                {
-                    listmatch.Add(_textToRecognize.Substring(match.Index, t.Index-match.Index));
-                    listmatch.Add(_textToRecognize.Substring(t.Index));
-
-                    _textToRecognize = _textToRecognize.Replace(listmatch[0], "");
-                    _textToRecognize = _textToRecognize.Replace(listmatch[1], "");
-                }
-            }
-
-            return listmatch;
-        } 
     }
 }

@@ -42,9 +42,7 @@ namespace RecognizePassword.Implement
                     {
                         if (s=="p.")
                         {
-                            var e = RecognizeMeaningWord.Get(s.Replace(",", ""), _dictionary);
-                            WriteText.Write(s.Replace(",", ""), e, _obserColl);
-                            _textToRecognize = _textToRecognize.Remove(0, s.Length + 1);
+                            AddDescriptionToShortcutAndDelete.Get(ref _textToRecognize, s.Replace(",", ""), _dictionary, _obserColl);
 
                             var regex1 = new Regex(@"\/+ \w+");
                             var match1 = regex1.Match(_textToRecognize);
@@ -64,10 +62,8 @@ namespace RecognizePassword.Implement
                         }
                         if (s == "a.")
                         {
-                            var e = RecognizeMeaningWord.Get(s.Replace(",", ""), _dictionary);
-                            WriteText.Write(s.Replace(",", ""), e, _obserColl);
-                            _textToRecognize = _textToRecognize.Remove(0, s.Length + 1);
-
+                            AddDescriptionToShortcutAndDelete.Get(ref _textToRecognize, s.Replace(",", ""), _dictionary, _obserColl);
+                            
                             var regex1 = new Regex(@"\w+");
                             var match1 = regex1.Match(_textToRecognize);
 
@@ -83,9 +79,7 @@ namespace RecognizePassword.Implement
                         }
                         if (s=="przym.")
                         {
-                            var e = RecognizeMeaningWord.Get(s.Replace(",", ""), _dictionary);
-                            WriteText.Write(s.Replace(",", ""), e, _obserColl);
-                            _textToRecognize = _textToRecognize.Remove(0, s.Length + 1);
+                            AddDescriptionToShortcutAndDelete.Get(ref _textToRecognize, s.Replace(",", ""), _dictionary, _obserColl);
 
                             var regex1 = new Regex(@"\D*:");
                             var match1 = regex1.Match(_textToRecognize);
@@ -116,9 +110,7 @@ namespace RecognizePassword.Implement
                         }
                         else
                         {
-                            var e = RecognizeMeaningWord.Get(s.Replace(",", ""), _dictionary);
-                            WriteText.Write(s.Replace(",", ""), e, _obserColl);
-                            _textToRecognize=_textToRecognize.Remove(0,s.Length+1);
+                            AddDescriptionToShortcutAndDelete.Get(ref _textToRecognize, s.Replace(",", ""), _dictionary, _obserColl);
                         }
                     }
                     else if (s[0]=='~')
@@ -184,29 +176,5 @@ namespace RecognizePassword.Implement
 
             return _obserColl;
         }
-
-        
-        private List<string> GetPhraseologicalGroup()
-        {
-            var regex = new Regex("◊");
-            var match = regex.Match(_textToRecognize);
-            var listmatch = new List<string>();
-            if (match.Success)
-            {
-                var t = match.NextMatch();
-
-                if (t.Success)
-                {
-                    listmatch.Add(_textToRecognize.Substring(match.Index, t.Index - match.Index));
-                    listmatch.Add(_textToRecognize.Substring(t.Index));
-
-                    _textToRecognize = _textToRecognize.Replace(listmatch[0], "");
-                    _textToRecognize = _textToRecognize.Replace(listmatch[1], "");
-                }
-            }
-
-            return listmatch;
-        }
-        
     }
 }
