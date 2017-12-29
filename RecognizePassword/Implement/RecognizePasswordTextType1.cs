@@ -31,7 +31,7 @@ namespace RecognizePassword.Implement
                 GetDefiniens.Get(ref _textToRecognize,_obserColl);
 
                 //pobranie elementów po znaku ◊
-                var phraseologicalList = RecognizePassword.GetPhraseologicalGroup.Get(ref _textToRecognize);
+                var phraseologicalList = GetPhraseologicalGroup.Get(ref _textToRecognize);
 
                 //trzy próby znalezienia cytatu
                 GetCitation.Get(ref _textToRecognize, _obserColl);

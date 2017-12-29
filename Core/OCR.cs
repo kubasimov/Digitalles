@@ -1,7 +1,4 @@
-﻿using Autofac;
-using Core.Helpers;
-using Core.Interface;
-using Core.Model;
+﻿using Core.Interface;
 using Tesseract;
 
 namespace Core

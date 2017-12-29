@@ -13,7 +13,7 @@ namespace RecognizePassword.Implement
         private readonly ObservableCollection<DictionaryPasswordElement> _obserColl = new ObservableCollection<DictionaryPasswordElement>();
         private Dictionary<string, string> _dictionary;
         private string _textToRecognize;
-        
+
         public ObservableCollection<DictionaryPasswordElement> Recognize(string textToRecognize, Dictionary<string, string> dictionary)
         {
             _textToRecognize = textToRecognize;

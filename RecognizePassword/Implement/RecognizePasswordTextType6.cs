@@ -53,7 +53,25 @@ namespace RecognizePassword.Implement
                     var match = regex.Match(value);
                     WriteText.Write(match.Value.Trim(), "liczbowy podział definicji", _obserColl);
                     var privatetextToRecognize = value.Replace(match.Value, "");
+                    
+                    regex = new Regex(@"przestarz\.|pogard\.");
+                    match = regex.Match(privatetextToRecognize.Substring(0,12));
+                    if (match.Success)
+                    {
+                        AddDescriptionToShortcutAndDelete.Get(ref privatetextToRecognize,match.Value,_dictionary,_obserColl);
+                    }
 
+                    regex = new Regex(@"p\. ");
+                    match = regex.Match(privatetextToRecognize.Substring(0, 5));
+                    if (match.Success)
+                    {
+                        AddDescriptionToShortcutAndDelete.Get(ref privatetextToRecognize, match.Value.Trim(), _dictionary, _obserColl);
+
+                        regex = new Regex(@"^(\D*\:)");
+                        match = regex.Match(privatetextToRecognize);
+                        WriteText.Write(match.Value.Replace(":", "").Trim(), "odsyłanie do haseł", _obserColl);
+                        privatetextToRecognize = privatetextToRecognize.Remove(0, match.Length - 1);
+                    }
 
                     GetDefiniens.Get(ref privatetextToRecognize, _obserColl);
 
@@ -72,12 +90,24 @@ namespace RecognizePassword.Implement
                                 "przykład/połączenie wyrazowe (kolokacja)/związek frazeologiczny", _obserColl);
                             WriteText.Write(match.Value.Trim(), "wyjaśnienie etymologiczne wyrazu", _obserColl);
                         }
+
+                        regex = new Regex(@"!!");
+                        match = regex.Match(privatetextToRecognize.Substring(0, 5));
+
+                        if (match.Success)
+                        {
+                            AnalizeText.Get(match.Value, _dictionary, _obserColl);
+                            privatetextToRecognize = privatetextToRecognize.Replace(match.Value, "").Trim();
+
+                            AnalizeText.Get(privatetextToRecognize, _dictionary, _obserColl);
+                        }
                         else
                         {
                             WriteText.Write(privatetextToRecognize.Trim(), "przykład/połączenie wyrazowe (kolokacja)/związek frazeologiczny", _obserColl);
                         }
                     }
 
+                    
 
                 }
 

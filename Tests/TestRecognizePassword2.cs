@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using Newtonsoft.Json;
+using NLog;
 using RecognizePassword.Implement;
 using RecognizePassword.Interface;
 using Xunit;
@@ -15,6 +17,7 @@ namespace Tests
         private readonly ITestOutputHelper _output;
         private readonly DataTestForRecognizePassword2 _dataTest;
         private readonly IFactoryRecognizePassword _factoryRecognize = new FactoryRecognizePassword();
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         private void LoadDictionaryPassword()
         {
@@ -29,9 +32,9 @@ namespace Tests
         }
         
         [Fact]
-        public void AnalizeRecognizePasswordText20()
+        public void babunin__typ4()
         {
-            //RecognizePasswordTextType4();
+            Logger.Log(LogLevel.Debug, MethodBase.GetCurrentMethod().Name);
             var text = _dataTest.Text20;
             var result = _dataTest.Result20;
 
@@ -50,9 +53,9 @@ namespace Tests
         }
 
         [Fact]
-        public void AnalizeRecognizePasswordText21()
+        public void malignowy__typ4()
         {
-            //RecognizePasswordTextType4();
+            Logger.Log(LogLevel.Debug, MethodBase.GetCurrentMethod().Name);
             var text = _dataTest.Text21;
             var result = _dataTest.Result21;
 
@@ -71,9 +74,9 @@ namespace Tests
         }
 
         [Fact]
-        public void AnalizeRecognizePasswordText22()
+        public void kapłański__typ4()
         {
-            //RecognizePasswordTextType4();
+            Logger.Log(LogLevel.Debug, MethodBase.GetCurrentMethod().Name);
             var text = _dataTest.Text22;
             var result = _dataTest.Result22;
 
@@ -92,9 +95,9 @@ namespace Tests
         }
 
         [Fact]
-        public void AnalizeRecognizePasswordText23()
+        public void sabatowy__typ4()
         {
-            //RecognizePasswordTextType4();
+            Logger.Log(LogLevel.Debug, MethodBase.GetCurrentMethod().Name);
             var text = _dataTest.Text23;
             var result = _dataTest.Result23;
 
@@ -113,9 +116,9 @@ namespace Tests
         }
 
         [Fact]
-        public void AnalizeRecognizePasswordText24()
+        public void jałowcowy__typ4()
         {
-            //RecognizePasswordTextType4();
+            Logger.Log(LogLevel.Debug, MethodBase.GetCurrentMethod().Name);
             var text = _dataTest.Text24;
             var result = _dataTest.Result24;
 
@@ -134,9 +137,9 @@ namespace Tests
         }
 
         [Fact]
-        public void AnalizeRecognizePasswordText25()
+        public void II_celność__typ4()
         {
-            //RecognizePasswordTextType4();
+            Logger.Log(LogLevel.Debug, MethodBase.GetCurrentMethod().Name);
             var text = _dataTest.Text25;
             var result = _dataTest.Result25;
 
@@ -155,9 +158,9 @@ namespace Tests
         }
 
         [Fact]
-        public void AnalizeRecognizePasswordText26()
+        public void III_celny_celni__typ4()
         {
-            //RecognizePasswordTextType4();
+            Logger.Log(LogLevel.Debug, MethodBase.GetCurrentMethod().Name);
             var text = _dataTest.Text26;
             var result = _dataTest.Result26;
 
@@ -176,9 +179,9 @@ namespace Tests
         }
 
         [Fact]
-        public void AnalizeRecognizePasswordText27()
+        public void I_celność__typ4()
         {
-            //RecognizePasswordTextType4();
+            Logger.Log(LogLevel.Debug, MethodBase.GetCurrentMethod().Name);
             var text = _dataTest.Text27;
             var result = _dataTest.Result27;
 

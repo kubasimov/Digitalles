@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using Newtonsoft.Json;
+using NLog;
 using RecognizePassword.Implement;
 using RecognizePassword.Interface;
 using Tests.Data;
@@ -16,7 +19,8 @@ namespace Tests
         private readonly ITestOutputHelper _output;
         private readonly DataTestForRecognizePassword1 _dataTest;
         private readonly IFactoryRecognizePassword _factoryRecognize = new FactoryRecognizePassword();
-        
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
         private void LoadDictionaryPassword()
         {
             _dictionary = File.Exists(@"D:\dane\skroty.json") ? JsonConvert.DeserializeObject<Dictionary<string, string>>(File.ReadAllText(@"D:\dane\skroty.json")) : new Dictionary<string, string>(); 
@@ -25,17 +29,17 @@ namespace Tests
         public TestRecognizePassword1(ITestOutputHelper output)
         {
             _output = output;
-            LoadDictionaryPassword();
+            LoadDictionaryPassword();   
             _dataTest = new DataTestForRecognizePassword1();
         }
         [Fact]
-        public void AnalizeRecognizePasswordText1()
+        public void ą__typ0()        
         {
-            //RecognizePasswordTextType0();
+            Logger.Log(LogLevel.Debug, MethodBase.GetCurrentMethod().Name);
 
             var text = _dataTest.Text1;
             var result = _dataTest.Result1;
-
+            
             var test = _factoryRecognize.Recognize(text, _dictionary);
 
             for (var i = 0; i < test.Count; i++)
@@ -50,10 +54,9 @@ namespace Tests
         }
 
         [Fact]
-        public void AnalizeRecognizePasswordText2()
+        public void aut__typ1()
         {
-            //RecognizePasswordTextType1();
-
+            Logger.Log(LogLevel.Debug, MethodBase.GetCurrentMethod().Name);
             var text = _dataTest.Text2;
             var result = _dataTest.Result2;
 
@@ -71,10 +74,9 @@ namespace Tests
         }
 
         [Fact]
-        public void AnalizeRecognizePasswordText3()
+        public void babusz__typ1()
         {
-            //RecognizePasswordTextType1();
-
+            Logger.Log(LogLevel.Debug, MethodBase.GetCurrentMethod().Name);
             var text = _dataTest.Text3;
             var result = _dataTest.Result3;
 
@@ -92,10 +94,9 @@ namespace Tests
         }
 
         [Fact]
-        public void AnalizeRecognizePasswordText4()
+        public void ichtiobiologia__typ1()
         {
-            //RecognizePasswordTextType1();
-
+            Logger.Log(LogLevel.Debug, MethodBase.GetCurrentMethod().Name);
             var text = _dataTest.Text4;
             var result = _dataTest.Result4;
 
@@ -113,9 +114,9 @@ namespace Tests
         }
 
         [Fact]
-        public void AnalizeRecognizePasswordText5()
+        public void łach__typ2()
         {
-            //RecognizePasswordTextType2();
+            Logger.Log(LogLevel.Debug, MethodBase.GetCurrentMethod().Name);
             var text = _dataTest.Text5;
             var result = _dataTest.Result5;
 
@@ -133,9 +134,9 @@ namespace Tests
         }
 
         [Fact]
-        public void AnalizeRecognizePasswordText6()
+        public void auspicje__typ3()
         {
-            //RecognizePasswordTextType3();
+            Logger.Log(LogLevel.Debug, MethodBase.GetCurrentMethod().Name);
             var text = _dataTest.Text6;
             var result = _dataTest.Result6;
 
@@ -154,9 +155,9 @@ namespace Tests
         }
 
         [Fact]
-        public void AnalizeRecognizePasswordText7()
+        public void gablotka__typ1()
         {
-            //RecognizePasswordTextType1();
+            Logger.Log(LogLevel.Debug, MethodBase.GetCurrentMethod().Name);
             var text = _dataTest.Text7;
             var result = _dataTest.Result7;
 
@@ -175,9 +176,9 @@ namespace Tests
         }
 
         [Fact]
-        public void AnalizeRecognizePasswordText8()
+        public void egzystować__typ1()
         {
-            //RecognizePasswordTextType1();
+            Logger.Log(LogLevel.Debug, MethodBase.GetCurrentMethod().Name);
             var text = _dataTest.Text8;
             var result = _dataTest.Result8;
 
@@ -196,9 +197,9 @@ namespace Tests
         }
 
         [Fact]
-        public void AnalizeRecognizePasswordText9()
+        public void maligna__typ3()
         {
-           //RecognizePasswordTextType3();
+            Logger.Log(LogLevel.Debug, MethodBase.GetCurrentMethod().Name);
             var text = _dataTest.Text9;
             var result = _dataTest.Result9;
 
@@ -217,9 +218,9 @@ namespace Tests
         }
 
         [Fact]
-        public void AnalizeRecognizePasswordText10()
+        public void gachować_się__typ1()
         {
-            //RecognizePasswordTextType1();
+            Logger.Log(LogLevel.Debug, MethodBase.GetCurrentMethod().Name);
             var text = _dataTest.Text10;
             var result = _dataTest.Result10;
 
@@ -238,9 +239,9 @@ namespace Tests
         }
 
         [Fact]
-        public void AnalizeRecognizePasswordText11()
+        public void jałowieć__typ3()
         {
-            //RecognizePasswordTextType3();
+            Logger.Log(LogLevel.Debug, MethodBase.GetCurrentMethod().Name);
             var text = _dataTest.Text11;
             var result = _dataTest.Result11;
 
@@ -259,9 +260,9 @@ namespace Tests
         }
 
         [Fact]
-        public void AnalizeRecognizePasswordText12()
+        public void gacenie__typ4()
         {
-            //new RecognizePasswordTextType4();
+            Logger.Log(LogLevel.Debug, MethodBase.GetCurrentMethod().Name);
             var text = _dataTest.Text12;
             var result = _dataTest.Result12;
 
@@ -277,9 +278,9 @@ namespace Tests
         }
 
         [Fact]
-        public void AnalizeRecognizePasswordText13()
+        public void kapnięcie__typ4()
         {
-            //new RecognizePasswordTextType4();
+            Logger.Log(LogLevel.Debug, MethodBase.GetCurrentMethod().Name);
             var text = _dataTest.Text13;
             var result = _dataTest.Result13;
 
@@ -298,9 +299,9 @@ namespace Tests
         }
 
         [Fact]
-        public void AnalizeRecognizePasswordText14()
+        public void autarcha__typ1()
         {
-            //new RecognizePasswordTextType1();
+            Logger.Log(LogLevel.Debug, MethodBase.GetCurrentMethod().Name);
             var text = _dataTest.Text14;
             var result = _dataTest.Result14;
 
@@ -319,9 +320,9 @@ namespace Tests
         }
 
         [Fact]
-        public void AnalizeRecognizePasswordText15()
+        public void ex__typ4()
         {
-            //new RecognizePasswordTextType4();
+            Logger.Log(LogLevel.Debug, MethodBase.GetCurrentMethod().Name);
             var text = _dataTest.Text15;
             var result = _dataTest.Result15;
 
@@ -340,9 +341,9 @@ namespace Tests
         }
 
         [Fact]
-        public void AnalizeRecognizePasswordText16()
+        public void kapnąć__typ4()
         {
-            //new RecognizePasswordTextType4();
+            Logger.Log(LogLevel.Debug, MethodBase.GetCurrentMethod().Name);
             var text = _dataTest.Text16;
             var result = _dataTest.Result16;
 
@@ -361,9 +362,9 @@ namespace Tests
         }
 
         [Fact]
-        public void AnalizeRecognizePasswordText17()
+        public void ranga__typ4()
         {
-            //new RecognizePasswordTextType4();
+            Logger.Log(LogLevel.Debug, MethodBase.GetCurrentMethod().Name);
             var text = _dataTest.Text17;
             var result = _dataTest.Result17;
 
@@ -382,9 +383,9 @@ namespace Tests
         }
 
         [Fact]
-        public void AnalizeRecognizePasswordText18()
+        public void ęsi__typ1()
         {
-            //new RecognizePasswordTextType1();
+            Logger.Log(LogLevel.Debug, MethodBase.GetCurrentMethod().Name);
             var text = _dataTest.Text18;
             var result = _dataTest.Result18;
 
@@ -403,9 +404,9 @@ namespace Tests
         }
 
         [Fact]
-        public void AnalizeRecognizePasswordText19()
+        public void ubezwładniać__typ3()
         {
-            //new RecognizePasswordTextType3();
+            Logger.Log(LogLevel.Debug, MethodBase.GetCurrentMethod().Name);
             var text = _dataTest.Text19;
             var result = _dataTest.Result19;
 

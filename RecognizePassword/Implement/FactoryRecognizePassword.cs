@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Reflection;
 using System.Text.RegularExpressions;
+using Autofac;
 using NLog;
 using RecognizePassword.Interface;
 using RecognizePassword.Model;

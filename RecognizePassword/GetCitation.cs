@@ -20,8 +20,8 @@ namespace RecognizePassword
 
             var match = regex.Match(text.TrimStart());
 
-            while (match.Success && IsNumber(match.Value.Last()) && match.Value.Length > 5 || 
-                match.Success && match.Value.Contains("cyt."))
+            while (match.Success && IsNumber(match.Value.Last()) && match.Value.Length > 5 && !match.Value.Contains("!!") || 
+                match.Success && match.Value.Contains("cyt.") && !match.Value.Contains("!!"))
             {
                 WriteText.Write(match.Value.Last() == '.' ? match.Value.TrimStart() : match.Value.TrimStart() + ".", "cytat", obserColl);
                 var z = match.Length + 2 < text.Length ? match.Length + 2 : match.Length;
