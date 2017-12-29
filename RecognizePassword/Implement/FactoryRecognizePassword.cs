@@ -48,36 +48,36 @@ namespace RecognizePassword.Implement
             if (elementDictionary[@"[a-d]\) "]>0)
             {
                 recognizePasswordText = new RecognizePasswordTextType0();
-                Logger.Log(LogLevel.Trace, "Typ - 0");
+                //Logger.Log(LogLevel.Trace, "Typ - 0");
             }
             else if (elementDictionary[@" [12]\."] >0)
             {
                 recognizePasswordText=new RecognizePasswordTextType6();
-                Logger.Log(LogLevel.Trace, "Typ - 6");
+                //Logger.Log(LogLevel.Trace, "Typ - 6");
             }
             else if (elementDictionary[@"◊"] >= 2)
             {
                 recognizePasswordText=new RecognizePasswordTextType2();
-                Logger.Log(LogLevel.Trace, "Typ - 2");
+                //Logger.Log(LogLevel.Trace, "Typ - 2");
             }
             else if (elementDictionary[@"\(p\.| p\."]  > 0 || elementDictionary[@"przym\."]>0 ||
                 elementDictionary[@"rzecz\."] > 0 ) 
             {
                 recognizePasswordText = new RecognizePasswordTextType4();
-                Logger.Log(LogLevel.Trace, "Typ - 4");
+                //Logger.Log(LogLevel.Trace, "Typ - 4");
             }
             else if (elementDictionary[@"◊"]==1&&elementDictionary[@"⌂"]>0 || 
                 elementDictionary[@"◊"] == 1 && elementDictionary[@"\/+ \w+|\/+\w+"] > 0 ||
                      elementDictionary[@"◊"] == 1 && elementDictionary[@"przen\."] > 0)
             {
                 recognizePasswordText=new RecognizePasswordTextType3();
-                Logger.Log(LogLevel.Trace, "Typ - 3");
+                //Logger.Log(LogLevel.Trace, "Typ - 3");
             }
             
             else
             {
                 recognizePasswordText = new RecognizePasswordTextType1();
-                Logger.Log(LogLevel.Trace, "Typ - 1");
+                //Logger.Log(LogLevel.Trace, "Typ - 1");
             }
            
             return recognizePasswordText.Recognize(textToRecognize, dictionary);

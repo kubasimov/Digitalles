@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.15
+VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{FF1ABF63-25AF-475A-8ACF-AEC22F8D06AE}"
 EndProject
@@ -10,6 +10,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPF", "WPF\WPF.csproj", "{F552A890-C736-4E24-8506-BBE24E26850A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecognizePassword", "RecognizePassword\RecognizePassword.csproj", "{44AB4BB2-72D0-456E-8A7D-5FBB2FBC0002}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Console", "Console\Console.csproj", "{D63EAA16-F32C-4B8A-BD2C-FE9BBC293D2C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleCore", "ConsoleCore\ConsoleCore.csproj", "{46E1F6BA-1743-4972-8F65-6C0828BD89AD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -96,6 +100,42 @@ Global
 		{44AB4BB2-72D0-456E-8A7D-5FBB2FBC0002}.Release|x64.Build.0 = Release|x64
 		{44AB4BB2-72D0-456E-8A7D-5FBB2FBC0002}.Release|x86.ActiveCfg = Release|Any CPU
 		{44AB4BB2-72D0-456E-8A7D-5FBB2FBC0002}.Release|x86.Build.0 = Release|Any CPU
+		{D63EAA16-F32C-4B8A-BD2C-FE9BBC293D2C}.Chromium|Any CPU.ActiveCfg = Release|Any CPU
+		{D63EAA16-F32C-4B8A-BD2C-FE9BBC293D2C}.Chromium|Any CPU.Build.0 = Release|Any CPU
+		{D63EAA16-F32C-4B8A-BD2C-FE9BBC293D2C}.Chromium|x64.ActiveCfg = Release|Any CPU
+		{D63EAA16-F32C-4B8A-BD2C-FE9BBC293D2C}.Chromium|x64.Build.0 = Release|Any CPU
+		{D63EAA16-F32C-4B8A-BD2C-FE9BBC293D2C}.Chromium|x86.ActiveCfg = Release|Any CPU
+		{D63EAA16-F32C-4B8A-BD2C-FE9BBC293D2C}.Chromium|x86.Build.0 = Release|Any CPU
+		{D63EAA16-F32C-4B8A-BD2C-FE9BBC293D2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D63EAA16-F32C-4B8A-BD2C-FE9BBC293D2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D63EAA16-F32C-4B8A-BD2C-FE9BBC293D2C}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D63EAA16-F32C-4B8A-BD2C-FE9BBC293D2C}.Debug|x64.Build.0 = Debug|Any CPU
+		{D63EAA16-F32C-4B8A-BD2C-FE9BBC293D2C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D63EAA16-F32C-4B8A-BD2C-FE9BBC293D2C}.Debug|x86.Build.0 = Debug|Any CPU
+		{D63EAA16-F32C-4B8A-BD2C-FE9BBC293D2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D63EAA16-F32C-4B8A-BD2C-FE9BBC293D2C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D63EAA16-F32C-4B8A-BD2C-FE9BBC293D2C}.Release|x64.ActiveCfg = Release|Any CPU
+		{D63EAA16-F32C-4B8A-BD2C-FE9BBC293D2C}.Release|x64.Build.0 = Release|Any CPU
+		{D63EAA16-F32C-4B8A-BD2C-FE9BBC293D2C}.Release|x86.ActiveCfg = Release|Any CPU
+		{D63EAA16-F32C-4B8A-BD2C-FE9BBC293D2C}.Release|x86.Build.0 = Release|Any CPU
+		{46E1F6BA-1743-4972-8F65-6C0828BD89AD}.Chromium|Any CPU.ActiveCfg = Debug|Any CPU
+		{46E1F6BA-1743-4972-8F65-6C0828BD89AD}.Chromium|Any CPU.Build.0 = Debug|Any CPU
+		{46E1F6BA-1743-4972-8F65-6C0828BD89AD}.Chromium|x64.ActiveCfg = Debug|Any CPU
+		{46E1F6BA-1743-4972-8F65-6C0828BD89AD}.Chromium|x64.Build.0 = Debug|Any CPU
+		{46E1F6BA-1743-4972-8F65-6C0828BD89AD}.Chromium|x86.ActiveCfg = Debug|Any CPU
+		{46E1F6BA-1743-4972-8F65-6C0828BD89AD}.Chromium|x86.Build.0 = Debug|Any CPU
+		{46E1F6BA-1743-4972-8F65-6C0828BD89AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46E1F6BA-1743-4972-8F65-6C0828BD89AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46E1F6BA-1743-4972-8F65-6C0828BD89AD}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{46E1F6BA-1743-4972-8F65-6C0828BD89AD}.Debug|x64.Build.0 = Debug|Any CPU
+		{46E1F6BA-1743-4972-8F65-6C0828BD89AD}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{46E1F6BA-1743-4972-8F65-6C0828BD89AD}.Debug|x86.Build.0 = Debug|Any CPU
+		{46E1F6BA-1743-4972-8F65-6C0828BD89AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46E1F6BA-1743-4972-8F65-6C0828BD89AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46E1F6BA-1743-4972-8F65-6C0828BD89AD}.Release|x64.ActiveCfg = Release|Any CPU
+		{46E1F6BA-1743-4972-8F65-6C0828BD89AD}.Release|x64.Build.0 = Release|Any CPU
+		{46E1F6BA-1743-4972-8F65-6C0828BD89AD}.Release|x86.ActiveCfg = Release|Any CPU
+		{46E1F6BA-1743-4972-8F65-6C0828BD89AD}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
